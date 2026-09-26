@@ -1,15 +1,15 @@
 {
   "source": "https://raw.githubusercontent.com/Wei-Shaw/sub2api/main/backend/internal/server/routes/admin.go",
-  "routes_sha256": "13f1022c5b6a4987fada591973ef3dd9f8a48b901e6338b2d5711042d7f59583",
+  "routes_sha256": "58346b15e578a05071cf9909e450fbf3a7412c0b3161149c7d2e78aeadeda08d",
   "counts": {
-    "routes": 388,
+    "routes": 415,
     "services": 413,
     "types": 135,
     "screens": 68,
-    "upstream_services": 297,
-    "upstream_types": 266,
-    "upstream_backend_types": 148,
-    "upstream_handlers": 291
+    "upstream_services": 322,
+    "upstream_types": 300,
+    "upstream_backend_types": 163,
+    "upstream_handlers": 299
   },
   "entries": [
     {
@@ -100,6 +100,14 @@
     },
     {
       "kind": "screen",
+      "title": "/accounts/:id",
+      "app_route": "/accounts/:id",
+      "fields": [],
+      "sections": [],
+      "placeholders": []
+    },
+    {
+      "kind": "screen",
       "title": "添加账号",
       "app_route": "/accounts/create",
       "fields": [
@@ -151,14 +159,6 @@
       "kind": "screen",
       "title": "/accounts/overview",
       "app_route": "/accounts/overview",
-      "fields": [],
-      "sections": [],
-      "placeholders": []
-    },
-    {
-      "kind": "screen",
-      "title": "/accounts/:id",
-      "app_route": "/accounts/:id",
       "fields": [],
       "sections": [],
       "placeholders": []
@@ -604,16 +604,16 @@
     },
     {
       "kind": "screen",
-      "title": "/groups/create",
-      "app_route": "/groups/create",
+      "title": "/groups/:id",
+      "app_route": "/groups/:id",
       "fields": [],
       "sections": [],
       "placeholders": []
     },
     {
       "kind": "screen",
-      "title": "/groups/:id",
-      "app_route": "/groups/:id",
+      "title": "/groups/create",
+      "app_route": "/groups/create",
       "fields": [],
       "sections": [],
       "placeholders": []
@@ -923,6 +923,18 @@
     },
     {
       "kind": "screen",
+      "title": "/users/:id",
+      "app_route": "/users/:id",
+      "fields": [],
+      "sections": [],
+      "placeholders": [
+        "搜索名称 / Key / 分组",
+        "输入金额，例如 10",
+        "备注（可选）"
+      ]
+    },
+    {
+      "kind": "screen",
       "title": "/users/api-key",
       "app_route": "/users/api-key",
       "fields": [],
@@ -980,18 +992,6 @@
       "fields": [],
       "sections": [],
       "placeholders": []
-    },
-    {
-      "kind": "screen",
-      "title": "/users/:id",
-      "app_route": "/users/:id",
-      "fields": [],
-      "sections": [],
-      "placeholders": [
-        "搜索名称 / Key / 分组",
-        "输入金额，例如 10",
-        "备注（可选）"
-      ]
     },
     {
       "kind": "service",
@@ -6924,6 +6924,22 @@
     {
       "kind": "upstream_service",
       "source": "accounts",
+      "name": "getGrokMediaEligibility",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/:id/grok-media-eligibility"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "updateGrokMediaEligibility",
+      "signature": "id: number, mode: GrokMediaEligibilityMode",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/:id/grok-media-eligibility"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
       "name": "getAvailableModels",
       "signature": "id: number",
       "method": "GET",
@@ -6976,6 +6992,30 @@
       "signature": "id: number, session: string",
       "method": "PUT",
       "endpoint": "/api/v1/admin/accounts/:id/ollama-cloud-usage/session"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "getOpenCodeGoUsage",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "setOpenCodeGoUsageAutoRefresh",
+      "signature": "id: number, enabled: boolean",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "refreshOpenCodeGoUsage",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage/refresh"
     },
     {
       "kind": "upstream_service",
@@ -7164,6 +7204,22 @@
     {
       "kind": "upstream_service",
       "source": "accounts",
+      "name": "getOpenCodeGoUsageSettings",
+      "signature": "",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/opencode-go-usage/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "updateOpenCodeGoUsageSettings",
+      "signature": "settings: OpenCodeGoUsageSettings",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/opencode-go-usage/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
       "name": "previewFromCrs",
       "signature": "params: { base_url: string username: string password: string }",
       "method": "POST",
@@ -7200,6 +7256,14 @@
       "signature": "settings: UpstreamBillingProbeSettings",
       "method": "PUT",
       "endpoint": "/api/v1/admin/accounts/upstream-billing-probe/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "getUpstreamBillingRatesWithEtag",
+      "signature": "page: number = 1, pageSize: number = 20, filters?: { platform?: string type?: string status?: string group?: string search?: string privacy_mode?: string sort_by?: string sort_order?: 'asc' | 'desc' }, options?: { signal?: AbortSignal etag?: string | null }",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/upstream-billing-rates"
     },
     {
       "kind": "upstream_service",
@@ -7248,6 +7312,14 @@
       "signature": "userId: number,",
       "method": "GET",
       "endpoint": "/api/v1/admin/affiliates/users/:userId/overview"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "affiliates",
+      "name": "withdrawUserQuota",
+      "signature": "userId: number, payload: WithdrawAffiliateQuotaRequest, idempotencyKey: string,",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/affiliates/users/:userId/withdraw"
     },
     {
       "kind": "upstream_service",
@@ -7357,7 +7429,7 @@
       "kind": "upstream_service",
       "source": "backup",
       "name": "deleteBackup",
-      "signature": "id: string",
+      "signature": "id: string, deleteArchived = false",
       "method": "DELETE",
       "endpoint": "/api/v1/admin/backups/:id"
     },
@@ -7368,6 +7440,14 @@
       "signature": "id: string",
       "method": "GET",
       "endpoint": "/api/v1/admin/backups/:id"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "backup",
+      "name": "getDownloadURL",
+      "signature": "id: string",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/backups/:id/download-url"
     },
     {
       "kind": "upstream_service",
@@ -7616,6 +7696,22 @@
       "signature": "platform: string",
       "method": "GET",
       "endpoint": "/api/v1/admin/channels/pricing/sync-models"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "cnProviders",
+      "name": "queryBalance",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/cn-providers/accounts/:id/balance"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "cnProviders",
+      "name": "queryQuota",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/cn-providers/accounts/:id/quota"
     },
     {
       "kind": "upstream_service",
@@ -8060,10 +8156,10 @@
     {
       "kind": "upstream_service",
       "source": "groups",
-      "name": "getModelsListCandidates",
+      "name": "getModelAllowlistCandidates",
       "signature": "id: number, platform?: GroupPlatform",
       "method": "GET",
-      "endpoint": "/api/v1/admin/groups/:id/models-list-candidates"
+      "endpoint": "/api/v1/admin/groups/:id/model-allowlist-candidates"
     },
     {
       "kind": "upstream_service",
@@ -8112,6 +8208,22 @@
       "signature": "id: number",
       "method": "POST",
       "endpoint": "/api/v1/admin/openai/accounts/:id/quota/refresh"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "sendOpenAIReferralInvite",
+      "signature": "id: number, input: { email: string; program_id: string; confirmed: boolean }",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/openai/accounts/:id/referrals/invite"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "refreshOpenAIReferrals",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/openai/accounts/:id/referrals/refresh"
     },
     {
       "kind": "upstream_service",
@@ -8456,6 +8568,86 @@
       "signature": "",
       "method": "GET",
       "endpoint": "/api/v1/admin/ops/user-concurrency"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "list",
+      "signature": "",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "remove",
+      "signature": "id: number",
+      "method": "DELETE",
+      "endpoint": "/api/v1/admin/plugins/:id"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "getConfig",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins/:id/config"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "saveConfig",
+      "signature": "id: number, config: Record<string, unknown>",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/plugins/:id/config"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "disable",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/disable"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "enable",
+      "signature": "id: number, rolloutPercent: number, acceptUntested: boolean",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/enable"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "status",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins/:id/status"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "test",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/test"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "createUISession",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/ui-session"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "upload",
+      "signature": "file: File",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/upload"
     },
     {
       "kind": "upstream_service",
@@ -8964,6 +9156,14 @@
     {
       "kind": "upstream_service",
       "source": "subscriptions",
+      "name": "bulkAction",
+      "signature": "request: SubscriptionBulkActionRequest, idempotencyKey: string",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/subscriptions/bulk-action"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "subscriptions",
       "name": "bulkAssign",
       "signature": "request: BulkAssignSubscriptionRequest",
       "method": "POST",
@@ -9069,7 +9269,7 @@
       "kind": "upstream_service",
       "source": "usage",
       "name": "getStats",
-      "signature": "params: { user_id?: number api_key_id?: number account_id?: number group_id?: number model?: string request_type?: UsageRequestType stream?: boolean upstream_model_mismatch?: boolean period?: string start_date?: string end_date?: string timezone?: string nocache?: number }",
+      "signature": "params: { user_id?: number api_key_id?: number account_id?: number group_id?: number model?: string request_type?: UsageRequestType stream?: boolean native_compaction_v2?: boolean | null upstream_model_mismatch?: boolean period?: string start_date?: string end_date?: string timezone?: string nocache?: number }",
       "method": "GET",
       "endpoint": "/api/v1/admin/usage/stats"
     },
@@ -9288,6 +9488,16 @@
     },
     {
       "kind": "upstream_type",
+      "source": "accounts",
+      "name": "AccountUpstreamBillingRatesWithEtagResult",
+      "fields": [
+        "notModified",
+        "etag",
+        "data"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "settings",
       "name": "AdminApiKeyStatus",
       "fields": [
@@ -9496,6 +9706,7 @@
       "name": "AffiliateTransferRecord",
       "fields": [
         "ledger_id",
+        "action",
         "user_id",
         "user_email",
         "username",
@@ -9522,6 +9733,28 @@
         "rebated_invitee_count",
         "available_quota",
         "history_quota"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "AffiliateWithdrawResponse",
+      "fields": [
+        "result",
+        "replayed"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "AffiliateWithdrawResult",
+      "fields": [
+        "ledger_id",
+        "user_id",
+        "amount",
+        "available_quota_after",
+        "frozen_quota_after",
+        "history_quota_after"
       ]
     },
     {
@@ -9625,6 +9858,7 @@
         "expires_at?",
         "expires_in?",
         "project_id?",
+        "plan_type?",
         "email?"
       ]
     },
@@ -9764,6 +9998,25 @@
     },
     {
       "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupDownloadPart",
+      "fields": [
+        "index",
+        "size_bytes",
+        "url"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupDownloadResponse",
+      "fields": [
+        "url?",
+        "parts?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "dataManagement",
       "name": "BackupJob",
       "fields": [
@@ -9784,6 +10037,37 @@
     {
       "kind": "upstream_type",
       "source": "backup",
+      "name": "BackupMonthlyArchive",
+      "fields": [
+        "dates",
+        "retain_count"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupMonthlyArchiveConfig",
+      "fields": [
+        "enabled",
+        "days",
+        "include_month_end",
+        "retain_count"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupPart",
+      "fields": [
+        "index",
+        "s3_key",
+        "size_bytes",
+        "sha256?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
       "name": "BackupRecord",
       "fields": [
         "id",
@@ -9791,6 +10075,7 @@
         "backup_type",
         "file_name",
         "s3_key",
+        "parts?",
         "size_bytes",
         "triggered_by",
         "error_message?",
@@ -9799,8 +10084,10 @@
         "expires_at?",
         "progress?",
         "restore_status?",
+        "restore_started_at?",
         "restore_error?",
-        "restored_at?"
+        "restored_at?",
+        "monthly_archive?"
       ]
     },
     {
@@ -9835,7 +10122,8 @@
         "enabled",
         "cron_expr",
         "retain_days",
-        "retain_count"
+        "retain_count",
+        "monthly_archive?"
       ]
     },
     {
@@ -9995,6 +10283,20 @@
     },
     {
       "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "BulkAssignSubscriptionResult",
+      "fields": [
+        "success_count",
+        "created_count",
+        "reused_count",
+        "failed_count",
+        "subscriptions",
+        "errors",
+        "statuses?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channels",
       "name": "Channel",
       "fields": [
@@ -10026,11 +10328,16 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price?",
         "cache_read_price",
+        "fast_multiplier?",
+        "flex_multiplier?",
+        "reasoning_effort_multipliers?",
         "image_input_price",
         "image_output_price",
         "per_request_price",
-        "intervals"
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -10062,7 +10369,10 @@
         "template_id",
         "extra_headers",
         "body_override_mode",
-        "body_override"
+        "body_override",
+        "check_mode",
+        "account_id",
+        "latest_quota?"
       ]
     },
     {
@@ -10085,6 +10395,26 @@
     },
     {
       "kind": "upstream_type",
+      "source": "channels",
+      "name": "ChannelTimePricing",
+      "fields": [
+        "timezone",
+        "weekdays_only?",
+        "periods"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channels",
+      "name": "ChannelTimePricingPeriod",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channelMonitor",
       "name": "CheckResult",
       "fields": [
@@ -10093,7 +10423,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota?"
       ]
     },
     {
@@ -10102,6 +10433,59 @@
       "name": "ClearFlaggedHashesResponse",
       "fields": [
         "deleted"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderBalanceEntry",
+      "fields": [
+        "currency",
+        "balance"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderBalanceResult",
+      "fields": [
+        "provider",
+        "success",
+        "balance",
+        "currency?",
+        "balances?",
+        "available",
+        "status_code?",
+        "fetched_at",
+        "persisted",
+        "error?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderQuotaProbeResult",
+      "fields": [
+        "provider",
+        "source?",
+        "success",
+        "credential_valid",
+        "tiers?",
+        "plan_level?",
+        "status_code?",
+        "fetched_at",
+        "persisted",
+        "error?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNQuotaTier",
+      "fields": [
+        "window",
+        "used_percent",
+        "reset_at?"
       ]
     },
     {
@@ -10147,6 +10531,8 @@
       "source": "riskControl",
       "name": "ContentModerationConfig",
       "fields": [
+        "engine?",
+        "engine_configs?",
         "enabled",
         "mode",
         "base_url",
@@ -10186,6 +10572,7 @@
       "source": "riskControl",
       "name": "ContentModerationLog",
       "fields": [
+        "engine_meta?",
         "id",
         "request_id",
         "user_id",
@@ -10242,6 +10629,7 @@
       "source": "riskControl",
       "name": "ContentModerationRuntimeStatus",
       "fields": [
+        "engine?",
         "enabled",
         "risk_control_enabled",
         "mode",
@@ -10278,6 +10666,7 @@
       "source": "riskControl",
       "name": "ContentModerationTestAuditResult",
       "fields": [
+        "engine_meta?",
         "flagged",
         "highest_category",
         "highest_score",
@@ -10352,6 +10741,8 @@
         "api_mode?",
         "endpoint",
         "api_key",
+        "check_mode?",
+        "account_id?",
         "primary_model",
         "extra_models?",
         "group_name?",
@@ -11034,6 +11425,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -11059,7 +11451,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota?"
       ]
     },
     {
@@ -11242,9 +11635,11 @@
         "input_price?",
         "output_price?",
         "cache_write_price?",
+        "cache_write_1h_price?",
         "cache_read_price?",
         "image_input_price?",
-        "image_output_price?"
+        "image_output_price?",
+        "reasoning_effort_multipliers?"
       ]
     },
     {
@@ -11262,6 +11657,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -11278,12 +11674,72 @@
     },
     {
       "kind": "upstream_type",
+      "source": "riskControl",
+      "name": "ModerationEngineMeta",
+      "fields": [
+        "engine",
+        "model",
+        "rules_version",
+        "skipped_images"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorBalance",
+      "fields": [
+        "currency",
+        "balance"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorQuotaSnapshot",
+      "fields": [
+        "source",
+        "success",
+        "tiers?",
+        "balance?",
+        "balances?",
+        "currency?",
+        "plan_level?",
+        "credential_invalid?",
+        "error?",
+        "fetched_at"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorQuotaTier",
+      "fields": [
+        "window",
+        "label?",
+        "used_percent",
+        "used?",
+        "limit?",
+        "reset_at?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "accounts",
       "name": "OpenAIAdditionalRateLimit",
       "fields": [
         "limit_name",
         "metered_feature",
         "rate_limit?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "OpenAICredits",
+      "fields": [
+        "has_credits",
+        "unlimited",
+        "balance"
       ]
     },
     {
@@ -11314,7 +11770,8 @@
       "source": "accounts",
       "name": "OpenAIQuotaRefreshResult",
       "fields": [
-        "cache_persisted"
+        "cache_persisted",
+        "credits_cache_persisted?"
       ]
     },
     {
@@ -11358,6 +11815,7 @@
         "rate_limit?",
         "additional_rate_limits?",
         "rate_limit_reset_credits?",
+        "credits?",
         "fetched_at"
       ]
     },
@@ -11828,6 +12286,7 @@
         "platform?",
         "model?",
         "duration_ms?",
+        "first_token_ms?",
         "status_code?",
         "error_id?",
         "phase?",
@@ -11878,12 +12337,14 @@
       "name": "OpsRuntimeLogConfig",
       "fields": [
         "level",
+        "persist_access_logs",
         "enable_sampling",
         "sampling_initial",
         "sampling_thereafter",
         "caller",
         "stacktrace_level",
         "retention_days",
+        "request_retention_days",
         "source?",
         "updated_at?",
         "updated_by_user_id?"
@@ -12180,6 +12641,133 @@
     },
     {
       "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginBinding",
+      "fields": [
+        "id",
+        "plugin_id",
+        "capability",
+        "platform",
+        "account_type",
+        "enabled",
+        "rollout_percent"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginCapability",
+      "fields": [
+        "id",
+        "platform",
+        "account_type"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginCompatibility",
+      "fields": [
+        "compatible",
+        "tested",
+        "status",
+        "message",
+        "current_sub2api_version",
+        "required_sub2api_version",
+        "recommended_sub2api_version",
+        "plugin_protocol",
+        "transport_api",
+        "ui_bridge"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginInstallation",
+      "fields": [
+        "id",
+        "plugin_key",
+        "name",
+        "version",
+        "description",
+        "author",
+        "manifest",
+        "binary_sha256",
+        "signature_status",
+        "state",
+        "last_error",
+        "installed_at",
+        "enabled_at?",
+        "updated_at",
+        "bindings",
+        "compatibility",
+        "runtime_healthy",
+        "runtime_message"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginManifest",
+      "fields": [
+        "schema_version",
+        "id",
+        "name",
+        "version",
+        "description?",
+        "author?",
+        "requires",
+        "capabilities",
+        "ui"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginRequirements",
+      "fields": [
+        "sub2api",
+        "recommended_sub2api_version?",
+        "tested_sub2api_versions?",
+        "plugin_protocol",
+        "transport_api",
+        "ui_bridge"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginStatusResult",
+      "fields": [
+        "healthy",
+        "message",
+        "status_json?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginTestResult",
+      "fields": [
+        "success",
+        "message",
+        "latency_ms",
+        "status_json?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginUISession",
+      "fields": [
+        "url",
+        "bridge_token",
+        "ui_bridge_version",
+        "expires_at"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "settings",
       "name": "PreviewEmailTemplateRequest",
       "fields": [
@@ -12208,7 +12796,12 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price?",
         "cache_read_price",
+        "input_multiplier",
+        "output_multiplier",
+        "cache_write_multiplier",
+        "cache_read_multiplier",
         "per_request_price",
         "sort_order"
       ]
@@ -12365,6 +12958,29 @@
     },
     {
       "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "SubscriptionBulkActionRequest",
+      "fields": [
+        "subscription_ids",
+        "action",
+        "days?",
+        "daily?",
+        "weekly?",
+        "monthly?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "SubscriptionBulkActionResult",
+      "fields": [
+        "success_count",
+        "failed_count",
+        "results"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channels",
       "name": "SyncPricingModelsResult",
       "fields": [
@@ -12376,7 +12992,9 @@
       "source": "accounts",
       "name": "SyncUpstreamModelsResult",
       "fields": [
-        "models"
+        "models",
+        "metadata?",
+        "warnings?"
       ]
     },
     {
@@ -12387,7 +13005,8 @@
         "platform",
         "type",
         "base_url?",
-        "api_key"
+        "api_key",
+        "model_mapping?"
       ]
     },
     {
@@ -12593,6 +13212,7 @@
         "min_claude_code_version",
         "max_claude_code_version",
         "allow_ungrouped_key_scheduling",
+        "openai_ttft_mode",
         "enable_fingerprint_unification",
         "enable_metadata_passthrough",
         "enable_cch_signing",
@@ -12607,6 +13227,9 @@
         "openai_codex_client_version",
         "openai_codex_client_version_synced",
         "openai_codex_version_auto_sync_enabled",
+        "claude_code_client_version",
+        "claude_code_client_version_synced",
+        "claude_code_version_auto_sync_enabled",
         "min_codex_version",
         "max_codex_version",
         "codex_cli_only_blacklist",
@@ -12681,10 +13304,14 @@
         "channel_monitor_mode?",
         "channel_monitor_default_interval_seconds",
         "channel_monitor_hide_throughput?",
+        "channel_monitor_show_quota?",
+        "channel_monitor_hide_user_ranking?",
         "available_channels_enabled",
+        "subscription_enabled",
         "model_plaza_enabled",
         "model_plaza_require_auth",
         "model_plaza_description",
+        "plugin_management_enabled",
         "affiliate_enabled",
         "openai_fast_policy_settings?",
         "allow_user_view_error_requests"
@@ -12695,6 +13322,8 @@
       "source": "riskControl",
       "name": "TestContentModerationAPIKeysPayload",
       "fields": [
+        "engine?",
+        "thresholds?",
         "api_keys?",
         "base_url?",
         "model?",
@@ -12796,6 +13425,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -12855,6 +13485,8 @@
       "source": "riskControl",
       "name": "UpdateContentModerationConfig",
       "fields": [
+        "engine?",
+        "engine_configs?",
         "enabled?",
         "mode?",
         "base_url?",
@@ -13198,6 +13830,7 @@
         "min_claude_code_version?",
         "max_claude_code_version?",
         "allow_ungrouped_key_scheduling?",
+        "openai_ttft_mode?",
         "enable_fingerprint_unification?",
         "enable_metadata_passthrough?",
         "enable_cch_signing?",
@@ -13211,6 +13844,8 @@
         "openai_codex_user_agent?",
         "openai_codex_client_version?",
         "openai_codex_version_auto_sync_enabled?",
+        "claude_code_client_version?",
+        "claude_code_version_auto_sync_enabled?",
         "min_codex_version?",
         "max_codex_version?",
         "codex_cli_only_blacklist?",
@@ -13273,10 +13908,14 @@
         "channel_monitor_mode?",
         "channel_monitor_default_interval_seconds?",
         "channel_monitor_hide_throughput?",
+        "channel_monitor_show_quota?",
+        "channel_monitor_hide_user_ranking?",
         "available_channels_enabled?",
+        "subscription_enabled?",
         "model_plaza_enabled?",
         "model_plaza_require_auth?",
         "model_plaza_description?",
+        "plugin_management_enabled?",
         "affiliate_enabled?",
         "openai_fast_policy_settings?",
         "allow_user_view_error_requests?"
@@ -13289,6 +13928,32 @@
       "fields": [
         "name",
         "config"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "UpstreamModelMetadata",
+      "fields": [
+        "id",
+        "display_name?",
+        "description?",
+        "reasoning?",
+        "default_reasoning_level?",
+        "supported_reasoning_levels?",
+        "input_modalities?",
+        "context_window?",
+        "max_context_window?",
+        "max_output_tokens?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "UpstreamModelSyncWarning",
+      "fields": [
+        "code",
+        "message"
       ]
     },
     {
@@ -13346,6 +14011,7 @@
         "account_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?"
       ]
     },
@@ -13459,11 +14125,32 @@
       ]
     },
     {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "WithdrawAffiliateQuotaRequest",
+      "fields": [
+        "amount"
+      ]
+    },
+    {
       "kind": "upstream_backend_type",
       "source": "compliance_handler",
       "name": "AcceptAdminComplianceRequest",
       "fields": [
         "language"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "AccountListItemWithConcurrency",
+      "fields": [
+        "current_concurrency",
+        "scheduler_score",
+        "scheduler_scores",
+        "current_window_cost",
+        "active_sessions",
+        "current_rpm"
       ]
     },
     {
@@ -13515,6 +14202,7 @@
       "source": "account_handler",
       "name": "AccountWithConcurrency",
       "fields": [
+        "-",
         "current_concurrency",
         "scheduler_score",
         "scheduler_scores",
@@ -13854,7 +14542,9 @@
       "source": "channel_handler",
       "name": "channelModelPricingRequest",
       "fields": [
-        "intervals"
+        "reasoning_effort_multipliers",
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -13869,11 +14559,16 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
+        "fast_multiplier",
+        "flex_multiplier",
+        "reasoning_effort_multipliers",
         "image_input_price",
         "image_output_price",
         "per_request_price",
-        "intervals"
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -13886,7 +14581,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota"
       ]
     },
     {
@@ -13898,7 +14594,8 @@
         "enabled",
         "template_id",
         "extra_headers",
-        "body_override"
+        "body_override",
+        "account_id"
       ]
     },
     {
@@ -13912,7 +14609,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota"
       ]
     },
     {
@@ -13944,7 +14642,10 @@
         "template_id",
         "extra_headers",
         "body_override_mode",
-        "body_override"
+        "body_override",
+        "check_mode",
+        "account_id",
+        "latest_quota"
       ]
     },
     {
@@ -13993,7 +14694,8 @@
         "template_id",
         "clear_template",
         "extra_headers",
-        "body_override"
+        "body_override",
+        "account_id"
       ]
     },
     {
@@ -14016,6 +14718,46 @@
         "account_stats_pricing_rules",
         "created_at",
         "updated_at"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingPeriodRequest",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingPeriodResponse",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingRequest",
+      "fields": [
+        "timezone",
+        "weekdays_only",
+        "periods"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingResponse",
+      "fields": [
+        "timezone",
+        "weekdays_only",
+        "periods"
       ]
     },
     {
@@ -14129,6 +14871,8 @@
       "source": "content_moderation_handler",
       "name": "contentModerationAPIKeyTestRequest",
       "fields": [
+        "engine",
+        "thresholds",
         "api_keys",
         "base_url",
         "model",
@@ -14143,6 +14887,8 @@
       "source": "content_moderation_handler",
       "name": "contentModerationConfigRequest",
       "fields": [
+        "engine",
+        "engine_configs",
         "enabled",
         "mode",
         "base_url",
@@ -14312,6 +15058,8 @@
         "daily_limit_usd",
         "weekly_limit_usd",
         "monthly_limit_usd",
+        "long_context_pricing_enabled",
+        "model_pricing",
         "allow_image_generation",
         "allow_batch_image_generation",
         "image_rate_independent",
@@ -14348,13 +15096,17 @@
         "supported_model_scopes",
         "allow_messages_dispatch",
         "allow_live",
+        "force_openai_fast",
+        "free_openai_fast",
         "require_oauth_only",
         "require_privacy_set",
         "default_mapped_model",
         "messages_dispatch_model_config",
-        "models_list_config",
+        "model_allowlist",
+        "codex_models_manifest_config",
         "rpm_limit",
         "max_reasoning_effort",
+        "max_reasoning_effort_over_limit",
         "reasoning_effort_mappings",
         "copy_accounts_from_group_ids"
       ]
@@ -14473,7 +15225,8 @@
         "balance",
         "concurrency",
         "rpm_limit",
-        "allowed_groups"
+        "allowed_groups",
+        "restrict_public_groups"
       ]
     },
     {
@@ -14510,6 +15263,7 @@
         "model_source",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -14529,6 +15283,7 @@
         "model",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch",
         "include_stats",
@@ -14578,6 +15333,7 @@
         "model",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -14744,6 +15500,17 @@
     },
     {
       "kind": "upstream_backend_type",
+      "source": "grok_media_eligibility_handler",
+      "name": "grokMediaEligibilityResponse",
+      "fields": [
+        "account_id",
+        "mode",
+        "eligible",
+        "reason"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
       "source": "grok_oauth_handler",
       "name": "GrokOAuthReconcileRequest",
       "fields": [
@@ -14870,7 +15637,8 @@
       "source": "openai_oauth_handler",
       "name": "openAIQuotaRefreshResponse",
       "fields": [
-        "cache_persisted"
+        "cache_persisted",
+        "credits_cache_persisted"
       ]
     },
     {
@@ -14883,6 +15651,23 @@
         "cache_refreshed",
         "account_state_recovered",
         "warning_code"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "openai_referral_handler",
+      "name": "openAIReferralRefreshResponse",
+      "fields": [
+        "eligibility",
+        "cache_persisted"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "openai_referral_handler",
+      "name": "openAIReferralSendResponse",
+      "fields": [
+        "refresh_failed"
       ]
     },
     {
@@ -14960,6 +15745,15 @@
     },
     {
       "kind": "upstream_backend_type",
+      "source": "plugin_handler",
+      "name": "pluginEnableRequest",
+      "fields": [
+        "accept_untested",
+        "rollout_percent"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
       "source": "channel_handler",
       "name": "pricingIntervalRequest",
       "fields": [
@@ -14969,6 +15763,7 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
         "per_request_price",
         "sort_order"
@@ -14986,7 +15781,12 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
+        "input_multiplier",
+        "output_multiplier",
+        "cache_write_multiplier",
+        "cache_read_multiplier",
         "per_request_price",
         "sort_order"
       ]
@@ -15039,6 +15839,47 @@
         "id",
         "name",
         "user_id"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "simpleModeAccountGroupReference",
+      "fields": [
+        "account_id",
+        "group_id",
+        "priority",
+        "created_at",
+        "group"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "simpleModeGroupReference",
+      "fields": [
+        "id",
+        "name",
+        "platform",
+        "status"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "group_handler",
+      "name": "simpleModeGroupResponse",
+      "fields": [
+        "id",
+        "name",
+        "description",
+        "platform",
+        "status",
+        "account_count",
+        "active_account_count",
+        "rate_limited_account_count",
+        "sort_order",
+        "created_at",
+        "updated_at"
       ]
     },
     {
@@ -15220,6 +16061,8 @@
         "daily_limit_usd",
         "weekly_limit_usd",
         "monthly_limit_usd",
+        "long_context_pricing_enabled",
+        "model_pricing",
         "allow_image_generation",
         "allow_batch_image_generation",
         "image_rate_independent",
@@ -15256,15 +16099,27 @@
         "supported_model_scopes",
         "allow_messages_dispatch",
         "allow_live",
+        "force_openai_fast",
+        "free_openai_fast",
         "require_oauth_only",
         "require_privacy_set",
         "default_mapped_model",
         "messages_dispatch_model_config",
-        "models_list_config",
+        "model_allowlist",
+        "codex_models_manifest_config",
         "rpm_limit",
         "max_reasoning_effort",
+        "max_reasoning_effort_over_limit",
         "reasoning_effort_mappings",
         "copy_accounts_from_group_ids"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "setting_handler_runtime",
+      "name": "UpdateOpenAIImagesOAuthUnavailableCooldownSettingsRequest",
+      "fields": [
+        "cooldown_minutes"
       ]
     },
     {
@@ -15549,6 +16404,7 @@
         "max_claude_code_version",
         "allow_ungrouped_key_scheduling",
         "backend_mode_enabled",
+        "openai_ttft_mode",
         "enable_fingerprint_unification",
         "enable_metadata_passthrough",
         "enable_cch_signing",
@@ -15562,6 +16418,8 @@
         "openai_codex_user_agent",
         "openai_codex_client_version",
         "openai_codex_version_auto_sync_enabled",
+        "claude_code_client_version",
+        "claude_code_version_auto_sync_enabled",
         "min_codex_version",
         "max_codex_version",
         "codex_cli_only_blacklist",
@@ -15621,13 +16479,17 @@
         "channel_monitor_mode",
         "channel_monitor_default_interval_seconds",
         "channel_monitor_hide_throughput",
+        "channel_monitor_show_quota",
+        "channel_monitor_hide_user_ranking",
         "grok_default_text_model",
         "grok_cross_client_model_map_enabled",
         "grok_default_base_url_mode",
         "available_channels_enabled",
+        "subscription_enabled",
         "model_plaza_enabled",
         "model_plaza_require_auth",
         "model_plaza_description",
+        "plugin_management_enabled",
         "affiliate_enabled",
         "risk_control_enabled",
         "cyber_session_block_enabled",
@@ -15695,7 +16557,19 @@
         "concurrency",
         "rpm_limit",
         "allowed_groups",
+        "restrict_public_groups",
         "group_rates"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_upstream_billing_rates",
+      "name": "upstreamBillingRatesResponse",
+      "fields": [
+        "items",
+        "total",
+        "page",
+        "page_size"
       ]
     },
     {
@@ -15713,6 +16587,7 @@
         "billing_mode",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -15723,6 +16598,14 @@
       "name": "UserWithConcurrency",
       "fields": [
         "current_concurrency"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "affiliate_handler",
+      "name": "WithdrawQuotaRequest",
+      "fields": [
+        "amount"
       ]
     },
     {
@@ -16434,7 +17317,9 @@
       "path_parameters": [
         "id"
       ],
-      "query_parameters": [],
+      "query_parameters": [
+        "delete_archived"
+      ],
       "request_types": []
     },
     {
@@ -17099,6 +17984,18 @@
     {
       "kind": "upstream_handler",
       "source": "group_handler",
+      "name": "GetGroupModelAllowlistCandidates",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [
+        "platform"
+      ],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "group_handler",
       "name": "GetGroupRateMultipliers",
       "path_parameters": [
         "id"
@@ -17129,18 +18026,6 @@
       "path_parameters": [],
       "query_parameters": [
         "model"
-      ],
-      "request_types": []
-    },
-    {
-      "kind": "upstream_handler",
-      "source": "group_handler",
-      "name": "GetModelsListCandidates",
-      "path_parameters": [
-        "id"
-      ],
-      "query_parameters": [
-        "platform"
       ],
       "request_types": []
     },
@@ -17263,6 +18148,23 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "account_upstream_billing_rates",
+      "name": "GetUpstreamBillingRates",
+      "path_parameters": [],
+      "query_parameters": [
+        "platform",
+        "type",
+        "status",
+        "search",
+        "privacy_mode",
+        "sort_by",
+        "sort_order",
+        "group"
+      ],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
       "source": "account_handler",
       "name": "GetUsage",
       "path_parameters": [
@@ -17282,16 +18184,6 @@
         "id"
       ],
       "query_parameters": [],
-      "request_types": []
-    },
-    {
-      "kind": "upstream_handler",
-      "source": "group_handler",
-      "name": "GetUsageSummary",
-      "path_parameters": [],
-      "query_parameters": [
-        "timezone"
-      ],
       "request_types": []
     },
     {
@@ -17351,6 +18243,7 @@
         "account_id",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "sort_by",
         "limit"
@@ -17991,6 +18884,26 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "cn_provider_handler",
+      "name": "QueryBalance",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "cn_provider_handler",
+      "name": "QueryQuota",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
       "source": "grok_oauth_handler",
       "name": "QueryQuota",
       "path_parameters": [
@@ -18271,6 +19184,16 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "openai_referral_handler",
+      "name": "SendReferralInvite",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "service.OpenAIReferralSendRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
       "source": "setting_handler_email",
       "name": "SendTestEmail",
       "path_parameters": [],
@@ -18278,6 +19201,17 @@
       "request_types": [
         "SendTestEmailRequest"
       ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "plugin_handler",
+      "name": "ServeUIAsset",
+      "path_parameters": [
+        "token",
+        "path"
+      ],
+      "query_parameters": [],
+      "request_types": []
     },
     {
       "kind": "upstream_handler",
@@ -18308,6 +19242,16 @@
       "query_parameters": [],
       "request_types": [
         "ollamaCloudUsageAutoRefreshRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "account_opencode_go_usage",
+      "name": "SetOpenCodeGoUsageAutoRefresh",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "openCodeGoUsageAutoRefreshRequest"
       ]
     },
     {
@@ -18751,6 +19695,16 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "grok_media_eligibility_handler",
+      "name": "UpdateGrokMediaEligibility",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "updateGrokMediaEligibilityRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
       "source": "apikey_handler",
       "name": "UpdateGroup",
       "path_parameters": [
@@ -18759,6 +19713,16 @@
       "query_parameters": [],
       "request_types": [
         "AdminUpdateAPIKeyGroupRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "setting_handler_runtime",
+      "name": "UpdateOpenAIImagesOAuthUnavailableCooldownSettings",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "UpdateOpenAIImagesOAuthUnavailableCooldownSettingsRequest"
       ]
     },
     {
@@ -18963,6 +19927,18 @@
       ]
     },
     {
+      "kind": "upstream_handler",
+      "source": "affiliate_handler",
+      "name": "WithdrawQuota",
+      "path_parameters": [
+        "user_id"
+      ],
+      "query_parameters": [],
+      "request_types": [
+        "WithdrawQuotaRequest"
+      ]
+    },
+    {
       "kind": "route",
       "method": "GET",
       "path": "/api/v1/admin/accounts",
@@ -19019,6 +19995,18 @@
     {
       "kind": "route",
       "method": "GET",
+      "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+      "handler": "h.Admin.Account.GetGrokMediaEligibility"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+      "handler": "h.Admin.Account.UpdateGrokMediaEligibility"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
       "path": "/api/v1/admin/accounts/:id/models",
       "handler": "h.Admin.Account.GetAvailableModels"
     },
@@ -19057,6 +20045,24 @@
       "method": "PUT",
       "path": "/api/v1/admin/accounts/:id/ollama-cloud-usage/session",
       "handler": "h.Admin.Account.SaveOllamaCloudUsageSession"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage",
+      "handler": "h.Admin.Account.GetOpenCodeGoUsage"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh",
+      "handler": "h.Admin.Account.SetOpenCodeGoUsageAutoRefresh"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage/refresh",
+      "handler": "h.Admin.Account.RefreshOpenCodeGoUsage"
     },
     {
       "kind": "route",
@@ -19282,6 +20288,18 @@
     },
     {
       "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+      "handler": "h.Admin.Account.GetOpenCodeGoUsageSettings"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+      "handler": "h.Admin.Account.UpdateOpenCodeGoUsageSettings"
+    },
+    {
+      "kind": "route",
       "method": "POST",
       "path": "/api/v1/admin/accounts/setup-token-cookie-auth",
       "handler": "h.Admin.OAuth.SetupTokenCookieAuth"
@@ -19321,6 +20339,12 @@
       "method": "PUT",
       "path": "/api/v1/admin/accounts/upstream-billing-probe/settings",
       "handler": "h.Admin.Account.UpdateUpstreamBillingProbeSettings"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/upstream-billing-rates",
+      "handler": "h.Admin.Account.GetUpstreamBillingRates"
     },
     {
       "kind": "route",
@@ -19369,6 +20393,12 @@
       "method": "GET",
       "path": "/api/v1/admin/affiliates/users/:user_id/overview",
       "handler": "h.Admin.Affiliate.GetUserOverview"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/affiliates/users/:user_id/withdraw",
+      "handler": "h.Admin.Affiliate.WithdrawQuota"
     },
     {
       "kind": "route",
@@ -19675,6 +20705,18 @@
       "method": "GET",
       "path": "/api/v1/admin/channels/pricing/sync-models",
       "handler": "h.Admin.Channel.SyncPricingModels"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/cn-providers/accounts/:id/balance",
+      "handler": "h.Admin.CNProvider.QueryBalance"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/cn-providers/accounts/:id/quota",
+      "handler": "h.Admin.CNProvider.QueryQuota"
     },
     {
       "kind": "route",
@@ -20069,8 +21111,8 @@
     {
       "kind": "route",
       "method": "GET",
-      "path": "/api/v1/admin/groups/:id/models-list-candidates",
-      "handler": "h.Admin.Group.GetModelsListCandidates"
+      "path": "/api/v1/admin/groups/:id/model-allowlist-candidates",
+      "handler": "h.Admin.Group.GetGroupModelAllowlistCandidates"
     },
     {
       "kind": "route",
@@ -20155,6 +21197,18 @@
       "method": "POST",
       "path": "/api/v1/admin/openai/accounts/:id/quota/refresh",
       "handler": "h.Admin.OpenAIOAuth.RefreshQuota"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/openai/accounts/:id/referrals/invite",
+      "handler": "h.Admin.OpenAIOAuth.SendReferralInvite"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/openai/accounts/:id/referrals/refresh",
+      "handler": "h.Admin.OpenAIOAuth.RefreshReferrals"
     },
     {
       "kind": "route",
@@ -20485,6 +21539,72 @@
       "method": "GET",
       "path": "/api/v1/admin/ops/ws/qps",
       "handler": "h.Admin.Ops.QPSWSHandler"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins",
+      "handler": "h.Admin.Plugin.List"
+    },
+    {
+      "kind": "route",
+      "method": "DELETE",
+      "path": "/api/v1/admin/plugins/:id",
+      "handler": "h.Admin.Plugin.Delete"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id",
+      "handler": "h.Admin.Plugin.Get"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id/config",
+      "handler": "h.Admin.Plugin.GetConfig"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/plugins/:id/config",
+      "handler": "h.Admin.Plugin.SaveConfig"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/disable",
+      "handler": "h.Admin.Plugin.Disable"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/enable",
+      "handler": "h.Admin.Plugin.Enable"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id/status",
+      "handler": "h.Admin.Plugin.Status"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/test",
+      "handler": "h.Admin.Plugin.Test"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/ui-session",
+      "handler": "h.Admin.Plugin.CreateUISession"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/upload",
+      "handler": "h.Admin.Plugin.Upload"
     },
     {
       "kind": "route",
@@ -20873,6 +21993,18 @@
     {
       "kind": "route",
       "method": "GET",
+      "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+      "handler": "h.Admin.Setting.GetOpenAIImagesOAuthUnavailableCooldownSettings"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+      "handler": "h.Admin.Setting.UpdateOpenAIImagesOAuthUnavailableCooldownSettings"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
       "path": "/api/v1/admin/settings/overload-cooldown",
       "handler": "h.Admin.Setting.GetOverloadCooldownSettings"
     },
@@ -21019,6 +22151,12 @@
       "method": "POST",
       "path": "/api/v1/admin/subscriptions/assign",
       "handler": "h.Admin.Subscription.Assign"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/subscriptions/bulk-action",
+      "handler": "h.Admin.Subscription.BulkAction"
     },
     {
       "kind": "route",
