@@ -1,15 +1,15 @@
 {
-  "source": "https://raw.githubusercontent.com/Wei-Shaw/sub2api/main/backend/internal/server/routes/admin.go",
-  "routes_sha256": "13f1022c5b6a4987fada591973ef3dd9f8a48b901e6338b2d5711042d7f59583",
+  "source": "https://github.com/Wei-Shaw/sub2api/tree/b8dece9000c68815a5b867ca5a1e6f236e173905/backend/internal/server/routes",
+  "routes_sha256": "ef397e845465ff2a6e5a447221f7593da33b2e3ac1de0b024847e53983dd9495",
   "counts": {
-    "routes": 388,
-    "services": 413,
+    "routes": 442,
+    "services": 464,
     "types": 135,
-    "screens": 68,
-    "upstream_services": 297,
-    "upstream_types": 266,
-    "upstream_backend_types": 148,
-    "upstream_handlers": 291
+    "screens": 70,
+    "upstream_services": 324,
+    "upstream_types": 303,
+    "upstream_backend_types": 163,
+    "upstream_handlers": 301
   },
   "entries": [
     {
@@ -584,6 +584,41 @@
     },
     {
       "kind": "screen",
+      "title": "功能中心",
+      "app_route": "/feature-center",
+      "fields": [
+        "搜索功能"
+      ],
+      "sections": [
+        "支付与身份认证",
+        "原生操作"
+      ],
+      "placeholders": [
+        "例如 插件、settings、额度"
+      ]
+    },
+    {
+      "kind": "screen",
+      "title": "无法打开操作",
+      "app_route": "/feature-operation",
+      "fields": [
+        "其他筛选条件（可选）",
+        "查找字段",
+        "JSON"
+      ],
+      "sections": [
+        "选择记录",
+        "筛选与分页",
+        "配置字段",
+        "配置内容",
+        "结果"
+      ],
+      "placeholders": [
+        "page=1&page_size=20"
+      ]
+    },
+    {
+      "kind": "screen",
       "title": "GitHub 配置",
       "app_route": "/github-settings",
       "fields": [
@@ -636,6 +671,7 @@
         "http://192.168.1.10:8317",
         "https://sub2api.example.com",
         "name@example.com",
+        "6 位验证码",
         "••••••••"
       ]
     },
@@ -995,6 +1031,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "testAdminKey",
       "signature": "baseUrl: string, adminApiKey: string",
       "method": "GET",
@@ -1004,6 +1041,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getDashboardStats",
       "signature": "",
       "method": "GET",
@@ -1013,6 +1051,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAdminSettings",
       "signature": "",
       "method": "GET",
@@ -1022,6 +1061,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAdminComplianceStatus",
       "signature": "",
       "method": "GET",
@@ -1031,6 +1071,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "acceptAdminCompliance",
       "signature": "phrase: string, language = 'zh'",
       "method": "POST",
@@ -1040,6 +1081,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateAdminSettings",
       "signature": "body: Partial<AdminSettings>",
       "method": "PUT",
@@ -1049,6 +1091,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getDashboardTrend",
       "signature": "params: { start_date: string; end_date: string; granularity?: 'day' | 'hour'; account_id?: number; group_id?: number; user_id?: number; }",
       "method": "GET",
@@ -1058,6 +1101,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getDashboardModels",
       "signature": "params: { start_date: string; end_date: string }",
       "method": "GET",
@@ -1067,6 +1111,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getDashboardSnapshot",
       "signature": "params: { start_date: string; end_date: string; granularity?: 'day' | 'hour'; account_id?: number; user_id?: number; group_id?: number; model?: string; request_type?: string; billing_type?: string | null; include_stats?: boolean; include_trend?: boolean; include_model_stats?: boolean; include_group_stats?: boolean; include_users_trend?: boolean; }",
       "method": "GET",
@@ -1076,6 +1121,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getUsageStats",
       "signature": "params: { start_date: string; end_date: string; user_id?: number; account_id?: number; group_id?: number; model?: string; request_type?: string; billing_type?: string | null; }",
       "method": "GET",
@@ -1085,6 +1131,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listUsers",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1094,6 +1141,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getUser",
       "signature": "userId: number",
       "method": "GET",
@@ -1103,6 +1151,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createUser",
       "signature": "body: CreateUserRequest",
       "method": "POST",
@@ -1112,6 +1161,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getUserUsage",
       "signature": "userId: number, period: 'day' | 'week' | 'month' = 'month'",
       "method": "GET",
@@ -1121,6 +1171,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listUserApiKeys",
       "signature": "userId: number",
       "method": "GET",
@@ -1130,6 +1181,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateUserBalance",
       "signature": "userId: number, body: { balance: number; operation: BalanceOperation; notes?: string }",
       "method": "POST",
@@ -1139,6 +1191,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getSessionDashboardTrend",
       "signature": "params: { start_date: string; end_date: string; granularity?: 'day' | 'hour' }",
       "method": "GET",
@@ -1148,6 +1201,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getSessionDashboardModels",
       "signature": "params: { start_date: string; end_date: string }",
       "method": "GET",
@@ -1157,6 +1211,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateUser",
       "signature": "userId: number, body: UpdateUserRequest",
       "method": "PUT",
@@ -1166,6 +1221,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteUser",
       "signature": "userId: number",
       "method": "DELETE",
@@ -1175,6 +1231,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listGroups",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1184,6 +1241,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getGroup",
       "signature": "groupId: number",
       "method": "GET",
@@ -1193,6 +1251,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAllGroups",
       "signature": "",
       "method": "GET",
@@ -1202,6 +1261,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createGroup",
       "signature": "body: CreateGroupRequest",
       "method": "POST",
@@ -1211,6 +1271,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateGroup",
       "signature": "groupId: number, body: UpdateGroupRequest",
       "method": "PUT",
@@ -1220,6 +1281,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteGroup",
       "signature": "groupId: number",
       "method": "DELETE",
@@ -1229,6 +1291,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "duplicateGroup",
       "signature": "groupId: number",
       "method": "POST",
@@ -1238,6 +1301,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateApiKeyGroup",
       "signature": "apiKeyId: number, groupId: number | null",
       "method": "PUT",
@@ -1247,6 +1311,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAccounts",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1256,6 +1321,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "importAccountData",
       "signature": "data: AdminDataPayload",
       "method": "POST",
@@ -1265,6 +1331,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAccount",
       "signature": "accountId: number",
       "method": "GET",
@@ -1274,6 +1341,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createAccount",
       "signature": "body: CreateAccountRequest",
       "method": "POST",
@@ -1283,6 +1351,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateAccount",
       "signature": "accountId: number, body: UpdateAccountRequest",
       "method": "PUT",
@@ -1292,6 +1361,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteAccount",
       "signature": "accountId: number",
       "method": "DELETE",
@@ -1301,6 +1371,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "duplicateAccount",
       "signature": "accountId: number",
       "method": "POST",
@@ -1310,6 +1381,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "clearAccountError",
       "signature": "accountId: number",
       "method": "POST",
@@ -1319,6 +1391,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "clearAccountRateLimit",
       "signature": "accountId: number",
       "method": "POST",
@@ -1328,6 +1401,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "recoverAccountState",
       "signature": "accountId: number",
       "method": "POST",
@@ -1337,6 +1411,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "resetAccountQuota",
       "signature": "accountId: number",
       "method": "POST",
@@ -1346,6 +1421,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "clearAccountTempUnschedulable",
       "signature": "accountId: number",
       "method": "DELETE",
@@ -1355,6 +1431,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAccountTodayStats",
       "signature": "accountId: number",
       "method": "GET",
@@ -1364,6 +1441,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAccountUsage",
       "signature": "accountId: number, source?: 'passive' | 'active', force = false",
       "method": "GET",
@@ -1373,6 +1451,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "queryOpenAIQuota",
       "signature": "accountId: number",
       "method": "GET",
@@ -1382,6 +1461,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "refreshOpenAIQuota",
       "signature": "accountId: number",
       "method": "POST",
@@ -1391,6 +1471,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "resetOpenAIQuota",
       "signature": "accountId: number",
       "method": "POST",
@@ -1400,6 +1481,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listPaymentOrders",
       "signature": "params: { page?: number; page_size?: number; status?: string; keyword?: string } = {}",
       "method": "GET",
@@ -1409,6 +1491,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "refundPaymentOrder",
       "signature": "orderId: number, body: { amount: number; reason: string; deduct_balance?: boolean; force?: boolean }",
       "method": "POST",
@@ -1418,6 +1501,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "queryPaymentRefund",
       "signature": "orderId: number",
       "method": "POST",
@@ -1427,6 +1511,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "refreshAccount",
       "signature": "accountId: number",
       "method": "POST",
@@ -1436,6 +1521,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "setAccountSchedulable",
       "signature": "accountId: number, schedulable: boolean",
       "method": "POST",
@@ -1445,6 +1531,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "batchRefreshAccounts",
       "signature": "accountIds: number[]",
       "method": "POST",
@@ -1454,6 +1541,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "batchDeleteAccounts",
       "signature": "accountIds: number[]",
       "method": "POST",
@@ -1463,6 +1551,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listProxies",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1472,6 +1561,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getProxy",
       "signature": "proxyId: number",
       "method": "GET",
@@ -1481,6 +1571,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createProxy",
       "signature": "body: CreateProxyRequest",
       "method": "POST",
@@ -1490,6 +1581,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateProxy",
       "signature": "proxyId: number, body: UpdateProxyRequest",
       "method": "PUT",
@@ -1499,6 +1591,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteProxy",
       "signature": "proxyId: number",
       "method": "DELETE",
@@ -1508,6 +1601,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "testProxy",
       "signature": "proxyId: number",
       "method": "POST",
@@ -1517,6 +1611,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "checkProxyQuality",
       "signature": "proxyId: number",
       "method": "POST",
@@ -1526,6 +1621,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listRedeemCodes",
       "signature": "search = '', status?: string, page = 1, pageSize = 20",
       "method": "GET",
@@ -1535,6 +1631,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getRedeemCodeStats",
       "signature": "",
       "method": "GET",
@@ -1544,6 +1641,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "generateRedeemCodes",
       "signature": "body: GenerateRedeemCodesRequest",
       "method": "POST",
@@ -1553,6 +1651,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "expireRedeemCode",
       "signature": "codeId: number",
       "method": "POST",
@@ -1562,6 +1661,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteRedeemCode",
       "signature": "codeId: number",
       "method": "DELETE",
@@ -1571,6 +1671,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "resolveOpsError",
       "signature": "kind: OpsErrorKind, errorId: number, resolved: boolean",
       "method": "PUT",
@@ -1580,6 +1681,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listSubscriptions",
       "signature": "status?: string, page = 1, pageSize = 20",
       "method": "GET",
@@ -1589,6 +1691,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "assignSubscription",
       "signature": "body: AssignSubscriptionRequest",
       "method": "POST",
@@ -1598,6 +1701,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "extendSubscription",
       "signature": "subscriptionId: number, days: number",
       "method": "POST",
@@ -1607,6 +1711,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "resetSubscriptionQuota",
       "signature": "subscriptionId: number",
       "method": "POST",
@@ -1616,6 +1721,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "revokeSubscription",
       "signature": "subscriptionId: number",
       "method": "POST",
@@ -1625,6 +1731,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "restoreSubscription",
       "signature": "subscriptionId: number",
       "method": "POST",
@@ -1634,6 +1741,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listChannels",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1643,6 +1751,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getChannel",
       "signature": "channelId: number",
       "method": "GET",
@@ -1652,6 +1761,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createChannel",
       "signature": "body: CreateChannelRequest",
       "method": "POST",
@@ -1661,6 +1771,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateChannel",
       "signature": "channelId: number, body: UpdateChannelRequest",
       "method": "PUT",
@@ -1670,6 +1781,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteChannel",
       "signature": "channelId: number",
       "method": "DELETE",
@@ -1679,6 +1791,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getRiskControlConfig",
       "signature": "",
       "method": "GET",
@@ -1688,6 +1801,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateRiskControlConfig",
       "signature": "body: Partial<ContentModerationConfig>",
       "method": "PUT",
@@ -1697,6 +1811,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getRiskControlStatus",
       "signature": "",
       "method": "GET",
@@ -1706,6 +1821,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listRiskControlLogs",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1715,6 +1831,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "unbanRiskControlUser",
       "signature": "userId: number",
       "method": "POST",
@@ -1724,6 +1841,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAuditLogs",
       "signature": "search = '', page = 1, pageSize = 20, success?: boolean",
       "method": "GET",
@@ -1733,6 +1851,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getAuditLog",
       "signature": "logId: number",
       "method": "GET",
@@ -1742,6 +1861,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listUsageLogs",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1751,6 +1871,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAnnouncements",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1760,6 +1881,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createAnnouncement",
       "signature": "body: AnnouncementRequest",
       "method": "POST",
@@ -1769,6 +1891,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateAnnouncement",
       "signature": "id: number, body: Partial<AnnouncementRequest>",
       "method": "PUT",
@@ -1778,6 +1901,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteAnnouncement",
       "signature": "id: number",
       "method": "DELETE",
@@ -1787,6 +1911,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listPromoCodes",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -1796,6 +1921,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createPromoCode",
       "signature": "body: PromoCodeRequest",
       "method": "POST",
@@ -1805,6 +1931,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updatePromoCode",
       "signature": "id: number, body: Partial<PromoCodeRequest>",
       "method": "PUT",
@@ -1814,6 +1941,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deletePromoCode",
       "signature": "id: number",
       "method": "DELETE",
@@ -1823,6 +1951,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getPromptAuditConfig",
       "signature": "",
       "method": "GET",
@@ -1832,6 +1961,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updatePromptAuditConfig",
       "signature": "config: PromptAuditConfig",
       "method": "PUT",
@@ -1841,6 +1971,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getPromptAuditRuntime",
       "signature": "",
       "method": "GET",
@@ -1850,6 +1981,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listPromptAuditEvents",
       "signature": "page = 1, pageSize = 20",
       "method": "GET",
@@ -1859,6 +1991,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deletePromptAuditEvent",
       "signature": "id: number",
       "method": "DELETE",
@@ -1868,6 +2001,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listBackups",
       "signature": "",
       "method": "GET",
@@ -1877,6 +2011,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createBackup",
       "signature": "expireDays = 30",
       "method": "POST",
@@ -1886,6 +2021,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteBackup",
       "signature": "id: string",
       "method": "DELETE",
@@ -1895,6 +2031,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "restoreBackup",
       "signature": "id: string, password: string",
       "method": "POST",
@@ -1904,6 +2041,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getBackupSchedule",
       "signature": "",
       "method": "GET",
@@ -1913,6 +2051,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateBackupSchedule",
       "signature": "body: BackupSchedule",
       "method": "PUT",
@@ -1922,6 +2061,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getBackupAgentHealth",
       "signature": "",
       "method": "GET",
@@ -1931,6 +2071,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listBackupJobs",
       "signature": "",
       "method": "GET",
@@ -1940,6 +2081,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createBackupJob",
       "signature": "backupType: 'postgres' | 'redis' | 'full', uploadToS3 = false",
       "method": "POST",
@@ -1949,6 +2091,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "checkSystemUpdates",
       "signature": "force = false",
       "method": "GET",
@@ -1958,6 +2101,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "getRollbackVersions",
       "signature": "",
       "method": "GET",
@@ -1967,6 +2111,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "performSystemUpdate",
       "signature": "",
       "method": "POST",
@@ -1976,6 +2121,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "rollbackSystem",
       "signature": "version?: string",
       "method": "POST",
@@ -1985,6 +2131,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "restartSystem",
       "signature": "",
       "method": "POST",
@@ -1994,6 +2141,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listUserAttributes",
       "signature": "",
       "method": "GET",
@@ -2003,6 +2151,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createUserAttribute",
       "signature": "body: UserAttributeRequest",
       "method": "POST",
@@ -2012,6 +2161,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateUserAttribute",
       "signature": "id: number, body: Partial<UserAttributeRequest>",
       "method": "PUT",
@@ -2021,6 +2171,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteUserAttribute",
       "signature": "id: number",
       "method": "DELETE",
@@ -2030,6 +2181,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "reorderUserAttributes",
       "signature": "ids: number[]",
       "method": "PUT",
@@ -2039,6 +2191,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listErrorPassthroughRules",
       "signature": "",
       "method": "GET",
@@ -2048,6 +2201,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createErrorPassthroughRule",
       "signature": "body: Partial<ErrorPassthroughRule> & { name: string }",
       "method": "POST",
@@ -2057,6 +2211,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateErrorPassthroughRule",
       "signature": "id: number, body: Partial<ErrorPassthroughRule>",
       "method": "PUT",
@@ -2066,6 +2221,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteErrorPassthroughRule",
       "signature": "id: number",
       "method": "DELETE",
@@ -2075,6 +2231,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listTLSFingerprintProfiles",
       "signature": "",
       "method": "GET",
@@ -2084,6 +2241,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createTLSFingerprintProfile",
       "signature": "body: Partial<TLSFingerprintProfile> & { name: string }",
       "method": "POST",
@@ -2093,6 +2251,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateTLSFingerprintProfile",
       "signature": "id: number, body: Partial<TLSFingerprintProfile>",
       "method": "PUT",
@@ -2102,6 +2261,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteTLSFingerprintProfile",
       "signature": "id: number",
       "method": "DELETE",
@@ -2111,6 +2271,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listScheduledTests",
       "signature": "accountId: number",
       "method": "GET",
@@ -2120,6 +2281,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createScheduledTest",
       "signature": "body: { account_id: number; model_id: string; cron_expression: string; enabled?: boolean; max_results?: number; auto_recover?: boolean }",
       "method": "POST",
@@ -2129,6 +2291,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateScheduledTest",
       "signature": "id: number, body: Partial<ScheduledTestPlan>",
       "method": "PUT",
@@ -2138,6 +2301,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteScheduledTest",
       "signature": "id: number",
       "method": "DELETE",
@@ -2147,6 +2311,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listChannelMonitors",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -2156,6 +2321,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "createChannelMonitor",
       "signature": "body: ChannelMonitorRequest",
       "method": "POST",
@@ -2165,6 +2331,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateChannelMonitor",
       "signature": "id: number, body: Partial<ChannelMonitorRequest>",
       "method": "PUT",
@@ -2174,6 +2341,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "duplicateChannelMonitor",
       "signature": "id: number",
       "method": "POST",
@@ -2183,6 +2351,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "deleteChannelMonitor",
       "signature": "id: number",
       "method": "DELETE",
@@ -2192,6 +2361,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "runChannelMonitor",
       "signature": "id: number",
       "method": "POST",
@@ -2201,6 +2371,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAffiliateUsers",
       "signature": "search = '', page = 1, pageSize = 20",
       "method": "GET",
@@ -2210,6 +2381,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "updateAffiliateUser",
       "signature": "userId: number, body: { aff_code?: string; aff_rebate_rate_percent?: number | null; clear_rebate_rate?: boolean }",
       "method": "PUT",
@@ -2219,6 +2391,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listAffiliateRecords",
       "signature": "kind: 'invites' | 'rebates' | 'transfers', page = 1, pageSize = 20",
       "method": "GET",
@@ -2228,6 +2401,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "listOpsAlertEvents",
       "signature": "",
       "method": "GET",
@@ -2237,6 +2411,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "resolveOpsAlertEvent",
       "signature": "id: number",
       "method": "PUT",
@@ -2246,6 +2421,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "generateAccountAuthURL",
       "signature": "platform: AccountPlatform, type: 'oauth' | 'setup-token', body: { proxy_id?: number; project_id?: string } = {}",
       "method": "POST",
@@ -2256,6 +2432,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/admin.ts",
       "name": "exchangeAccountAuthCode",
       "signature": "platform: AccountPlatform, type: 'oauth' | 'setup-token', body: { session_id: string; code: string; state?: string; proxy_id?: number }",
       "method": "POST",
@@ -2266,6 +2443,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountApplyOAuthCredentials",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2275,6 +2453,47 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountClaudeResetCredits",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/claude/reset-credits"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountRedeemClaudeResetCredit",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/claude/reset-credits/redeem"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountGetGrokMediaEligibility",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/grok-media-eligibility"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountUpdateGrokMediaEligibility",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/grok-media-eligibility"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetAvailableModels",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2284,6 +2503,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSyncUpstreamModels",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2293,6 +2513,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetOllamaCloudUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2302,6 +2523,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSetOllamaCloudUsageAutoRefresh",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2311,6 +2533,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountRefreshOllamaCloudUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2320,6 +2543,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountDeleteOllamaCloudUsageSession",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -2329,6 +2553,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSaveOllamaCloudUsageSession",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2338,6 +2563,37 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountGetOpenCodeGoUsage",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/opencode-go-usage"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountSetOpenCodeGoUsageAutoRefresh",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountRefreshOpenCodeGoUsage",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/accounts/:id/opencode-go-usage/refresh"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountRefreshTier",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2347,6 +2603,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountRevertProxyFallback",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2356,6 +2613,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSetPrivacy",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2365,6 +2623,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthCreateShadow",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2374,6 +2633,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2383,6 +2643,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetTempUnschedulable",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2392,6 +2653,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountTest",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2401,6 +2663,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountProbeUpstreamBilling",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2410,6 +2673,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSetUpstreamBillingProbeEnabled",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2419,6 +2683,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetAntigravityDefaultModelMapping",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2428,6 +2693,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountBatchCreate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2437,6 +2703,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountBatchClearError",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2446,6 +2713,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountBatchRefreshTier",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2455,6 +2723,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountBatchUpdateCredentials",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2464,6 +2733,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountBulkUpdate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2473,6 +2743,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountCheckMixedChannel",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2482,6 +2753,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOAuthCookieAuth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2491,6 +2763,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountExportData",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2500,6 +2773,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountImportCodexSession",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2509,6 +2783,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSyncUpstreamModelsPreview",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2518,6 +2793,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetOllamaCloudUsageSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2527,6 +2803,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountUpdateOllamaCloudUsageSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2536,6 +2813,27 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountGetOpenCodeGoUsageSettings",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/accounts/opencode-go-usage/settings"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountUpdateOpenCodeGoUsageSettings",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/accounts/opencode-go-usage/settings"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOAuthSetupTokenCookieAuth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2545,6 +2843,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountSyncFromCRS",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2554,6 +2853,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountPreviewFromCRS",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2563,6 +2863,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetBatchTodayStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2572,6 +2873,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountProbeUpstreamBillingBatch",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2581,6 +2883,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetUpstreamBillingProbeSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2590,6 +2893,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountUpdateUpstreamBillingProbeSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2599,6 +2903,17 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAccountGetUpstreamBillingRates",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/accounts/upstream-billing-rates"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAccountGetBatchUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2608,6 +2923,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateListInviteRecords",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2617,6 +2933,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateListRebateRecords",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2626,6 +2943,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateListTransferRecords",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2635,6 +2953,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateClearUserSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -2644,6 +2963,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateGetUserOverview",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2653,6 +2973,17 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAffiliateWithdrawQuota",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/affiliates/users/:user_id/withdraw"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateBatchSetRate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2662,6 +2993,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAffiliateLookupUsers",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2671,6 +3003,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAnnouncementGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2680,6 +3013,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAnnouncementListReadStatus",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2689,6 +3023,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAntigravityOAuthGenerateAuthURL",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2698,6 +3033,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAntigravityOAuthExchangeCode",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2707,6 +3043,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAntigravityOAuthRefreshToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2716,6 +3053,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialAuditLogClear",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2725,6 +3063,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupGetBackup",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2734,6 +3073,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupGetDownloadURL",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2743,6 +3083,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupGetImageStorageConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2752,6 +3093,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupUpdateImageStorageConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2761,6 +3103,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupTestImageStorageConnection",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2770,6 +3113,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupGetS3Config",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2779,6 +3123,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupUpdateS3Config",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2788,6 +3133,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialBackupTestS3Connection",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2797,6 +3143,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateList",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2806,6 +3153,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateCreate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2815,6 +3163,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateDelete",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -2824,6 +3173,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateGet",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2833,6 +3183,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateUpdate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -2842,6 +3193,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateApply",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2851,6 +3203,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorTemplateAssociatedMonitors",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2860,6 +3213,87 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialGetConfig",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialUpdateConfig",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialDimensions",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/dimensions"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialErrors",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/errors"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAdminMatrix",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/matrix"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAdminModels",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/models"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAdminSnapshot",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/snapshot"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialAdminUsers",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/channel-monitor-v2/users"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorGet",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2869,6 +3303,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelMonitorHistory",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2878,6 +3313,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelGetModelDefaultPricing",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2887,6 +3323,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialChannelSyncPricingModels",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2896,6 +3333,27 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialCNProviderQueryBalance",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/cn-providers/accounts/:id/balance"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialCNProviderQueryQuota",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/cn-providers/accounts/:id/quota"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardBackfillAggregation",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2905,6 +3363,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetAPIKeyUsageTrend",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2914,6 +3373,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetBatchAPIKeysUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2923,6 +3383,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetGroupStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2932,6 +3393,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetRealtimeMetrics",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2941,6 +3403,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetUserBreakdown",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2950,6 +3413,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetUserSpendingRanking",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2959,6 +3423,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetUserUsageTrend",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2968,6 +3433,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDashboardGetBatchUsersUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -2977,6 +3443,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementGetBackupJob",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2986,6 +3453,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementGetConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -2995,6 +3463,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementUpdateConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3004,6 +3473,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementListS3Profiles",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3013,6 +3483,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementCreateS3Profile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3022,6 +3493,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementDeleteS3Profile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3031,6 +3503,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementUpdateS3Profile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3040,6 +3513,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementSetActiveS3Profile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3049,6 +3523,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementTestS3",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3058,6 +3533,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementListSourceProfiles",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3067,6 +3543,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementCreateSourceProfile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3076,6 +3553,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementDeleteSourceProfile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3085,6 +3563,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementUpdateSourceProfile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3094,6 +3573,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialDataManagementSetActiveSourceProfile",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3103,6 +3583,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialErrorPassthroughGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3112,6 +3593,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGeminiOAuthGenerateAuthURL",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3121,6 +3603,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGeminiOAuthGetCapabilities",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3130,6 +3613,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGeminiOAuthExchangeCode",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3139,6 +3623,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthQueryQuota",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3148,6 +3633,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthRefreshAccountToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3157,6 +3643,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthResetQuota",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3166,6 +3653,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthGenerateAuthURL",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3175,6 +3663,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthGetCapabilities",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3184,6 +3673,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthCreateAccountFromOAuth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3193,6 +3683,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthExchangeCode",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3202,6 +3693,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthAuthorizePassword",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3211,6 +3703,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthReconcileOAuthAccounts",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3220,6 +3713,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthRefreshToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3229,6 +3723,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthValidateSSOToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3238,6 +3733,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthRuntimeSanity",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3247,6 +3743,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGrokOAuthCreateAccountsFromSSO",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3256,6 +3753,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetGroupAPIKeys",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3265,6 +3763,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupListCompositeRoutes",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3274,6 +3773,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupCreateCompositeRoute",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3283,6 +3783,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupDeleteCompositeRoute",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3292,6 +3793,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupUpdateCompositeRoute",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3301,6 +3803,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupPreviewCompositeRoute",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3310,15 +3813,17 @@
     },
     {
       "kind": "service",
-      "name": "officialGroupGetModelsListCandidates",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialGroupGetGroupModelAllowlistCandidates",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
       "endpoints": [
-        "/api/v1/admin/groups/:id/models-list-candidates"
+        "/api/v1/admin/groups/:id/model-allowlist-candidates"
       ]
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupClearGroupRateMultipliers",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3328,6 +3833,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetGroupRateMultipliers",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3337,6 +3843,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupBatchSetGroupRateMultipliers",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3346,6 +3853,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupClearGroupRPMOverrides",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3355,6 +3863,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupBatchSetGroupRPMOverrides",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3364,6 +3873,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3373,6 +3883,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionListByGroup",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3382,6 +3893,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetCapacitySummary",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3391,6 +3903,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetLiveCapability",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3400,6 +3913,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupUpdateSortOrder",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3409,6 +3923,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialGroupGetUsageSummary",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3418,6 +3933,27 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialOpenAIOAuthSendReferralInvite",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/openai/accounts/:id/referrals/invite"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialOpenAIOAuthRefreshReferrals",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/openai/accounts/:id/referrals/refresh"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthRefreshAccountToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3427,6 +3963,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthCreateAccountFromCodexPAT",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3436,6 +3973,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthCreateAccountFromOAuth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3445,6 +3983,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthExchangeCode",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3454,6 +3993,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthGenerateAuthURL",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3463,6 +4003,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpenAIOAuthRefreshToken",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3472,6 +4013,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetAccountAvailability",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3481,6 +4023,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetAdvancedSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3490,6 +4033,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateAdvancedSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3499,6 +4043,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetAlertEvent",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3508,6 +4053,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListAlertRules",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3517,6 +4063,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsCreateAlertRule",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3526,6 +4073,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsDeleteAlertRule",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -3535,6 +4083,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateAlertRule",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3544,6 +4093,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsCreateAlertSilence",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3553,6 +4103,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetAuthCacheInvalidationHealth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3562,6 +4113,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetConcurrencyStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3571,6 +4123,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardErrorDistribution",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3580,6 +4133,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardErrorTrend",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3589,6 +4143,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardLatencyHistogram",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3598,6 +4153,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardOpenAITokenStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3607,6 +4163,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardOverview",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3616,6 +4173,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardSnapshotV2",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3625,6 +4183,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetDashboardThroughputTrend",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3634,6 +4193,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetEmailNotificationConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3643,6 +4203,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateEmailNotificationConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3652,6 +4213,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetErrorLogs",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3661,6 +4223,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetErrorLogByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3670,6 +4233,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateErrorResolution",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3679,6 +4243,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListIngressRejects",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3688,6 +4253,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetIngressRejectHealth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3697,6 +4263,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetRealtimeTrafficSummary",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3706,6 +4273,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListRequestErrors",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3715,6 +4283,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetRequestError",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3724,6 +4293,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsResolveRequestError",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3733,6 +4303,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListRequestErrorUpstreamErrors",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3742,6 +4313,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListRequestDetails",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3751,6 +4323,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetAlertRuntimeSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3760,6 +4333,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateAlertRuntimeSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3769,6 +4343,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetRuntimeLogConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3778,6 +4353,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateRuntimeLogConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3787,6 +4363,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsResetRuntimeLogConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3796,6 +4373,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetMetricThresholds",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3805,6 +4383,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsUpdateMetricThresholds",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3814,6 +4393,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListSystemLogs",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3823,6 +4403,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsCleanupSystemLogs",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3832,6 +4413,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetSystemLogIngestionHealth",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3841,6 +4423,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsListUpstreamErrors",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3850,6 +4433,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetUpstreamError",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3859,6 +4443,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsResolveUpstreamError",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -3868,6 +4453,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsGetUserConcurrencyStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3877,6 +4463,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialOpsQPSWSHandler",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3886,6 +4473,257 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentConfig",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/payment/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentConfigPut2",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/payment/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentDashboard",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/payment/dashboard"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentOrdersId",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/payment/orders/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentOrdersIdCancel",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/payment/orders/:id/cancel"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentOrdersIdRetry",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/payment/orders/:id/retry"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentPlans",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/payment/plans"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentPlansPost2",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/payment/plans"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentPlansId",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "DELETE",
+      "endpoints": [
+        "/api/v1/admin/payment/plans/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentPlansIdPut2",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/payment/plans/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentProviders",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/payment/providers"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentProvidersPost2",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/payment/providers"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentProvidersId",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "DELETE",
+      "endpoints": [
+        "/api/v1/admin/payment/providers/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialApiV1AdminPaymentProvidersIdPut2",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/payment/providers/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginList",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/plugins"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginDelete",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "DELETE",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginGet",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginGetConfig",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginSaveConfig",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/config"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginDisable",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/disable"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginEnable",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/enable"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginStatus",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/status"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginTest",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/test"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginCreateUISession",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/plugins/:id/ui-session"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialPluginUpload",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/plugins/upload"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromoGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3895,6 +4733,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromoGetUsages",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3904,6 +4743,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromptAuditProbeEndpoint",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3913,6 +4753,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromptAuditGetEvent",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3922,6 +4763,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromptAuditBatchDelete",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3931,6 +4773,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromptAuditDeleteByFilter",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3940,6 +4783,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialPromptAuditDeletePreview",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3949,6 +4793,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyGetProxyAccounts",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3958,6 +4803,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyGetStats",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3967,6 +4813,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyGetAll",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -3976,6 +4823,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyBatchCreate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3985,6 +4833,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyBatchDelete",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -3994,6 +4843,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyExportData",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4003,6 +4853,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialProxyImportData",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4012,6 +4863,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialRedeemGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4021,6 +4873,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialRedeemBatchDelete",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4030,6 +4883,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialRedeemBatchUpdate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4039,6 +4893,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialRedeemCreateAndRedeem",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4048,6 +4903,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialRedeemExport",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4057,6 +4913,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialContentModerationTestAPIKeys",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4066,6 +4923,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialContentModerationDeleteFlaggedHash",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -4075,6 +4933,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialContentModerationClearFlaggedHashes",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -4084,6 +4943,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialScheduledTestListResults",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4093,6 +4953,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingDeleteAdminAPIKey",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -4102,6 +4963,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetAdminAPIKey",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4111,6 +4973,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingRegenerateAdminAPIKey",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4120,6 +4983,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetBetaPolicySettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4129,6 +4993,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateBetaPolicySettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4138,6 +5003,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingPreviewEmailTemplate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4147,6 +5013,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingListEmailTemplates",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4156,6 +5023,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetEmailTemplate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4165,6 +5033,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateEmailTemplate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4174,6 +5043,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingRestoreOfficialEmailTemplate",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4183,6 +5053,27 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialSettingGetOpenAIImagesOAuthUnavailableCooldownSettings",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "GET",
+      "endpoints": [
+        "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialSettingUpdateOpenAIImagesOAuthUnavailableCooldownSettings",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "PUT",
+      "endpoints": [
+        "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetOverloadCooldownSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4192,6 +5083,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateOverloadCooldownSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4201,6 +5093,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetPanelRateLimitSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4210,6 +5103,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdatePanelRateLimitSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4219,6 +5113,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetRateLimit429CooldownSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4228,6 +5123,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateRateLimit429CooldownSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4237,6 +5133,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetRectifierSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4246,6 +5143,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateRectifierSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4255,6 +5153,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingSendTestEmail",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4264,6 +5163,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetStreamTimeoutSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4273,6 +5173,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateStreamTimeoutSettings",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4282,6 +5183,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingTestSMTPConnection",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4291,6 +5193,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingGetWebSearchEmulationConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4300,6 +5203,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingUpdateWebSearchEmulationConfig",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4309,6 +5213,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingResetWebSearchUsage",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4318,6 +5223,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSettingTestWebSearchEmulation",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4327,6 +5233,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionRevoke",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "DELETE",
@@ -4336,6 +5243,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4345,6 +5253,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionGetProgress",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4354,6 +5263,17 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
+      "name": "officialSubscriptionBulkAction",
+      "signature": "input: OfficialAdminCallInput = {}",
+      "method": "POST",
+      "endpoints": [
+        "/api/v1/admin/subscriptions/bulk-action"
+      ]
+    },
+    {
+      "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionBulkAssign",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4363,6 +5283,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSystemGetVersion",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4372,6 +5293,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialTLSFingerprintProfileGetByID",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4381,6 +5303,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUsageListCleanupTasks",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4390,6 +5313,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUsageCreateCleanupTask",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4399,6 +5323,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUsageCancelCleanupTask",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4408,6 +5333,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUsageSearchAPIKeys",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4417,6 +5343,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUsageSearchUsers",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4426,6 +5353,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserAttributeGetBatchUserAttributes",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4435,6 +5363,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserAttributeGetUserAttributes",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4444,6 +5373,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserAttributeUpdateUserAttributes",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4453,6 +5383,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserBindAuthIdentity",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4462,6 +5393,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserGetBalanceHistory",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4471,6 +5403,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserGetUserPlatformQuotas",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4480,6 +5413,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserUpdateUserPlatformQuotas",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "PUT",
@@ -4489,6 +5423,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserResetUserPlatformQuotaWindow",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4498,6 +5433,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserReplaceGroup",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4507,6 +5443,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserGetUserRPMStatus",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4516,6 +5453,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialSubscriptionListByUser",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "GET",
@@ -4525,6 +5463,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserBatchUpdateConcurrency",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4534,6 +5473,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/official-admin.ts",
       "name": "officialUserBatchUpdateLimits",
       "signature": "input: OfficialAdminCallInput = {}",
       "method": "POST",
@@ -4543,6 +5483,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsSnapshot",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4552,6 +5493,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsOverview",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4561,6 +5503,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsThroughputTrend",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4570,6 +5513,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsErrorTrend",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4579,6 +5523,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsLatencyHistogram",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4588,6 +5533,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsErrorDistribution",
       "signature": "params: OpsQueryParams",
       "method": "GET",
@@ -4597,6 +5543,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsConcurrency",
       "signature": "params: Pick<OpsQueryParams, 'platform' | 'group_id'>",
       "method": "GET",
@@ -4606,6 +5553,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsAccountAvailability",
       "signature": "params: Pick<OpsQueryParams, 'platform' | 'group_id'>",
       "method": "GET",
@@ -4615,6 +5563,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsRealtimeTraffic",
       "signature": "params: Pick<OpsQueryParams, 'platform' | 'group_id'> & { window: string }",
       "method": "GET",
@@ -4624,6 +5573,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsOpenAITokenStats",
       "signature": "params: Pick<OpsQueryParams, 'platform' | 'group_id'> & { time_range: string; page?: number; page_size?: number }",
       "method": "GET",
@@ -4633,6 +5583,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "listOpsRequests",
       "signature": "params: Pick<OpsQueryParams, 'time_range' | 'start_time' | 'end_time' | 'platform' | 'group_id'> & { kind?: 'all' | 'success' | 'error'; q?: string; page?: number; page_size?: number; sort?: 'created_at_desc' | 'duration_desc'; }",
       "method": "GET",
@@ -4642,6 +5593,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "listOfficialOpsAlertEvents",
       "signature": "params: Pick<OpsQueryParams, 'time_range' | 'start_time' | 'end_time' | 'platform' | 'group_id'> & { limit?: number; status?: string }",
       "method": "GET",
@@ -4651,6 +5603,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "updateOfficialOpsAlertEventStatus",
       "signature": "id: number, status: 'resolved' | 'manual_resolved'",
       "method": "PUT",
@@ -4660,6 +5613,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "listOfficialOpsSystemLogs",
       "signature": "params: Pick<OpsQueryParams, 'time_range' | 'start_time' | 'end_time' | 'platform'> & { page?: number; page_size?: number; q?: string; level?: string; }",
       "method": "GET",
@@ -4669,6 +5623,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsSystemLogHealth",
       "signature": "",
       "method": "GET",
@@ -4678,6 +5633,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsAdvancedSettings",
       "signature": "",
       "method": "GET",
@@ -4687,6 +5643,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "updateOpsAdvancedSettings",
       "signature": "settings: OpsAdvancedSettings",
       "method": "PUT",
@@ -4696,6 +5653,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "getOpsMetricThresholds",
       "signature": "",
       "method": "GET",
@@ -4705,6 +5663,7 @@
     },
     {
       "kind": "service",
+      "source_file": "src/services/ops.ts",
       "name": "updateOpsMetricThresholds",
       "signature": "settings: OpsMetricThresholds",
       "method": "PUT",
@@ -6899,6 +7858,22 @@
     },
     {
       "kind": "upstream_service",
+      "source": "claudeResetCredits",
+      "name": "getClaudeResetCredits",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/:id/claude/reset-credits"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "claudeResetCredits",
+      "name": "redeemClaudeResetCredit",
+      "signature": "id: number, idempotencyKey: string",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/accounts/:id/claude/reset-credits/redeem"
+    },
+    {
+      "kind": "upstream_service",
       "source": "accounts",
       "name": "clearError",
       "signature": "id: number",
@@ -6920,6 +7895,22 @@
       "signature": "id: number",
       "method": "POST",
       "endpoint": "/api/v1/admin/accounts/:id/duplicate"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "getGrokMediaEligibility",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/:id/grok-media-eligibility"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "updateGrokMediaEligibility",
+      "signature": "id: number, mode: GrokMediaEligibilityMode",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/:id/grok-media-eligibility"
     },
     {
       "kind": "upstream_service",
@@ -6976,6 +7967,30 @@
       "signature": "id: number, session: string",
       "method": "PUT",
       "endpoint": "/api/v1/admin/accounts/:id/ollama-cloud-usage/session"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "getOpenCodeGoUsage",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "setOpenCodeGoUsageAutoRefresh",
+      "signature": "id: number, enabled: boolean",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "refreshOpenCodeGoUsage",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/accounts/:id/opencode-go-usage/refresh"
     },
     {
       "kind": "upstream_service",
@@ -7164,6 +8179,22 @@
     {
       "kind": "upstream_service",
       "source": "accounts",
+      "name": "getOpenCodeGoUsageSettings",
+      "signature": "",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/opencode-go-usage/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "updateOpenCodeGoUsageSettings",
+      "signature": "settings: OpenCodeGoUsageSettings",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/accounts/opencode-go-usage/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
       "name": "previewFromCrs",
       "signature": "params: { base_url: string username: string password: string }",
       "method": "POST",
@@ -7200,6 +8231,14 @@
       "signature": "settings: UpstreamBillingProbeSettings",
       "method": "PUT",
       "endpoint": "/api/v1/admin/accounts/upstream-billing-probe/settings"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "getUpstreamBillingRatesWithEtag",
+      "signature": "page: number = 1, pageSize: number = 20, filters?: { platform?: string type?: string status?: string group?: string search?: string privacy_mode?: string sort_by?: string sort_order?: 'asc' | 'desc' }, options?: { signal?: AbortSignal etag?: string | null }",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/accounts/upstream-billing-rates"
     },
     {
       "kind": "upstream_service",
@@ -7248,6 +8287,14 @@
       "signature": "userId: number,",
       "method": "GET",
       "endpoint": "/api/v1/admin/affiliates/users/:userId/overview"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "affiliates",
+      "name": "withdrawUserQuota",
+      "signature": "userId: number, payload: WithdrawAffiliateQuotaRequest, idempotencyKey: string,",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/affiliates/users/:userId/withdraw"
     },
     {
       "kind": "upstream_service",
@@ -7357,7 +8404,7 @@
       "kind": "upstream_service",
       "source": "backup",
       "name": "deleteBackup",
-      "signature": "id: string",
+      "signature": "id: string, deleteArchived = false",
       "method": "DELETE",
       "endpoint": "/api/v1/admin/backups/:id"
     },
@@ -7368,6 +8415,14 @@
       "signature": "id: string",
       "method": "GET",
       "endpoint": "/api/v1/admin/backups/:id"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "backup",
+      "name": "getDownloadURL",
+      "signature": "id: string",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/backups/:id/download-url"
     },
     {
       "kind": "upstream_service",
@@ -7616,6 +8671,22 @@
       "signature": "platform: string",
       "method": "GET",
       "endpoint": "/api/v1/admin/channels/pricing/sync-models"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "cnProviders",
+      "name": "queryBalance",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/cn-providers/accounts/:id/balance"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "cnProviders",
+      "name": "queryQuota",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/cn-providers/accounts/:id/quota"
     },
     {
       "kind": "upstream_service",
@@ -8060,10 +9131,10 @@
     {
       "kind": "upstream_service",
       "source": "groups",
-      "name": "getModelsListCandidates",
+      "name": "getModelAllowlistCandidates",
       "signature": "id: number, platform?: GroupPlatform",
       "method": "GET",
-      "endpoint": "/api/v1/admin/groups/:id/models-list-candidates"
+      "endpoint": "/api/v1/admin/groups/:id/model-allowlist-candidates"
     },
     {
       "kind": "upstream_service",
@@ -8112,6 +9183,22 @@
       "signature": "id: number",
       "method": "POST",
       "endpoint": "/api/v1/admin/openai/accounts/:id/quota/refresh"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "sendOpenAIReferralInvite",
+      "signature": "id: number, input: { email: string; program_id: string; confirmed: boolean }",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/openai/accounts/:id/referrals/invite"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "accounts",
+      "name": "refreshOpenAIReferrals",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/openai/accounts/:id/referrals/refresh"
     },
     {
       "kind": "upstream_service",
@@ -8456,6 +9543,86 @@
       "signature": "",
       "method": "GET",
       "endpoint": "/api/v1/admin/ops/user-concurrency"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "list",
+      "signature": "",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "remove",
+      "signature": "id: number",
+      "method": "DELETE",
+      "endpoint": "/api/v1/admin/plugins/:id"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "getConfig",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins/:id/config"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "saveConfig",
+      "signature": "id: number, config: Record<string, unknown>",
+      "method": "PUT",
+      "endpoint": "/api/v1/admin/plugins/:id/config"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "disable",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/disable"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "enable",
+      "signature": "id: number, rolloutPercent: number, acceptUntested: boolean",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/enable"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "status",
+      "signature": "id: number",
+      "method": "GET",
+      "endpoint": "/api/v1/admin/plugins/:id/status"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "test",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/test"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "createUISession",
+      "signature": "id: number",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/:id/ui-session"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "plugins",
+      "name": "upload",
+      "signature": "file: File",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/plugins/upload"
     },
     {
       "kind": "upstream_service",
@@ -8964,6 +10131,14 @@
     {
       "kind": "upstream_service",
       "source": "subscriptions",
+      "name": "bulkAction",
+      "signature": "request: SubscriptionBulkActionRequest, idempotencyKey: string",
+      "method": "POST",
+      "endpoint": "/api/v1/admin/subscriptions/bulk-action"
+    },
+    {
+      "kind": "upstream_service",
+      "source": "subscriptions",
       "name": "bulkAssign",
       "signature": "request: BulkAssignSubscriptionRequest",
       "method": "POST",
@@ -9069,7 +10244,7 @@
       "kind": "upstream_service",
       "source": "usage",
       "name": "getStats",
-      "signature": "params: { user_id?: number api_key_id?: number account_id?: number group_id?: number model?: string request_type?: UsageRequestType stream?: boolean upstream_model_mismatch?: boolean period?: string start_date?: string end_date?: string timezone?: string nocache?: number }",
+      "signature": "params: { user_id?: number api_key_id?: number account_id?: number group_id?: number model?: string request_type?: UsageRequestType stream?: boolean native_compaction_v2?: boolean | null upstream_model_mismatch?: boolean period?: string start_date?: string end_date?: string timezone?: string nocache?: number }",
       "method": "GET",
       "endpoint": "/api/v1/admin/usage/stats"
     },
@@ -9288,6 +10463,16 @@
     },
     {
       "kind": "upstream_type",
+      "source": "accounts",
+      "name": "AccountUpstreamBillingRatesWithEtagResult",
+      "fields": [
+        "notModified",
+        "etag",
+        "data"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "settings",
       "name": "AdminApiKeyStatus",
       "fields": [
@@ -9496,6 +10681,7 @@
       "name": "AffiliateTransferRecord",
       "fields": [
         "ledger_id",
+        "action",
         "user_id",
         "user_email",
         "username",
@@ -9522,6 +10708,28 @@
         "rebated_invitee_count",
         "available_quota",
         "history_quota"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "AffiliateWithdrawResponse",
+      "fields": [
+        "result",
+        "replayed"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "AffiliateWithdrawResult",
+      "fields": [
+        "ledger_id",
+        "user_id",
+        "amount",
+        "available_quota_after",
+        "frozen_quota_after",
+        "history_quota_after"
       ]
     },
     {
@@ -9625,6 +10833,7 @@
         "expires_at?",
         "expires_in?",
         "project_id?",
+        "plan_type?",
         "email?"
       ]
     },
@@ -9764,6 +10973,25 @@
     },
     {
       "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupDownloadPart",
+      "fields": [
+        "index",
+        "size_bytes",
+        "url"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupDownloadResponse",
+      "fields": [
+        "url?",
+        "parts?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "dataManagement",
       "name": "BackupJob",
       "fields": [
@@ -9784,6 +11012,37 @@
     {
       "kind": "upstream_type",
       "source": "backup",
+      "name": "BackupMonthlyArchive",
+      "fields": [
+        "dates",
+        "retain_count"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupMonthlyArchiveConfig",
+      "fields": [
+        "enabled",
+        "days",
+        "include_month_end",
+        "retain_count"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
+      "name": "BackupPart",
+      "fields": [
+        "index",
+        "s3_key",
+        "size_bytes",
+        "sha256?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "backup",
       "name": "BackupRecord",
       "fields": [
         "id",
@@ -9791,6 +11050,7 @@
         "backup_type",
         "file_name",
         "s3_key",
+        "parts?",
         "size_bytes",
         "triggered_by",
         "error_message?",
@@ -9799,8 +11059,10 @@
         "expires_at?",
         "progress?",
         "restore_status?",
+        "restore_started_at?",
         "restore_error?",
-        "restored_at?"
+        "restored_at?",
+        "monthly_archive?"
       ]
     },
     {
@@ -9835,7 +11097,8 @@
         "enabled",
         "cron_expr",
         "retain_days",
-        "retain_count"
+        "retain_count",
+        "monthly_archive?"
       ]
     },
     {
@@ -9995,6 +11258,20 @@
     },
     {
       "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "BulkAssignSubscriptionResult",
+      "fields": [
+        "success_count",
+        "created_count",
+        "reused_count",
+        "failed_count",
+        "subscriptions",
+        "errors",
+        "statuses?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channels",
       "name": "Channel",
       "fields": [
@@ -10026,11 +11303,16 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price?",
         "cache_read_price",
+        "fast_multiplier?",
+        "flex_multiplier?",
+        "reasoning_effort_multipliers?",
         "image_input_price",
         "image_output_price",
         "per_request_price",
-        "intervals"
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -10062,7 +11344,10 @@
         "template_id",
         "extra_headers",
         "body_override_mode",
-        "body_override"
+        "body_override",
+        "check_mode",
+        "account_id",
+        "latest_quota?"
       ]
     },
     {
@@ -10085,6 +11370,26 @@
     },
     {
       "kind": "upstream_type",
+      "source": "channels",
+      "name": "ChannelTimePricing",
+      "fields": [
+        "timezone",
+        "weekdays_only?",
+        "periods"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channels",
+      "name": "ChannelTimePricingPeriod",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channelMonitor",
       "name": "CheckResult",
       "fields": [
@@ -10093,7 +11398,50 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "claudeResetCredits",
+      "name": "ClaudeResetCredit",
+      "fields": [
+        "label",
+        "resets_left",
+        "starts_at?",
+        "expires_at?",
+        "clears",
+        "percent_used",
+        "blocking",
+        "use_requires_limit",
+        "redeemable"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "claudeResetCredits",
+      "name": "ClaudeResetCredits",
+      "fields": [
+        "eligible",
+        "available_count",
+        "credits",
+        "cooldown_until?",
+        "weekly_resets_at?",
+        "fetched_at"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "claudeResetCredits",
+      "name": "ClaudeResetOutcome",
+      "fields": [
+        "outcome",
+        "reason?",
+        "cleared?",
+        "cooldown_until?",
+        "credits?",
+        "replayed"
       ]
     },
     {
@@ -10102,6 +11450,59 @@
       "name": "ClearFlaggedHashesResponse",
       "fields": [
         "deleted"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderBalanceEntry",
+      "fields": [
+        "currency",
+        "balance"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderBalanceResult",
+      "fields": [
+        "provider",
+        "success",
+        "balance",
+        "currency?",
+        "balances?",
+        "available",
+        "status_code?",
+        "fetched_at",
+        "persisted",
+        "error?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNProviderQuotaProbeResult",
+      "fields": [
+        "provider",
+        "source?",
+        "success",
+        "credential_valid",
+        "tiers?",
+        "plan_level?",
+        "status_code?",
+        "fetched_at",
+        "persisted",
+        "error?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "cnProviders",
+      "name": "CNQuotaTier",
+      "fields": [
+        "window",
+        "used_percent",
+        "reset_at?"
       ]
     },
     {
@@ -10147,6 +11548,8 @@
       "source": "riskControl",
       "name": "ContentModerationConfig",
       "fields": [
+        "engine?",
+        "engine_configs?",
         "enabled",
         "mode",
         "base_url",
@@ -10186,6 +11589,7 @@
       "source": "riskControl",
       "name": "ContentModerationLog",
       "fields": [
+        "engine_meta?",
         "id",
         "request_id",
         "user_id",
@@ -10242,6 +11646,7 @@
       "source": "riskControl",
       "name": "ContentModerationRuntimeStatus",
       "fields": [
+        "engine?",
         "enabled",
         "risk_control_enabled",
         "mode",
@@ -10278,6 +11683,7 @@
       "source": "riskControl",
       "name": "ContentModerationTestAuditResult",
       "fields": [
+        "engine_meta?",
         "flagged",
         "highest_category",
         "highest_score",
@@ -10352,6 +11758,8 @@
         "api_mode?",
         "endpoint",
         "api_key",
+        "check_mode?",
+        "account_id?",
         "primary_model",
         "extra_models?",
         "group_name?",
@@ -11034,6 +12442,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -11059,7 +12468,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota?"
       ]
     },
     {
@@ -11242,9 +12652,11 @@
         "input_price?",
         "output_price?",
         "cache_write_price?",
+        "cache_write_1h_price?",
         "cache_read_price?",
         "image_input_price?",
-        "image_output_price?"
+        "image_output_price?",
+        "reasoning_effort_multipliers?"
       ]
     },
     {
@@ -11262,6 +12674,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -11278,12 +12691,72 @@
     },
     {
       "kind": "upstream_type",
+      "source": "riskControl",
+      "name": "ModerationEngineMeta",
+      "fields": [
+        "engine",
+        "model",
+        "rules_version",
+        "skipped_images"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorBalance",
+      "fields": [
+        "currency",
+        "balance"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorQuotaSnapshot",
+      "fields": [
+        "source",
+        "success",
+        "tiers?",
+        "balance?",
+        "balances?",
+        "currency?",
+        "plan_level?",
+        "credential_invalid?",
+        "error?",
+        "fetched_at"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "channelMonitor",
+      "name": "MonitorQuotaTier",
+      "fields": [
+        "window",
+        "label?",
+        "used_percent",
+        "used?",
+        "limit?",
+        "reset_at?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "accounts",
       "name": "OpenAIAdditionalRateLimit",
       "fields": [
         "limit_name",
         "metered_feature",
         "rate_limit?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "OpenAICredits",
+      "fields": [
+        "has_credits",
+        "unlimited",
+        "balance"
       ]
     },
     {
@@ -11314,7 +12787,8 @@
       "source": "accounts",
       "name": "OpenAIQuotaRefreshResult",
       "fields": [
-        "cache_persisted"
+        "cache_persisted",
+        "credits_cache_persisted?"
       ]
     },
     {
@@ -11358,6 +12832,7 @@
         "rate_limit?",
         "additional_rate_limits?",
         "rate_limit_reset_credits?",
+        "credits?",
         "fetched_at"
       ]
     },
@@ -11828,6 +13303,7 @@
         "platform?",
         "model?",
         "duration_ms?",
+        "first_token_ms?",
         "status_code?",
         "error_id?",
         "phase?",
@@ -11878,12 +13354,14 @@
       "name": "OpsRuntimeLogConfig",
       "fields": [
         "level",
+        "persist_access_logs",
         "enable_sampling",
         "sampling_initial",
         "sampling_thereafter",
         "caller",
         "stacktrace_level",
         "retention_days",
+        "request_retention_days",
         "source?",
         "updated_at?",
         "updated_by_user_id?"
@@ -12180,6 +13658,133 @@
     },
     {
       "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginBinding",
+      "fields": [
+        "id",
+        "plugin_id",
+        "capability",
+        "platform",
+        "account_type",
+        "enabled",
+        "rollout_percent"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginCapability",
+      "fields": [
+        "id",
+        "platform",
+        "account_type"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginCompatibility",
+      "fields": [
+        "compatible",
+        "tested",
+        "status",
+        "message",
+        "current_sub2api_version",
+        "required_sub2api_version",
+        "recommended_sub2api_version",
+        "plugin_protocol",
+        "transport_api",
+        "ui_bridge"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginInstallation",
+      "fields": [
+        "id",
+        "plugin_key",
+        "name",
+        "version",
+        "description",
+        "author",
+        "manifest",
+        "binary_sha256",
+        "signature_status",
+        "state",
+        "last_error",
+        "installed_at",
+        "enabled_at?",
+        "updated_at",
+        "bindings",
+        "compatibility",
+        "runtime_healthy",
+        "runtime_message"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginManifest",
+      "fields": [
+        "schema_version",
+        "id",
+        "name",
+        "version",
+        "description?",
+        "author?",
+        "requires",
+        "capabilities",
+        "ui"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginRequirements",
+      "fields": [
+        "sub2api",
+        "recommended_sub2api_version?",
+        "tested_sub2api_versions?",
+        "plugin_protocol",
+        "transport_api",
+        "ui_bridge"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginStatusResult",
+      "fields": [
+        "healthy",
+        "message",
+        "status_json?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginTestResult",
+      "fields": [
+        "success",
+        "message",
+        "latency_ms",
+        "status_json?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "plugins",
+      "name": "PluginUISession",
+      "fields": [
+        "url",
+        "bridge_token",
+        "ui_bridge_version",
+        "expires_at"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "settings",
       "name": "PreviewEmailTemplateRequest",
       "fields": [
@@ -12208,7 +13813,12 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price?",
         "cache_read_price",
+        "input_multiplier",
+        "output_multiplier",
+        "cache_write_multiplier",
+        "cache_read_multiplier",
         "per_request_price",
         "sort_order"
       ]
@@ -12365,6 +13975,29 @@
     },
     {
       "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "SubscriptionBulkActionRequest",
+      "fields": [
+        "subscription_ids",
+        "action",
+        "days?",
+        "daily?",
+        "weekly?",
+        "monthly?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "subscriptions",
+      "name": "SubscriptionBulkActionResult",
+      "fields": [
+        "success_count",
+        "failed_count",
+        "results"
+      ]
+    },
+    {
+      "kind": "upstream_type",
       "source": "channels",
       "name": "SyncPricingModelsResult",
       "fields": [
@@ -12376,7 +14009,9 @@
       "source": "accounts",
       "name": "SyncUpstreamModelsResult",
       "fields": [
-        "models"
+        "models",
+        "metadata?",
+        "warnings?"
       ]
     },
     {
@@ -12387,7 +14022,8 @@
         "platform",
         "type",
         "base_url?",
-        "api_key"
+        "api_key",
+        "model_mapping?"
       ]
     },
     {
@@ -12593,6 +14229,7 @@
         "min_claude_code_version",
         "max_claude_code_version",
         "allow_ungrouped_key_scheduling",
+        "openai_ttft_mode",
         "enable_fingerprint_unification",
         "enable_metadata_passthrough",
         "enable_cch_signing",
@@ -12607,6 +14244,9 @@
         "openai_codex_client_version",
         "openai_codex_client_version_synced",
         "openai_codex_version_auto_sync_enabled",
+        "claude_code_client_version",
+        "claude_code_client_version_synced",
+        "claude_code_version_auto_sync_enabled",
         "min_codex_version",
         "max_codex_version",
         "codex_cli_only_blacklist",
@@ -12616,6 +14256,7 @@
         "web_search_emulation_enabled?",
         "payment_enabled",
         "risk_control_enabled",
+        "cyber_policy_user_allowlist",
         "cyber_session_block_enabled",
         "cyber_session_block_ttl_seconds",
         "payment_min_amount",
@@ -12628,6 +14269,9 @@
         "payment_balance_recharge_multiplier",
         "payment_subscription_usd_to_cny_rate",
         "payment_recharge_fee_rate",
+        "payment_recharge_bonus_tiers?",
+        "payment_recharge_bonus_mode?",
+        "payment_recharge_bonus_notice?",
         "payment_load_balance_strategy",
         "payment_product_name_prefix",
         "payment_product_name_suffix",
@@ -12681,10 +14325,14 @@
         "channel_monitor_mode?",
         "channel_monitor_default_interval_seconds",
         "channel_monitor_hide_throughput?",
+        "channel_monitor_show_quota?",
+        "channel_monitor_hide_user_ranking?",
         "available_channels_enabled",
+        "subscription_enabled",
         "model_plaza_enabled",
         "model_plaza_require_auth",
         "model_plaza_description",
+        "plugin_management_enabled",
         "affiliate_enabled",
         "openai_fast_policy_settings?",
         "allow_user_view_error_requests"
@@ -12695,6 +14343,8 @@
       "source": "riskControl",
       "name": "TestContentModerationAPIKeysPayload",
       "fields": [
+        "engine?",
+        "thresholds?",
         "api_keys?",
         "base_url?",
         "model?",
@@ -12796,6 +14446,7 @@
         "group_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?",
         "upstream_model_mismatch?"
       ]
@@ -12855,6 +14506,8 @@
       "source": "riskControl",
       "name": "UpdateContentModerationConfig",
       "fields": [
+        "engine?",
+        "engine_configs?",
         "enabled?",
         "mode?",
         "base_url?",
@@ -13198,6 +14851,7 @@
         "min_claude_code_version?",
         "max_claude_code_version?",
         "allow_ungrouped_key_scheduling?",
+        "openai_ttft_mode?",
         "enable_fingerprint_unification?",
         "enable_metadata_passthrough?",
         "enable_cch_signing?",
@@ -13211,6 +14865,8 @@
         "openai_codex_user_agent?",
         "openai_codex_client_version?",
         "openai_codex_version_auto_sync_enabled?",
+        "claude_code_client_version?",
+        "claude_code_version_auto_sync_enabled?",
         "min_codex_version?",
         "max_codex_version?",
         "codex_cli_only_blacklist?",
@@ -13219,6 +14875,7 @@
         "codex_cli_only_engine_fingerprint_signals?",
         "payment_enabled?",
         "risk_control_enabled?",
+        "cyber_policy_user_allowlist?",
         "cyber_session_block_enabled?",
         "cyber_session_block_ttl_seconds?",
         "payment_min_amount?",
@@ -13231,6 +14888,9 @@
         "payment_balance_recharge_multiplier?",
         "payment_subscription_usd_to_cny_rate?",
         "payment_recharge_fee_rate?",
+        "payment_recharge_bonus_tiers?",
+        "payment_recharge_bonus_mode?",
+        "payment_recharge_bonus_notice?",
         "payment_load_balance_strategy?",
         "payment_product_name_prefix?",
         "payment_product_name_suffix?",
@@ -13273,10 +14933,14 @@
         "channel_monitor_mode?",
         "channel_monitor_default_interval_seconds?",
         "channel_monitor_hide_throughput?",
+        "channel_monitor_show_quota?",
+        "channel_monitor_hide_user_ranking?",
         "available_channels_enabled?",
+        "subscription_enabled?",
         "model_plaza_enabled?",
         "model_plaza_require_auth?",
         "model_plaza_description?",
+        "plugin_management_enabled?",
         "affiliate_enabled?",
         "openai_fast_policy_settings?",
         "allow_user_view_error_requests?"
@@ -13289,6 +14953,32 @@
       "fields": [
         "name",
         "config"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "UpstreamModelMetadata",
+      "fields": [
+        "id",
+        "display_name?",
+        "description?",
+        "reasoning?",
+        "default_reasoning_level?",
+        "supported_reasoning_levels?",
+        "input_modalities?",
+        "context_window?",
+        "max_context_window?",
+        "max_output_tokens?"
+      ]
+    },
+    {
+      "kind": "upstream_type",
+      "source": "accounts",
+      "name": "UpstreamModelSyncWarning",
+      "fields": [
+        "code",
+        "message"
       ]
     },
     {
@@ -13346,6 +15036,7 @@
         "account_id?",
         "request_type?",
         "stream?",
+        "native_compaction_v2?",
         "billing_type?"
       ]
     },
@@ -13386,7 +15077,8 @@
       "source": "dashboard",
       "name": "UserTrendParams",
       "fields": [
-        "limit?"
+        "limit?",
+        "metric?"
       ]
     },
     {
@@ -13459,11 +15151,32 @@
       ]
     },
     {
+      "kind": "upstream_type",
+      "source": "affiliates",
+      "name": "WithdrawAffiliateQuotaRequest",
+      "fields": [
+        "amount"
+      ]
+    },
+    {
       "kind": "upstream_backend_type",
       "source": "compliance_handler",
       "name": "AcceptAdminComplianceRequest",
       "fields": [
         "language"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "AccountListItemWithConcurrency",
+      "fields": [
+        "current_concurrency",
+        "scheduler_score",
+        "scheduler_scores",
+        "current_window_cost",
+        "active_sessions",
+        "current_rpm"
       ]
     },
     {
@@ -13515,6 +15228,7 @@
       "source": "account_handler",
       "name": "AccountWithConcurrency",
       "fields": [
+        "-",
         "current_concurrency",
         "scheduler_score",
         "scheduler_scores",
@@ -13536,6 +15250,7 @@
         "amount",
         "pay_amount",
         "fee_rate",
+        "bonus_amount",
         "currency",
         "recharge_code",
         "out_trade_no",
@@ -13854,7 +15569,9 @@
       "source": "channel_handler",
       "name": "channelModelPricingRequest",
       "fields": [
-        "intervals"
+        "reasoning_effort_multipliers",
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -13869,11 +15586,16 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
+        "fast_multiplier",
+        "flex_multiplier",
+        "reasoning_effort_multipliers",
         "image_input_price",
         "image_output_price",
         "per_request_price",
-        "intervals"
+        "intervals",
+        "time_pricing"
       ]
     },
     {
@@ -13886,7 +15608,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota"
       ]
     },
     {
@@ -13898,7 +15621,8 @@
         "enabled",
         "template_id",
         "extra_headers",
-        "body_override"
+        "body_override",
+        "account_id"
       ]
     },
     {
@@ -13912,7 +15636,8 @@
         "latency_ms",
         "ping_latency_ms",
         "message",
-        "checked_at"
+        "checked_at",
+        "quota"
       ]
     },
     {
@@ -13944,7 +15669,10 @@
         "template_id",
         "extra_headers",
         "body_override_mode",
-        "body_override"
+        "body_override",
+        "check_mode",
+        "account_id",
+        "latest_quota"
       ]
     },
     {
@@ -13993,7 +15721,8 @@
         "template_id",
         "clear_template",
         "extra_headers",
-        "body_override"
+        "body_override",
+        "account_id"
       ]
     },
     {
@@ -14016,6 +15745,46 @@
         "account_stats_pricing_rules",
         "created_at",
         "updated_at"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingPeriodRequest",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingPeriodResponse",
+      "fields": [
+        "start_time",
+        "end_time",
+        "multiplier"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingRequest",
+      "fields": [
+        "timezone",
+        "weekdays_only",
+        "periods"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "channel_handler",
+      "name": "channelTimePricingResponse",
+      "fields": [
+        "timezone",
+        "weekdays_only",
+        "periods"
       ]
     },
     {
@@ -14129,6 +15898,8 @@
       "source": "content_moderation_handler",
       "name": "contentModerationAPIKeyTestRequest",
       "fields": [
+        "engine",
+        "thresholds",
         "api_keys",
         "base_url",
         "model",
@@ -14143,6 +15914,8 @@
       "source": "content_moderation_handler",
       "name": "contentModerationConfigRequest",
       "fields": [
+        "engine",
+        "engine_configs",
         "enabled",
         "mode",
         "base_url",
@@ -14312,6 +16085,8 @@
         "daily_limit_usd",
         "weekly_limit_usd",
         "monthly_limit_usd",
+        "long_context_pricing_enabled",
+        "model_pricing",
         "allow_image_generation",
         "allow_batch_image_generation",
         "image_rate_independent",
@@ -14348,13 +16123,17 @@
         "supported_model_scopes",
         "allow_messages_dispatch",
         "allow_live",
+        "force_openai_fast",
+        "free_openai_fast",
         "require_oauth_only",
         "require_privacy_set",
         "default_mapped_model",
         "messages_dispatch_model_config",
-        "models_list_config",
+        "model_allowlist",
+        "codex_models_manifest_config",
         "rpm_limit",
         "max_reasoning_effort",
+        "max_reasoning_effort_over_limit",
         "reasoning_effort_mappings",
         "copy_accounts_from_group_ids"
       ]
@@ -14473,7 +16252,8 @@
         "balance",
         "concurrency",
         "rpm_limit",
-        "allowed_groups"
+        "allowed_groups",
+        "restrict_public_groups"
       ]
     },
     {
@@ -14493,7 +16273,8 @@
         "start_time",
         "end_time",
         "granularity",
-        "limit"
+        "limit",
+        "metric"
       ]
     },
     {
@@ -14510,6 +16291,7 @@
         "model_source",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -14529,6 +16311,7 @@
         "model",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch",
         "include_stats",
@@ -14578,6 +16361,7 @@
         "model",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -14744,6 +16528,17 @@
     },
     {
       "kind": "upstream_backend_type",
+      "source": "grok_media_eligibility_handler",
+      "name": "grokMediaEligibilityResponse",
+      "fields": [
+        "account_id",
+        "mode",
+        "eligible",
+        "reason"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
       "source": "grok_oauth_handler",
       "name": "GrokOAuthReconcileRequest",
       "fields": [
@@ -14870,7 +16665,8 @@
       "source": "openai_oauth_handler",
       "name": "openAIQuotaRefreshResponse",
       "fields": [
-        "cache_persisted"
+        "cache_persisted",
+        "credits_cache_persisted"
       ]
     },
     {
@@ -14883,6 +16679,23 @@
         "cache_refreshed",
         "account_state_recovered",
         "warning_code"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "openai_referral_handler",
+      "name": "openAIReferralRefreshResponse",
+      "fields": [
+        "eligibility",
+        "cache_persisted"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "openai_referral_handler",
+      "name": "openAIReferralSendResponse",
+      "fields": [
+        "refresh_failed"
       ]
     },
     {
@@ -14960,6 +16773,15 @@
     },
     {
       "kind": "upstream_backend_type",
+      "source": "plugin_handler",
+      "name": "pluginEnableRequest",
+      "fields": [
+        "accept_untested",
+        "rollout_percent"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
       "source": "channel_handler",
       "name": "pricingIntervalRequest",
       "fields": [
@@ -14969,6 +16791,7 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
         "per_request_price",
         "sort_order"
@@ -14986,7 +16809,12 @@
         "input_price",
         "output_price",
         "cache_write_price",
+        "cache_write_1h_price",
         "cache_read_price",
+        "input_multiplier",
+        "output_multiplier",
+        "cache_write_multiplier",
+        "cache_read_multiplier",
         "per_request_price",
         "sort_order"
       ]
@@ -15039,6 +16867,47 @@
         "id",
         "name",
         "user_id"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "simpleModeAccountGroupReference",
+      "fields": [
+        "account_id",
+        "group_id",
+        "priority",
+        "created_at",
+        "group"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_handler",
+      "name": "simpleModeGroupReference",
+      "fields": [
+        "id",
+        "name",
+        "platform",
+        "status"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "group_handler",
+      "name": "simpleModeGroupResponse",
+      "fields": [
+        "id",
+        "name",
+        "description",
+        "platform",
+        "status",
+        "account_count",
+        "active_account_count",
+        "rate_limited_account_count",
+        "sort_order",
+        "created_at",
+        "updated_at"
       ]
     },
     {
@@ -15220,6 +17089,8 @@
         "daily_limit_usd",
         "weekly_limit_usd",
         "monthly_limit_usd",
+        "long_context_pricing_enabled",
+        "model_pricing",
         "allow_image_generation",
         "allow_batch_image_generation",
         "image_rate_independent",
@@ -15256,15 +17127,27 @@
         "supported_model_scopes",
         "allow_messages_dispatch",
         "allow_live",
+        "force_openai_fast",
+        "free_openai_fast",
         "require_oauth_only",
         "require_privacy_set",
         "default_mapped_model",
         "messages_dispatch_model_config",
-        "models_list_config",
+        "model_allowlist",
+        "codex_models_manifest_config",
         "rpm_limit",
         "max_reasoning_effort",
+        "max_reasoning_effort_over_limit",
         "reasoning_effort_mappings",
         "copy_accounts_from_group_ids"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "setting_handler_runtime",
+      "name": "UpdateOpenAIImagesOAuthUnavailableCooldownSettingsRequest",
+      "fields": [
+        "cooldown_minutes"
       ]
     },
     {
@@ -15549,6 +17432,7 @@
         "max_claude_code_version",
         "allow_ungrouped_key_scheduling",
         "backend_mode_enabled",
+        "openai_ttft_mode",
         "enable_fingerprint_unification",
         "enable_metadata_passthrough",
         "enable_cch_signing",
@@ -15562,6 +17446,8 @@
         "openai_codex_user_agent",
         "openai_codex_client_version",
         "openai_codex_version_auto_sync_enabled",
+        "claude_code_client_version",
+        "claude_code_version_auto_sync_enabled",
         "min_codex_version",
         "max_codex_version",
         "codex_cli_only_blacklist",
@@ -15605,6 +17491,9 @@
         "payment_balance_recharge_multiplier",
         "payment_subscription_usd_to_cny_rate",
         "payment_recharge_fee_rate",
+        "payment_recharge_bonus_tiers",
+        "payment_recharge_bonus_mode",
+        "payment_recharge_bonus_notice",
         "payment_load_balance_strategy",
         "payment_product_name_prefix",
         "payment_product_name_suffix",
@@ -15621,16 +17510,21 @@
         "channel_monitor_mode",
         "channel_monitor_default_interval_seconds",
         "channel_monitor_hide_throughput",
+        "channel_monitor_show_quota",
+        "channel_monitor_hide_user_ranking",
         "grok_default_text_model",
         "grok_cross_client_model_map_enabled",
         "grok_default_base_url_mode",
         "available_channels_enabled",
+        "subscription_enabled",
         "model_plaza_enabled",
         "model_plaza_require_auth",
         "model_plaza_description",
+        "plugin_management_enabled",
         "affiliate_enabled",
         "risk_control_enabled",
         "cyber_session_block_enabled",
+        "cyber_policy_user_allowlist",
         "cyber_session_block_ttl_seconds",
         "openai_fast_policy_settings",
         "default_platform_quotas",
@@ -15695,7 +17589,19 @@
         "concurrency",
         "rpm_limit",
         "allowed_groups",
+        "restrict_public_groups",
         "group_rates"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "account_upstream_billing_rates",
+      "name": "upstreamBillingRatesResponse",
+      "fields": [
+        "items",
+        "total",
+        "page",
+        "page_size"
       ]
     },
     {
@@ -15713,6 +17619,7 @@
         "billing_mode",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "upstream_model_mismatch"
       ]
@@ -15723,6 +17630,14 @@
       "name": "UserWithConcurrency",
       "fields": [
         "current_concurrency"
+      ]
+    },
+    {
+      "kind": "upstream_backend_type",
+      "source": "affiliate_handler",
+      "name": "WithdrawQuotaRequest",
+      "fields": [
+        "amount"
       ]
     },
     {
@@ -15961,6 +17876,16 @@
       "query_parameters": [
         "force"
       ],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "claude_reset_handler",
+      "name": "ClaudeResetCredits",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
       "request_types": []
     },
     {
@@ -16434,7 +18359,9 @@
       "path_parameters": [
         "id"
       ],
-      "query_parameters": [],
+      "query_parameters": [
+        "delete_archived"
+      ],
       "request_types": []
     },
     {
@@ -17099,6 +19026,18 @@
     {
       "kind": "upstream_handler",
       "source": "group_handler",
+      "name": "GetGroupModelAllowlistCandidates",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [
+        "platform"
+      ],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "group_handler",
       "name": "GetGroupRateMultipliers",
       "path_parameters": [
         "id"
@@ -17129,18 +19068,6 @@
       "path_parameters": [],
       "query_parameters": [
         "model"
-      ],
-      "request_types": []
-    },
-    {
-      "kind": "upstream_handler",
-      "source": "group_handler",
-      "name": "GetModelsListCandidates",
-      "path_parameters": [
-        "id"
-      ],
-      "query_parameters": [
-        "platform"
       ],
       "request_types": []
     },
@@ -17263,6 +19190,23 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "account_upstream_billing_rates",
+      "name": "GetUpstreamBillingRates",
+      "path_parameters": [],
+      "query_parameters": [
+        "platform",
+        "type",
+        "status",
+        "search",
+        "privacy_mode",
+        "sort_by",
+        "sort_order",
+        "group"
+      ],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
       "source": "account_handler",
       "name": "GetUsage",
       "path_parameters": [
@@ -17282,16 +19226,6 @@
         "id"
       ],
       "query_parameters": [],
-      "request_types": []
-    },
-    {
-      "kind": "upstream_handler",
-      "source": "group_handler",
-      "name": "GetUsageSummary",
-      "path_parameters": [],
-      "query_parameters": [
-        "timezone"
-      ],
       "request_types": []
     },
     {
@@ -17351,6 +19285,7 @@
         "account_id",
         "request_type",
         "stream",
+        "native_compaction_v2",
         "billing_type",
         "sort_by",
         "limit"
@@ -17416,7 +19351,8 @@
       "path_parameters": [],
       "query_parameters": [
         "granularity",
-        "limit"
+        "limit",
+        "metric"
       ],
       "request_types": []
     },
@@ -17991,6 +19927,26 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "cn_provider_handler",
+      "name": "QueryBalance",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "cn_provider_handler",
+      "name": "QueryQuota",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
       "source": "grok_oauth_handler",
       "name": "QueryQuota",
       "path_parameters": [
@@ -18023,6 +19979,16 @@
       "kind": "upstream_handler",
       "source": "account_handler",
       "name": "RecoverState",
+      "path_parameters": [
+        "id"
+      ],
+      "query_parameters": [],
+      "request_types": []
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "claude_reset_handler",
+      "name": "RedeemClaudeResetCredit",
       "path_parameters": [
         "id"
       ],
@@ -18271,6 +20237,16 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "openai_referral_handler",
+      "name": "SendReferralInvite",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "service.OpenAIReferralSendRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
       "source": "setting_handler_email",
       "name": "SendTestEmail",
       "path_parameters": [],
@@ -18278,6 +20254,17 @@
       "request_types": [
         "SendTestEmailRequest"
       ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "plugin_handler",
+      "name": "ServeUIAsset",
+      "path_parameters": [
+        "token",
+        "path"
+      ],
+      "query_parameters": [],
+      "request_types": []
     },
     {
       "kind": "upstream_handler",
@@ -18308,6 +20295,16 @@
       "query_parameters": [],
       "request_types": [
         "ollamaCloudUsageAutoRefreshRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "account_opencode_go_usage",
+      "name": "SetOpenCodeGoUsageAutoRefresh",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "openCodeGoUsageAutoRefreshRequest"
       ]
     },
     {
@@ -18751,6 +20748,16 @@
     },
     {
       "kind": "upstream_handler",
+      "source": "grok_media_eligibility_handler",
+      "name": "UpdateGrokMediaEligibility",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "updateGrokMediaEligibilityRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
       "source": "apikey_handler",
       "name": "UpdateGroup",
       "path_parameters": [
@@ -18759,6 +20766,16 @@
       "query_parameters": [],
       "request_types": [
         "AdminUpdateAPIKeyGroupRequest"
+      ]
+    },
+    {
+      "kind": "upstream_handler",
+      "source": "setting_handler_runtime",
+      "name": "UpdateOpenAIImagesOAuthUnavailableCooldownSettings",
+      "path_parameters": [],
+      "query_parameters": [],
+      "request_types": [
+        "UpdateOpenAIImagesOAuthUnavailableCooldownSettingsRequest"
       ]
     },
     {
@@ -18963,6 +20980,18 @@
       ]
     },
     {
+      "kind": "upstream_handler",
+      "source": "affiliate_handler",
+      "name": "WithdrawQuota",
+      "path_parameters": [
+        "user_id"
+      ],
+      "query_parameters": [],
+      "request_types": [
+        "WithdrawQuotaRequest"
+      ]
+    },
+    {
       "kind": "route",
       "method": "GET",
       "path": "/api/v1/admin/accounts",
@@ -19000,6 +21029,18 @@
     },
     {
       "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/:id/claude/reset-credits",
+      "handler": "h.Admin.Account.ClaudeResetCredits"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/accounts/:id/claude/reset-credits/redeem",
+      "handler": "h.Admin.Account.RedeemClaudeResetCredit"
+    },
+    {
+      "kind": "route",
       "method": "POST",
       "path": "/api/v1/admin/accounts/:id/clear-error",
       "handler": "h.Admin.Account.ClearError"
@@ -19015,6 +21056,18 @@
       "method": "POST",
       "path": "/api/v1/admin/accounts/:id/duplicate",
       "handler": "h.Admin.Account.Duplicate"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+      "handler": "h.Admin.Account.GetGrokMediaEligibility"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+      "handler": "h.Admin.Account.UpdateGrokMediaEligibility"
     },
     {
       "kind": "route",
@@ -19057,6 +21110,24 @@
       "method": "PUT",
       "path": "/api/v1/admin/accounts/:id/ollama-cloud-usage/session",
       "handler": "h.Admin.Account.SaveOllamaCloudUsageSession"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage",
+      "handler": "h.Admin.Account.GetOpenCodeGoUsage"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh",
+      "handler": "h.Admin.Account.SetOpenCodeGoUsageAutoRefresh"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/accounts/:id/opencode-go-usage/refresh",
+      "handler": "h.Admin.Account.RefreshOpenCodeGoUsage"
     },
     {
       "kind": "route",
@@ -19282,6 +21353,18 @@
     },
     {
       "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+      "handler": "h.Admin.Account.GetOpenCodeGoUsageSettings"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+      "handler": "h.Admin.Account.UpdateOpenCodeGoUsageSettings"
+    },
+    {
+      "kind": "route",
       "method": "POST",
       "path": "/api/v1/admin/accounts/setup-token-cookie-auth",
       "handler": "h.Admin.OAuth.SetupTokenCookieAuth"
@@ -19321,6 +21404,12 @@
       "method": "PUT",
       "path": "/api/v1/admin/accounts/upstream-billing-probe/settings",
       "handler": "h.Admin.Account.UpdateUpstreamBillingProbeSettings"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/accounts/upstream-billing-rates",
+      "handler": "h.Admin.Account.GetUpstreamBillingRates"
     },
     {
       "kind": "route",
@@ -19369,6 +21458,12 @@
       "method": "GET",
       "path": "/api/v1/admin/affiliates/users/:user_id/overview",
       "handler": "h.Admin.Affiliate.GetUserOverview"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/affiliates/users/:user_id/withdraw",
+      "handler": "h.Admin.Affiliate.WithdrawQuota"
     },
     {
       "kind": "route",
@@ -19589,6 +21684,54 @@
     {
       "kind": "route",
       "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/config",
+      "handler": "h.ChannelMonitorV2.GetConfig"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/channel-monitor-v2/config",
+      "handler": "h.ChannelMonitorV2.UpdateConfig"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/dimensions",
+      "handler": "h.ChannelMonitorV2.Dimensions"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/errors",
+      "handler": "h.ChannelMonitorV2.Errors"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/matrix",
+      "handler": "h.ChannelMonitorV2.AdminMatrix"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/models",
+      "handler": "h.ChannelMonitorV2.AdminModels"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/snapshot",
+      "handler": "h.ChannelMonitorV2.AdminSnapshot"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/channel-monitor-v2/users",
+      "handler": "h.ChannelMonitorV2.AdminUsers"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
       "path": "/api/v1/admin/channel-monitors",
       "handler": "h.Admin.ChannelMonitor.List"
     },
@@ -19675,6 +21818,18 @@
       "method": "GET",
       "path": "/api/v1/admin/channels/pricing/sync-models",
       "handler": "h.Admin.Channel.SyncPricingModels"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/cn-providers/accounts/:id/balance",
+      "handler": "h.Admin.CNProvider.QueryBalance"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/cn-providers/accounts/:id/quota",
+      "handler": "h.Admin.CNProvider.QueryQuota"
     },
     {
       "kind": "route",
@@ -20069,8 +22224,8 @@
     {
       "kind": "route",
       "method": "GET",
-      "path": "/api/v1/admin/groups/:id/models-list-candidates",
-      "handler": "h.Admin.Group.GetModelsListCandidates"
+      "path": "/api/v1/admin/groups/:id/model-allowlist-candidates",
+      "handler": "h.Admin.Group.GetGroupModelAllowlistCandidates"
     },
     {
       "kind": "route",
@@ -20155,6 +22310,18 @@
       "method": "POST",
       "path": "/api/v1/admin/openai/accounts/:id/quota/refresh",
       "handler": "h.Admin.OpenAIOAuth.RefreshQuota"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/openai/accounts/:id/referrals/invite",
+      "handler": "h.Admin.OpenAIOAuth.SendReferralInvite"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/openai/accounts/:id/referrals/refresh",
+      "handler": "h.Admin.OpenAIOAuth.RefreshReferrals"
     },
     {
       "kind": "route",
@@ -20485,6 +22652,174 @@
       "method": "GET",
       "path": "/api/v1/admin/ops/ws/qps",
       "handler": "h.Admin.Ops.QPSWSHandler"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/config",
+      "handler": "adminPaymentHandler.GetConfig"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/payment/config",
+      "handler": "adminPaymentHandler.UpdateConfig"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/dashboard",
+      "handler": "adminPaymentHandler.GetDashboard"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/orders",
+      "handler": "adminPaymentHandler.ListOrders"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/orders/:id",
+      "handler": "adminPaymentHandler.GetOrderDetail"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/orders/:id/cancel",
+      "handler": "adminPaymentHandler.CancelOrder"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/orders/:id/refund",
+      "handler": "adminPaymentHandler.ProcessRefund"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/orders/:id/refund/query",
+      "handler": "adminPaymentHandler.QueryAndFinalizeRefund"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/orders/:id/retry",
+      "handler": "adminPaymentHandler.RetryFulfillment"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/plans",
+      "handler": "adminPaymentHandler.ListPlans"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/plans",
+      "handler": "adminPaymentHandler.CreatePlan"
+    },
+    {
+      "kind": "route",
+      "method": "DELETE",
+      "path": "/api/v1/admin/payment/plans/:id",
+      "handler": "adminPaymentHandler.DeletePlan"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/payment/plans/:id",
+      "handler": "adminPaymentHandler.UpdatePlan"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/payment/providers",
+      "handler": "adminPaymentHandler.ListProviders"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/payment/providers",
+      "handler": "adminPaymentHandler.CreateProvider"
+    },
+    {
+      "kind": "route",
+      "method": "DELETE",
+      "path": "/api/v1/admin/payment/providers/:id",
+      "handler": "adminPaymentHandler.DeleteProvider"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/payment/providers/:id",
+      "handler": "adminPaymentHandler.UpdateProvider"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins",
+      "handler": "h.Admin.Plugin.List"
+    },
+    {
+      "kind": "route",
+      "method": "DELETE",
+      "path": "/api/v1/admin/plugins/:id",
+      "handler": "h.Admin.Plugin.Delete"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id",
+      "handler": "h.Admin.Plugin.Get"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id/config",
+      "handler": "h.Admin.Plugin.GetConfig"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/plugins/:id/config",
+      "handler": "h.Admin.Plugin.SaveConfig"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/disable",
+      "handler": "h.Admin.Plugin.Disable"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/enable",
+      "handler": "h.Admin.Plugin.Enable"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
+      "path": "/api/v1/admin/plugins/:id/status",
+      "handler": "h.Admin.Plugin.Status"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/test",
+      "handler": "h.Admin.Plugin.Test"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/:id/ui-session",
+      "handler": "h.Admin.Plugin.CreateUISession"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/plugins/upload",
+      "handler": "h.Admin.Plugin.Upload"
     },
     {
       "kind": "route",
@@ -20873,6 +23208,18 @@
     {
       "kind": "route",
       "method": "GET",
+      "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+      "handler": "h.Admin.Setting.GetOpenAIImagesOAuthUnavailableCooldownSettings"
+    },
+    {
+      "kind": "route",
+      "method": "PUT",
+      "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+      "handler": "h.Admin.Setting.UpdateOpenAIImagesOAuthUnavailableCooldownSettings"
+    },
+    {
+      "kind": "route",
+      "method": "GET",
       "path": "/api/v1/admin/settings/overload-cooldown",
       "handler": "h.Admin.Setting.GetOverloadCooldownSettings"
     },
@@ -21019,6 +23366,12 @@
       "method": "POST",
       "path": "/api/v1/admin/subscriptions/assign",
       "handler": "h.Admin.Subscription.Assign"
+    },
+    {
+      "kind": "route",
+      "method": "POST",
+      "path": "/api/v1/admin/subscriptions/bulk-action",
+      "handler": "h.Admin.Subscription.BulkAction"
     },
     {
       "kind": "route",

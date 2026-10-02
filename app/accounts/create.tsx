@@ -32,6 +32,12 @@ const PLATFORMS: Array<{ value: AccountPlatform; label: string; detail: string }
   { value: 'gemini', label: 'Gemini', detail: 'Google OAuth、AI Studio API Key 或 Vertex' },
   { value: 'antigravity', label: 'Antigravity', detail: 'Google OAuth 或兼容上游' },
   { value: 'grok', label: 'Grok', detail: 'xAI OAuth 或 API Key' },
+  { value: 'kimi', label: 'Kimi', detail: 'API Key；协议与套餐可在完整字段中配置' },
+  { value: 'zhipu', label: '智谱', detail: 'API Key；请填写实际 API 地址' },
+  { value: 'deepseek', label: 'DeepSeek', detail: 'API Key；请填写实际 API 地址' },
+  { value: 'minimax', label: 'MiniMax', detail: 'API Key；协议与套餐可在完整字段中配置' },
+  { value: 'opencode_go', label: 'OpenCode GO', detail: 'API Key；协议与套餐可在完整字段中配置' },
+  { value: 'typesafe', label: 'TypeSafe / Jev', detail: 'TypeSafe API Key' },
 ];
 
 const METHODS: Record<AccountPlatform, AccountType[]> = {
@@ -40,6 +46,7 @@ const METHODS: Record<AccountPlatform, AccountType[]> = {
   gemini: ['oauth', 'apikey', 'service_account'],
   antigravity: ['oauth', 'upstream'],
   grok: ['oauth', 'apikey'],
+  kimi: ['apikey'], zhipu: ['apikey'], deepseek: ['apikey'], minimax: ['apikey'], opencode_go: ['apikey'], typesafe: ['apikey'],
 };
 
 const METHOD_LABELS: Record<AccountType, string> = {
@@ -64,6 +71,7 @@ const DEFAULT_NAMES: Record<AccountPlatform, string> = {
   gemini: 'Gemini Account',
   antigravity: 'Antigravity Account',
   grok: 'Grok Account',
+  kimi: 'Kimi Account', zhipu: 'Zhipu Account', deepseek: 'DeepSeek Account', minimax: 'MiniMax Account', opencode_go: 'OpenCode GO Account', typesafe: 'TypeSafe Account',
 };
 
 function optionalNumber(value: string) {
@@ -376,6 +384,7 @@ export default function CreateAdminAccountScreen() {
         safeAreaEdges={['bottom']}
         bottomInsetClassName="pb-10"
       >
+        <AdminButton label="完整账号字段与协议配置" tone="muted" onPress={() => router.push({ pathname: '/feature-operation', params: { operation: 'POST /api/v1/admin/accounts' } })} />
         <AdminSection title="1. 选择平台" detail="不同平台只展示其支持的账号接入方式。">
           <View className="gap-2">
             {PLATFORMS.map((item) => {

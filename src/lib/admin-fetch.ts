@@ -65,28 +65,39 @@ export async function publicFetch<T>(baseUrl: string, path: string, init: Reques
   return json as T;
 }
 
-export async function adminFetch<T>(path: string, init: RequestInit = {}, options?: { idempotencyKey?: string; skipRefresh?: boolean }): Promise<T> {
+export async function adminResponseFetch(path: string, init: RequestInit = {}, options?: { idempotencyKey?: string; skipRefresh?: boolean }): Promise<Response> {
   const baseUrl = adminConfigState.baseUrl.trim().replace(/\/$/, '');
   if (!baseUrl) throw new Error('BASE_URL_REQUIRED');
+  const accountId = adminConfigState.activeAccountId;
+  const refreshToken = adminConfigState.refreshToken;
+  const user = adminConfigState.user;
   const headers = new Headers(init.headers);
-  headers.set('Content-Type', 'application/json');
+  if (!(typeof FormData !== 'undefined' && init.body instanceof FormData) && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json');
   Object.entries(getAuthHeaders()).forEach(([name, value]) => headers.set(name, value));
   if (options?.idempotencyKey) headers.set('Idempotency-Key', options.idempotencyKey);
   const response = await fetchWithWebProxy(buildRequestUrl(baseUrl, path), { ...init, headers });
+  if (init.signal?.aborted || accountId !== adminConfigState.activeAccountId || baseUrl !== adminConfigState.baseUrl.trim().replace(/\/$/, '')) throw new Error('SESSION_CHANGED');
   if (response.status === 401 && !options?.skipRefresh && adminConfigState.authMode === 'password' && adminConfigState.refreshToken.trim()) {
     const refreshed = await publicFetch<{ access_token: string; refresh_token?: string }>(baseUrl, '/api/v1/auth/refresh', {
       method: 'POST',
-      body: JSON.stringify({ refresh_token: adminConfigState.refreshToken }),
+      body: JSON.stringify({ refresh_token: refreshToken }),
+      signal: init.signal,
     });
+    if (init.signal?.aborted || accountId !== adminConfigState.activeAccountId || refreshToken !== adminConfigState.refreshToken) throw new Error('SESSION_CHANGED');
     await saveAdminConfig({
       baseUrl,
       authMode: 'password',
       accessToken: refreshed.access_token,
-      refreshToken: refreshed.refresh_token || adminConfigState.refreshToken,
-      user: adminConfigState.user,
+      refreshToken: refreshed.refresh_token || refreshToken,
+      user,
     });
-    return adminFetch<T>(path, init, { ...options, skipRefresh: true });
+    return adminResponseFetch(path, init, { ...options, skipRefresh: true });
   }
+  return response;
+}
+
+export async function adminFetch<T>(path: string, init: RequestInit = {}, options?: { idempotencyKey?: string; skipRefresh?: boolean }): Promise<T> {
+  const response = await adminResponseFetch(path, init, options);
   const rawText = await response.text();
   let json: unknown;
   try { json = rawText ? JSON.parse(rawText) : undefined; } catch { throw new Error('INVALID_SERVER_RESPONSE'); }
@@ -105,17 +116,8 @@ export async function adminFetch<T>(path: string, init: RequestInit = {}, option
 export type AdminRawResponse = { status: number; ok: boolean; contentType: string; contentDisposition: string; body: string; durationMs: number };
 
 export async function adminRawFetch(path: string, init: RequestInit = {}): Promise<AdminRawResponse> {
-  const baseUrl = adminConfigState.baseUrl.trim().replace(/\/$/, '');
-  if (!baseUrl) throw new Error('BASE_URL_REQUIRED');
-  const headers = new Headers(init.headers);
-  if (adminConfigState.authMode === 'password' && adminConfigState.accessToken.trim()) {
-    headers.set('Authorization', `Bearer ${adminConfigState.accessToken.trim()}`);
-  } else {
-    headers.set('x-api-key', adminConfigState.adminApiKey.trim());
-  }
-  if (init.body && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json');
   const startedAt = Date.now();
-  const response = await fetchWithWebProxy(buildRequestUrl(baseUrl, path), { ...init, headers });
+  const response = await adminResponseFetch(path, init);
   const body = await response.text();
   return { status: response.status, ok: response.ok, contentType: response.headers.get('content-type') || '', contentDisposition: response.headers.get('content-disposition') || '', body, durationMs: Date.now() - startedAt };
 }

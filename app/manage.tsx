@@ -12,6 +12,7 @@ import { languageState, setAppLanguage } from '@/src/store/ui-preferences';
 const { useSnapshot } = require('valtio/react');
 
 const modules = [
+  { title: '功能中心', detail: '完整管理模块、个人资料、安全、用量和支付入口', route: '/feature-center', icon: Blocks },
   { title: '账号操作', detail: '导入和导出官方兼容的账号 JSON 数据', route: '/account-data', icon: FileJson, admin: true },
   { title: '代理管理', detail: '维护出口代理，执行连通性与质量检测', route: '/proxies', icon: Network, admin: true },
   { title: '兑换码', detail: '批量生成余额、并发、订阅和邀请码', route: '/redeem', icon: Ticket, admin: true },

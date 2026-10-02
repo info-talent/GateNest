@@ -20,7 +20,7 @@ const colors = {
   danger: '#D9475C',
 };
 
-const PLATFORMS: GroupPlatform[] = ['anthropic', 'openai', 'gemini', 'antigravity', 'grok', 'composite'];
+const PLATFORMS: GroupPlatform[] = ['anthropic', 'openai', 'gemini', 'antigravity', 'grok', 'kimi', 'zhipu', 'deepseek', 'minimax', 'opencode_go', 'typesafe', 'composite'];
 const REASONING_EFFORTS = ['', 'minimal', 'low', 'medium', 'high', 'xhigh', 'max'] as const;
 
 function Field({ label, value, onChangeText, placeholder, keyboardType = 'default', multiline = false }: {

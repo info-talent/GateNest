@@ -1,11 +1,13 @@
 import { Redirect, router } from 'expo-router';
 import { Check, ChevronDown, ChevronUp, Eye, EyeOff, KeyRound, Languages, LogIn, Server, Trash2 } from 'lucide-react-native';
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Keyboard, KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useUniwind } from 'uniwind';
 
-import { loginWithPassword, testAdminKey } from '@/src/services/admin';
+import { loginWithPassword, loginWithTwoFactor, testAdminKey } from '@/src/services/admin';
+import { officialPageUrl } from '@/src/services/sub2api-features';
+import type { AuthResponse } from '@/src/types/admin';
 import { normalizeCLIProxyBaseUrl, testCLIProxyConnection } from '@/src/services/cliproxy';
 import { adminConfigState, forgetAdminAccount, hasAuthenticatedAdminSession, saveAdminConfig, switchAdminAccount } from '@/src/store/admin-config';
 import type { AdminAccountProfile } from '@/src/store/admin-config';
@@ -56,6 +58,8 @@ export default function LoginScreen() {
   const [showSecret, setShowSecret] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [challenge, setChallenge] = useState<{ url: string; email: string; password: string; remember: boolean; token: string }>();
+  const [totpCode, setTotpCode] = useState('');
   const rememberedAccounts = config.accounts.filter((account: AdminAccountProfile) => {
     if (account.remembered === false || account.enabled === false) return false;
     return account.authMode === 'password'
@@ -70,8 +74,38 @@ export default function LoginScreen() {
     setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), Platform.OS === 'android' ? 220 : 120);
   };
 
+  const savePasswordSession = async (response: AuthResponse, url: string, loginEmail: string, secret: string, remembered: boolean) => {
+    if (!response.access_token || !response.user) throw new Error('登录响应缺少用户或令牌');
+    await saveAdminConfig({ baseUrl: url, authMode: 'password', accessToken: response.access_token, refreshToken: response.refresh_token, user: response.user, remember: remembered, loginEmail, loginSecret: secret });
+    setChallenge(undefined); setTotpCode('');
+    router.replace(response.user.role === 'admin' ? '/monitor' : '/api-keys');
+  };
+  const passwordLogin = async (url: string, loginEmail: string, secret: string, remembered: boolean) => {
+    const response = await loginWithPassword(url, loginEmail, secret);
+    if ('requires_2fa' in response && response.requires_2fa) {
+      if (!response.temp_token) throw new Error('服务器未返回二次验证令牌');
+      setBaseUrl(url); setEmail(loginEmail); setPassword(secret); setTotpCode('');
+      setChallenge({ url, email: loginEmail, password: secret, remember: remembered, token: response.temp_token });
+      return;
+    }
+    await savePasswordSession(response as AuthResponse, url, loginEmail, secret, remembered);
+  };
+  const openAuthPage = async (page: string) => {
+    try { await Linking.openURL(officialPageUrl(baseUrl, page)); } catch (reason) { setError(formatLoginError(reason)); }
+  };
+
   const submit = async () => {
     Keyboard.dismiss();
+    if (challenge && workspace.mode === 'sub2api' && mode === 'password') {
+      if (!/^\d{6}$/.test(totpCode.trim())) return setError('请输入 6 位验证码');
+      setLoading(true); setError('');
+      try {
+        const response = await loginWithTwoFactor(challenge.url, challenge.token, totpCode);
+        await savePasswordSession(response, challenge.url, challenge.email, challenge.password, challenge.remember);
+      } catch (reason) { setError(formatLoginError(reason)); }
+      finally { setLoading(false); }
+      return;
+    }
     if (workspace.mode === 'cliproxy') {
       const url = normalizeCLIProxyBaseUrl(cliProxyBaseUrl);
       if (!url) return setError('请输入 CLIProxyAPI 服务地址');
@@ -98,10 +132,7 @@ export default function LoginScreen() {
     setError('');
     try {
       if (mode === 'password') {
-        const response = await loginWithPassword(url, email.trim(), password);
-        if (!response.access_token || !response.user) throw new Error('登录响应缺少用户或令牌');
-        await saveAdminConfig({ baseUrl: url, authMode: 'password', accessToken: response.access_token, refreshToken: response.refresh_token, user: response.user, remember, loginEmail: email.trim(), loginSecret: password });
-        router.replace(response.user.role === 'admin' ? '/monitor' : '/api-keys');
+        await passwordLogin(url, email.trim(), password, remember);
       } else {
         await testAdminKey(url, adminKey.trim());
         await saveAdminConfig({ baseUrl: url, adminApiKey: adminKey.trim(), authMode: 'admin_key', user: null, remember });
@@ -121,10 +152,7 @@ export default function LoginScreen() {
     try {
       if (account.authMode === 'password' && account.loginSecret) {
         const loginEmail = account.loginEmail || account.user?.email || '';
-        const response = await loginWithPassword(account.baseUrl, loginEmail, account.loginSecret);
-        if (!response.access_token || !response.user) throw new Error('登录响应缺少用户或令牌');
-        await saveAdminConfig({ baseUrl: account.baseUrl, authMode: 'password', accessToken: response.access_token, refreshToken: response.refresh_token, user: response.user, remember: true, loginEmail, loginSecret: account.loginSecret });
-        router.replace(response.user.role === 'admin' ? '/monitor' : '/api-keys');
+        await passwordLogin(account.baseUrl, loginEmail, account.loginSecret, true);
         return;
       }
       if ((account.authMode ?? 'admin_key') === 'admin_key' && account.adminApiKey) {
@@ -192,14 +220,16 @@ export default function LoginScreen() {
               </>
             ) : (
               <>
-                <Field label="服务地址" value={baseUrl} onChangeText={setBaseUrl} placeholder="https://sub2api.example.com" />
+                <Field label="服务地址" value={baseUrl} onChangeText={value => { setBaseUrl(value); setChallenge(undefined); setTotpCode(''); }} placeholder="https://sub2api.example.com" />
                 {mode === 'password' ? <><Field label="邮箱" value={email} onChangeText={setEmail} placeholder="name@example.com" keyboardType="email-address" /><SecretField label="密码" value={password} onChangeText={setPassword} visible={showSecret} onToggle={() => setShowSecret((v) => !v)} onFocus={keepSecretVisible} /></> : <SecretField label="Admin Key" value={adminKey} onChangeText={setAdminKey} visible={showSecret} onToggle={() => setShowSecret((v) => !v)} onFocus={keepSecretVisible} />}
                 <Pressable accessibilityRole="checkbox" accessibilityState={{ checked: remember }} onPress={() => setRemember((value) => !value)} style={{ flexDirection: 'row', alignItems: 'center', gap: 9 }}><View style={{ width: 20, height: 20, borderRadius: 6, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: remember ? colors.primary : colors.border, backgroundColor: remember ? colors.primary : colors.card }}>{remember ? <Check size={14} color="#fff" /> : null}</View><View style={{ flex: 1 }}><Text style={{ color: colors.text, fontSize: 12, fontWeight: '700' }}>记住登录信息</Text><Text style={{ marginTop: 2, color: colors.sub, fontSize: 10 }}>{Platform.OS === 'web' ? 'Web 端不会保存密码或 Admin Key' : '退出后仍可从账号下拉列表快速登录'}</Text></View></Pressable>
               </>
             )}
+            {challenge && mode === 'password' && workspace.mode === 'sub2api' ? <View style={{ gap: 8 }}><Text style={{ color: colors.sub }}>正在验证 {challenge.email}</Text><Field label="双因素验证码" value={totpCode} onChangeText={setTotpCode} placeholder="6 位验证码" /><Pressable onPress={() => { setChallenge(undefined); setTotpCode(''); }}><Text style={{ color: colors.primary }}>取消二次验证，重新登录</Text></Pressable></View> : null}
             {error ? <Text style={{ color: colors.danger, fontSize: 12, lineHeight: 18 }}>{error}</Text> : null}
             <Pressable disabled={loading} onPress={submit} style={{ height: 50, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.primary, opacity: loading ? 0.65 : 1 }}>{loading ? <ActivityIndicator color="#fff" /> : <Text style={{ color: '#fff', fontWeight: '800', fontSize: 16 }}>{workspace.mode === 'cliproxy' ? '连接 CLIProxyAPI' : '登录并连接'}</Text>}</Pressable>
           </View>
+          {workspace.mode === 'sub2api' ? <View style={{ gap: 10 }}><Pressable onPress={() => void openAuthPage('/login')}><Text style={{ color: colors.primary }}>官方网页登录（OAuth / Passkey / 验证码）</Text></Pressable><View style={{ flexDirection: 'row', gap: 20 }}><Pressable onPress={() => void openAuthPage('/register')}><Text style={{ color: colors.primary }}>注册账号</Text></Pressable><Pressable onPress={() => void openAuthPage('/forgot-password')}><Text style={{ color: colors.primary }}>忘记密码</Text></Pressable></View><Text style={{ color: colors.sub, fontSize: 11 }}>网页认证在浏览器中完成，不会自动覆盖 App 的登录会话。</Text></View> : null}
           <Text style={{ textAlign: 'center', color: '#8B98AA', fontSize: 11 }}>{workspace.mode === 'cliproxy' ? (Platform.OS === 'web' ? 'Web 端不会持久化 Management Key。' : 'Management Key 保存在设备安全存储中。') : (Platform.OS === 'web' ? 'Web 端不持久化密码和 Admin Key。' : '勾选后凭据保存在设备安全存储中，不会上传到移动端项目。')}</Text>
         </View>
       </ScrollView>

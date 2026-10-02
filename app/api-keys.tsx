@@ -8,9 +8,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenShell } from '@/src/components/screen-shell';
 import { getFirstCreatedAdmin } from '@/src/lib/admin-user';
-import { createMyApiKey, deleteMyApiKey, listMyApiKeys, listUserApiKeys, listUsers, updateMyApiKey } from '@/src/services/admin';
+import { createMyApiKey, deleteMyApiKey, listAvailableGroups, listMyApiKeys, listUserApiKeys, listUsers, updateMyApiKey } from '@/src/services/admin';
 import { adminConfigState } from '@/src/store/admin-config';
-import { getOpenAIBaseUrl } from '@/src/lib/server-url';
+import { useOpenAIBaseUrl } from '@/src/hooks/use-openai-base-url';
 import type { AdminApiKey, ApiKeyWriteRequest } from '@/src/types/admin';
 import { Text, TextInput, localizedAlert } from '@/src/components/localized-text';
 import { LocalizedStackScreen } from '@/src/components/localized-navigation';
@@ -52,15 +52,17 @@ export default function ApiKeysScreen() {
     onError: (error, variables) => { const action = variables.body.status === 'active' ? '启用' : '停用'; const text = error instanceof Error ? error.message : `${action}失败`; showFeedback('error', text, `${action}失败`); },
   });
   const copy = async (value: string, label: string) => { try { await Clipboard.setStringAsync(value); showFeedback('success', `${label}已复制到剪贴板`, '复制成功'); } catch { showFeedback('error', '复制失败，请重试或长按文本手动复制', '复制失败'); } };
-  const openAIBaseUrl = getOpenAIBaseUrl(config.baseUrl);
+  const baseUrlQuery = useOpenAIBaseUrl(config.baseUrl);
+  const openAIBaseUrl = baseUrlQuery.baseUrl;
 
   return <>
     <LocalizedStackScreen options={{ title: 'API 密钥', headerShown: true }} />
-    <ScreenShell title="API 密钥" subtitle="查看 OpenAI 端点与当前账号的访问密钥" bottomInsetClassName="pb-10" safeAreaEdges={['bottom']} refreshing={canListKeys && query.isRefetching} onRefresh={canListKeys ? () => query.refetch().then(() => undefined) : undefined}>
+    <ScreenShell title="API 密钥" subtitle="查看 OpenAI 端点与当前账号的访问密钥" bottomInsetClassName="pb-10" safeAreaEdges={['bottom']} refreshing={baseUrlQuery.isFetching || (canListKeys && query.isRefetching)} onRefresh={() => Promise.all([baseUrlQuery.refetch(), ...(canListKeys ? [query.refetch()] : [])]).then(() => undefined)}>
       {feedback ? <Pressable onPress={() => setFeedback(undefined)} className={`rounded-2xl px-4 py-3 ${feedback.tone === 'success' ? 'bg-[#EAF9F0] dark:bg-[#123326]' : 'bg-[#FFF0F3] dark:bg-[#3A1720]'}`}><Text className={`text-xs font-semibold ${feedback.tone === 'success' ? 'text-[#23885A]' : 'text-[#D9475C]'}`}>{feedback.text}</Text></Pressable> : null}
       <View className="rounded-[22px] border border-[#DDE6F2] dark:border-[#273449] bg-white dark:bg-[#111827] p-4">
         <Text className="text-[11px] text-[#7B8798] dark:text-[#9EABC0]">OpenAI Base URL</Text>
-        <Pressable onPress={() => copy(openAIBaseUrl, 'OpenAI Base URL')} className="mt-2 flex-row items-center gap-3 rounded-2xl bg-[#F4F7FC] dark:bg-[#0B1220] px-3 py-3"><Text selectable numberOfLines={2} className="flex-1 text-xs font-semibold text-[#2F6DF6]">{openAIBaseUrl}</Text><Copy size={17} color={blue} /></Pressable>
+        <Pressable disabled={!openAIBaseUrl} onPress={() => copy(openAIBaseUrl, 'OpenAI Base URL')} className="mt-2 flex-row items-center gap-3 rounded-2xl bg-[#F4F7FC] dark:bg-[#0B1220] px-3 py-3"><Text selectable numberOfLines={2} className="flex-1 text-xs font-semibold text-[#2F6DF6]">{openAIBaseUrl || (baseUrlQuery.isLoading ? '正在读取站点配置…' : '暂未获取 API 地址')}</Text><Copy size={17} color={blue} /></Pressable>
+        {baseUrlQuery.isError ? <Pressable onPress={() => { void baseUrlQuery.refetch(); }} className="mt-2"><Text className="text-xs text-[#D9475C]">读取站点配置失败，点击重试</Text></Pressable> : null}
       </View>
       <View className="rounded-[22px] border border-[#DDE6F2] dark:border-[#273449] bg-white dark:bg-[#111827] p-4">
         <Text className="text-[11px] text-[#7B8798] dark:text-[#9EABC0]">当前用户创建的密钥</Text>
@@ -91,12 +93,16 @@ function SmallButton({ label, icon: Icon, onPress, danger, disabled }: { label: 
 
 function KeyEditor({ item, onClose, onSaved }: { item: AdminApiKey | null; onClose: () => void; onSaved: (saved: AdminApiKey) => void }) {
   const insets = useSafeAreaInsets();
-  const [form, setForm] = useState<ApiKeyWriteRequest>(item ? { name: item.name, quota: item.quota, ip_whitelist: item.ip_whitelist ?? [], ip_blacklist: item.ip_blacklist ?? [], rate_limit_5h: item.rate_limit_5h ?? 0, rate_limit_1d: item.rate_limit_1d ?? 0, rate_limit_7d: item.rate_limit_7d ?? 0 } : emptyForm);
+  const config = useSnapshot(adminConfigState);
+  const groups = useQuery({ queryKey: ['available-key-groups', config.activeAccountId], queryFn: listAvailableGroups });
+  const [form, setForm] = useState<ApiKeyWriteRequest>(item ? { name: item.name, group_id: item.group_id, quota: item.quota, ip_whitelist: item.ip_whitelist ?? [], ip_blacklist: item.ip_blacklist ?? [], rate_limit_5h: item.rate_limit_5h ?? 0, rate_limit_1d: item.rate_limit_1d ?? 0, rate_limit_7d: item.rate_limit_7d ?? 0 } : emptyForm);
   const [customKey, setCustomKey] = useState(''); const [saving, setSaving] = useState(false); const [error, setError] = useState('');
   const setNumber = (key: keyof ApiKeyWriteRequest, value: string) => setForm((v) => ({ ...v, [key]: Number(value) || 0 }));
-  const submit = async () => { if (!form.name.trim()) return setError('请输入密钥名称'); setSaving(true); setError(''); try { const body = { ...form, name: form.name.trim(), ...(customKey.trim() ? { custom_key: customKey.trim() } : {}) }; const saved = item ? await updateMyApiKey(item.id, body) : await createMyApiKey(body); onSaved(saved); } catch (reason) { setError(reason instanceof Error ? reason.message : '保存失败'); } finally { setSaving(false); } };
+  const submit = async () => { if (!form.name.trim()) return setError('请输入密钥名称'); if (!form.group_id) return setError('请选择所属分组'); setSaving(true); setError(''); try { const body = { ...form, name: form.name.trim(), ...(customKey.trim() ? { custom_key: customKey.trim() } : {}) }; const saved = item ? await updateMyApiKey(item.id, body) : await createMyApiKey(body); onSaved(saved); } catch (reason) { setError(reason instanceof Error ? reason.message : '保存失败'); } finally { setSaving(false); } };
   return <Modal visible transparent statusBarTranslucent animationType="fade" onRequestClose={onClose}><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}><View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'rgba(0,0,0,.3)', paddingHorizontal: 16, paddingTop: Math.max(16, insets.top + 8), paddingBottom: Math.max(16, insets.bottom + 8) }}><View style={{ maxHeight: '100%', borderRadius: 28, overflow: 'hidden' }} className="bg-[#F4F7FC] dark:bg-[#0B1220]"><View className="flex-row items-center px-5 pb-3 pt-5"><Text className="flex-1 text-lg font-bold text-[#172033] dark:text-[#F4F7FB]">{item ? '编辑 API 密钥' : '新建 API 密钥'}</Text><Pressable accessibilityLabel="关闭密钥编辑器" hitSlop={10} onPress={onClose}><X size={22} color="#667085" /></Pressable></View><ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}>
     <TextInput value={form.name} onChangeText={(name) => setForm((v) => ({ ...v, name }))} placeholder="密钥名称" placeholderTextColor="#98A2B3" className="mb-3 rounded-2xl bg-white dark:bg-[#111827] px-4 py-3 text-sm text-[#172033] dark:text-[#F4F7FB]" />
+    <Text className="mb-2 text-xs text-[#667085]">所属分组（必选）</Text><View className="mb-3 flex-row flex-wrap gap-2">{groups.data?.map(group => <Pressable key={group.id} onPress={() => setForm(current => ({ ...current, group_id: group.id }))} className={`rounded-xl p-3 ${form.group_id === group.id ? 'bg-[#2F6DF6]' : 'bg-white dark:bg-[#111827]'}`}><Text className={form.group_id === group.id ? 'text-white' : 'text-[#667085]'}>{group.name} · {group.platform}</Text></Pressable>)}</View>
+    {groups.isError ? <Pressable onPress={() => void groups.refetch()}><Text className="mb-3 text-xs text-[#D9475C]">分组读取失败，点击重试</Text></Pressable> : null}
     {!item ? <TextInput value={customKey} onChangeText={setCustomKey} placeholder="自定义 Key（可选）" placeholderTextColor="#98A2B3" autoCapitalize="none" className="mb-3 rounded-2xl bg-white dark:bg-[#111827] px-4 py-3 text-sm text-[#172033] dark:text-[#F4F7FB]" /> : null}
     <TextInput value={String(form.quota || '')} onChangeText={(v) => setNumber('quota', v)} placeholder="额度 USD，0 为不限" keyboardType="decimal-pad" placeholderTextColor="#98A2B3" className="mb-3 rounded-2xl bg-white dark:bg-[#111827] px-4 py-3 text-sm text-[#172033] dark:text-[#F4F7FB]" />
     <TextInput value={form.ip_whitelist?.join(', ')} onChangeText={(v) => setForm((x) => ({ ...x, ip_whitelist: v.split(',').map((s) => s.trim()).filter(Boolean) }))} placeholder="IP 白名单，逗号分隔" placeholderTextColor="#98A2B3" className="mb-3 rounded-2xl bg-white dark:bg-[#111827] px-4 py-3 text-sm text-[#172033] dark:text-[#F4F7FB]" />

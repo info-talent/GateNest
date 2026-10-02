@@ -84,9 +84,15 @@ import type {
 } from '@/src/types/admin';
 
 export function loginWithPassword(baseUrl: string, email: string, password: string) {
-  return publicFetch<AuthResponse>(baseUrl, '/api/v1/auth/login', {
+  return publicFetch<AuthResponse | { requires_2fa: true; temp_token: string; user_email_masked?: string }>(baseUrl, '/api/v1/auth/login', {
     method: 'POST',
     body: JSON.stringify({ email, password }),
+  });
+}
+
+export function loginWithTwoFactor(baseUrl: string, tempToken: string, code: string) {
+  return publicFetch<AuthResponse>(baseUrl, '/api/v1/auth/login/2fa', {
+    method: 'POST', body: JSON.stringify({ temp_token: tempToken, totp_code: code.trim() }),
   });
 }
 
@@ -120,6 +126,10 @@ export function getDashboardStats() {
 
 export function getAdminSettings() {
   return adminFetch<AdminSettings>('/api/v1/admin/settings');
+}
+
+export function getPublicSettings(serverUrl: string, signal?: AbortSignal) {
+  return publicFetch<{ api_base_url?: string | null; payment_enabled?: boolean }>(serverUrl, '/api/v1/settings/public', { signal });
 }
 
 export function getUserDashboardStats() {
@@ -252,6 +262,10 @@ export function getSessionDashboardModels(params: { start_date: string; end_date
 
 export function listMyApiKeys(search = '', page = 1, pageSize = 50) {
   return adminFetch<PaginatedData<AdminApiKey>>(`/api/v1/keys${buildQuery({ page, page_size: pageSize, search: search.trim() })}`);
+}
+
+export function listAvailableGroups() {
+  return adminFetch<AdminGroup[]>('/api/v1/groups/available');
 }
 
 export function getMyApiKey(apiKeyId: number) {
@@ -985,11 +999,12 @@ export function generateAccountAuthURL(
   type: 'oauth' | 'setup-token',
   body: { proxy_id?: number; project_id?: string } = {}
 ) {
+  if (platform !== 'anthropic' && !(platform in oauthPaths)) throw new Error('此平台使用 API Key 配置，不支持 OAuth');
   const path = platform === 'anthropic'
     ? type === 'setup-token'
       ? '/api/v1/admin/accounts/generate-setup-token-url'
       : '/api/v1/admin/accounts/generate-auth-url'
-    : oauthPaths[platform].generate;
+    : oauthPaths[platform as OAuthPlatform].generate;
 
   return adminFetch<OAuthSession>(path, {
     method: 'POST',
@@ -1002,11 +1017,12 @@ export function exchangeAccountAuthCode(
   type: 'oauth' | 'setup-token',
   body: { session_id: string; code: string; state?: string; proxy_id?: number }
 ) {
+  if (platform !== 'anthropic' && !(platform in oauthPaths)) throw new Error('此平台使用 API Key 配置，不支持 OAuth');
   const path = platform === 'anthropic'
     ? type === 'setup-token'
       ? '/api/v1/admin/accounts/exchange-setup-token-code'
       : '/api/v1/admin/accounts/exchange-code'
-    : oauthPaths[platform].exchange;
+    : oauthPaths[platform as OAuthPlatform].exchange;
 
   return adminFetch<Record<string, unknown>>(path, {
     method: 'POST',

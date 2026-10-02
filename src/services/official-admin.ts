@@ -67,6 +67,54 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
+    "id": "GET /api/v1/admin/accounts/:id/claude/reset-credits",
+    "name": "officialAccountClaudeResetCredits",
+    "module": "accounts",
+    "method": "GET",
+    "path": "/api/v1/admin/accounts/:id/claude/reset-credits",
+    "handler": "h.Admin.Account.ClaudeResetCredits",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/accounts/:id/claude/reset-credits/redeem",
+    "name": "officialAccountRedeemClaudeResetCredit",
+    "module": "accounts",
+    "method": "POST",
+    "path": "/api/v1/admin/accounts/:id/claude/reset-credits/redeem",
+    "handler": "h.Admin.Account.RedeemClaudeResetCredit",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/accounts/:id/grok-media-eligibility",
+    "name": "officialAccountGetGrokMediaEligibility",
+    "module": "accounts",
+    "method": "GET",
+    "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+    "handler": "h.Admin.Account.GetGrokMediaEligibility",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/accounts/:id/grok-media-eligibility",
+    "name": "officialAccountUpdateGrokMediaEligibility",
+    "module": "accounts",
+    "method": "PUT",
+    "path": "/api/v1/admin/accounts/:id/grok-media-eligibility",
+    "handler": "h.Admin.Account.UpdateGrokMediaEligibility",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
     "id": "GET /api/v1/admin/accounts/:id/models",
     "name": "officialAccountGetAvailableModels",
     "module": "accounts",
@@ -145,6 +193,42 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "method": "PUT",
     "path": "/api/v1/admin/accounts/:id/ollama-cloud-usage/session",
     "handler": "h.Admin.Account.SaveOllamaCloudUsageSession",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/accounts/:id/opencode-go-usage",
+    "name": "officialAccountGetOpenCodeGoUsage",
+    "module": "accounts",
+    "method": "GET",
+    "path": "/api/v1/admin/accounts/:id/opencode-go-usage",
+    "handler": "h.Admin.Account.GetOpenCodeGoUsage",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh",
+    "name": "officialAccountSetOpenCodeGoUsageAutoRefresh",
+    "module": "accounts",
+    "method": "PUT",
+    "path": "/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh",
+    "handler": "h.Admin.Account.SetOpenCodeGoUsageAutoRefresh",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/accounts/:id/opencode-go-usage/refresh",
+    "name": "officialAccountRefreshOpenCodeGoUsage",
+    "module": "accounts",
+    "method": "POST",
+    "path": "/api/v1/admin/accounts/:id/opencode-go-usage/refresh",
+    "handler": "h.Admin.Account.RefreshOpenCodeGoUsage",
     "pathParams": [
       "id"
     ],
@@ -389,6 +473,26 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
+    "id": "GET /api/v1/admin/accounts/opencode-go-usage/settings",
+    "name": "officialAccountGetOpenCodeGoUsageSettings",
+    "module": "accounts",
+    "method": "GET",
+    "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+    "handler": "h.Admin.Account.GetOpenCodeGoUsageSettings",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/accounts/opencode-go-usage/settings",
+    "name": "officialAccountUpdateOpenCodeGoUsageSettings",
+    "module": "accounts",
+    "method": "PUT",
+    "path": "/api/v1/admin/accounts/opencode-go-usage/settings",
+    "handler": "h.Admin.Account.UpdateOpenCodeGoUsageSettings",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
     "id": "POST /api/v1/admin/accounts/setup-token-cookie-auth",
     "name": "officialOAuthSetupTokenCookieAuth",
     "module": "accounts",
@@ -459,6 +563,16 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
+    "id": "GET /api/v1/admin/accounts/upstream-billing-rates",
+    "name": "officialAccountGetUpstreamBillingRates",
+    "module": "accounts",
+    "method": "GET",
+    "path": "/api/v1/admin/accounts/upstream-billing-rates",
+    "handler": "h.Admin.Account.GetUpstreamBillingRates",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
     "id": "POST /api/v1/admin/accounts/usage/batch",
     "name": "officialAccountGetBatchUsage",
     "module": "accounts",
@@ -517,6 +631,18 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "method": "GET",
     "path": "/api/v1/admin/affiliates/users/:user_id/overview",
     "handler": "h.Admin.Affiliate.GetUserOverview",
+    "pathParams": [
+      "user_id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/affiliates/users/:user_id/withdraw",
+    "name": "officialAffiliateWithdrawQuota",
+    "module": "affiliates",
+    "method": "POST",
+    "path": "/api/v1/admin/affiliates/users/:user_id/withdraw",
+    "handler": "h.Admin.Affiliate.WithdrawQuota",
     "pathParams": [
       "user_id"
     ],
@@ -771,6 +897,86 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
+    "id": "GET /api/v1/admin/channel-monitor-v2/config",
+    "name": "officialGetConfig",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/config",
+    "handler": "h.ChannelMonitorV2.GetConfig",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/channel-monitor-v2/config",
+    "name": "officialUpdateConfig",
+    "module": "channel-monitor-v2",
+    "method": "PUT",
+    "path": "/api/v1/admin/channel-monitor-v2/config",
+    "handler": "h.ChannelMonitorV2.UpdateConfig",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/dimensions",
+    "name": "officialDimensions",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/dimensions",
+    "handler": "h.ChannelMonitorV2.Dimensions",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/errors",
+    "name": "officialErrors",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/errors",
+    "handler": "h.ChannelMonitorV2.Errors",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/matrix",
+    "name": "officialAdminMatrix",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/matrix",
+    "handler": "h.ChannelMonitorV2.AdminMatrix",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/models",
+    "name": "officialAdminModels",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/models",
+    "handler": "h.ChannelMonitorV2.AdminModels",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/snapshot",
+    "name": "officialAdminSnapshot",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/snapshot",
+    "handler": "h.ChannelMonitorV2.AdminSnapshot",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/channel-monitor-v2/users",
+    "name": "officialAdminUsers",
+    "module": "channel-monitor-v2",
+    "method": "GET",
+    "path": "/api/v1/admin/channel-monitor-v2/users",
+    "handler": "h.ChannelMonitorV2.AdminUsers",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
     "id": "GET /api/v1/admin/channel-monitors/:id",
     "name": "officialChannelMonitorGet",
     "module": "channel-monitors",
@@ -812,6 +1018,30 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "path": "/api/v1/admin/channels/pricing/sync-models",
     "handler": "h.Admin.Channel.SyncPricingModels",
     "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/cn-providers/accounts/:id/balance",
+    "name": "officialCNProviderQueryBalance",
+    "module": "cn-providers",
+    "method": "GET",
+    "path": "/api/v1/admin/cn-providers/accounts/:id/balance",
+    "handler": "h.Admin.CNProvider.QueryBalance",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/cn-providers/accounts/:id/quota",
+    "name": "officialCNProviderQueryQuota",
+    "module": "cn-providers",
+    "method": "GET",
+    "path": "/api/v1/admin/cn-providers/accounts/:id/quota",
+    "handler": "h.Admin.CNProvider.QueryQuota",
+    "pathParams": [
+      "id"
+    ],
     "transport": "http"
   },
   {
@@ -1318,12 +1548,12 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
-    "id": "GET /api/v1/admin/groups/:id/models-list-candidates",
-    "name": "officialGroupGetModelsListCandidates",
+    "id": "GET /api/v1/admin/groups/:id/model-allowlist-candidates",
+    "name": "officialGroupGetGroupModelAllowlistCandidates",
     "module": "groups",
     "method": "GET",
-    "path": "/api/v1/admin/groups/:id/models-list-candidates",
-    "handler": "h.Admin.Group.GetModelsListCandidates",
+    "path": "/api/v1/admin/groups/:id/model-allowlist-candidates",
+    "handler": "h.Admin.Group.GetGroupModelAllowlistCandidates",
     "pathParams": [
       "id"
     ],
@@ -1451,6 +1681,30 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "path": "/api/v1/admin/groups/usage-summary",
     "handler": "h.Admin.Group.GetUsageSummary",
     "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/openai/accounts/:id/referrals/invite",
+    "name": "officialOpenAIOAuthSendReferralInvite",
+    "module": "openai",
+    "method": "POST",
+    "path": "/api/v1/admin/openai/accounts/:id/referrals/invite",
+    "handler": "h.Admin.OpenAIOAuth.SendReferralInvite",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/openai/accounts/:id/referrals/refresh",
+    "name": "officialOpenAIOAuthRefreshReferrals",
+    "module": "openai",
+    "method": "POST",
+    "path": "/api/v1/admin/openai/accounts/:id/referrals/refresh",
+    "handler": "h.Admin.OpenAIOAuth.RefreshReferrals",
+    "pathParams": [
+      "id"
+    ],
     "transport": "http"
   },
   {
@@ -1996,6 +2250,288 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "websocket"
   },
   {
+    "id": "GET /api/v1/admin/payment/config",
+    "name": "officialApiV1AdminPaymentConfig",
+    "module": "payment",
+    "method": "GET",
+    "path": "/api/v1/admin/payment/config",
+    "handler": "adminPaymentHandler.GetConfig",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/payment/config",
+    "name": "officialApiV1AdminPaymentConfigPut2",
+    "module": "payment",
+    "method": "PUT",
+    "path": "/api/v1/admin/payment/config",
+    "handler": "adminPaymentHandler.UpdateConfig",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/payment/dashboard",
+    "name": "officialApiV1AdminPaymentDashboard",
+    "module": "payment",
+    "method": "GET",
+    "path": "/api/v1/admin/payment/dashboard",
+    "handler": "adminPaymentHandler.GetDashboard",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/payment/orders/:id",
+    "name": "officialApiV1AdminPaymentOrdersId",
+    "module": "payment",
+    "method": "GET",
+    "path": "/api/v1/admin/payment/orders/:id",
+    "handler": "adminPaymentHandler.GetOrderDetail",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/payment/orders/:id/cancel",
+    "name": "officialApiV1AdminPaymentOrdersIdCancel",
+    "module": "payment",
+    "method": "POST",
+    "path": "/api/v1/admin/payment/orders/:id/cancel",
+    "handler": "adminPaymentHandler.CancelOrder",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/payment/orders/:id/retry",
+    "name": "officialApiV1AdminPaymentOrdersIdRetry",
+    "module": "payment",
+    "method": "POST",
+    "path": "/api/v1/admin/payment/orders/:id/retry",
+    "handler": "adminPaymentHandler.RetryFulfillment",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/payment/plans",
+    "name": "officialApiV1AdminPaymentPlans",
+    "module": "payment",
+    "method": "GET",
+    "path": "/api/v1/admin/payment/plans",
+    "handler": "adminPaymentHandler.ListPlans",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/payment/plans",
+    "name": "officialApiV1AdminPaymentPlansPost2",
+    "module": "payment",
+    "method": "POST",
+    "path": "/api/v1/admin/payment/plans",
+    "handler": "adminPaymentHandler.CreatePlan",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "DELETE /api/v1/admin/payment/plans/:id",
+    "name": "officialApiV1AdminPaymentPlansId",
+    "module": "payment",
+    "method": "DELETE",
+    "path": "/api/v1/admin/payment/plans/:id",
+    "handler": "adminPaymentHandler.DeletePlan",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/payment/plans/:id",
+    "name": "officialApiV1AdminPaymentPlansIdPut2",
+    "module": "payment",
+    "method": "PUT",
+    "path": "/api/v1/admin/payment/plans/:id",
+    "handler": "adminPaymentHandler.UpdatePlan",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/payment/providers",
+    "name": "officialApiV1AdminPaymentProviders",
+    "module": "payment",
+    "method": "GET",
+    "path": "/api/v1/admin/payment/providers",
+    "handler": "adminPaymentHandler.ListProviders",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/payment/providers",
+    "name": "officialApiV1AdminPaymentProvidersPost2",
+    "module": "payment",
+    "method": "POST",
+    "path": "/api/v1/admin/payment/providers",
+    "handler": "adminPaymentHandler.CreateProvider",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "DELETE /api/v1/admin/payment/providers/:id",
+    "name": "officialApiV1AdminPaymentProvidersId",
+    "module": "payment",
+    "method": "DELETE",
+    "path": "/api/v1/admin/payment/providers/:id",
+    "handler": "adminPaymentHandler.DeleteProvider",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/payment/providers/:id",
+    "name": "officialApiV1AdminPaymentProvidersIdPut2",
+    "module": "payment",
+    "method": "PUT",
+    "path": "/api/v1/admin/payment/providers/:id",
+    "handler": "adminPaymentHandler.UpdateProvider",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/plugins",
+    "name": "officialPluginList",
+    "module": "plugins",
+    "method": "GET",
+    "path": "/api/v1/admin/plugins",
+    "handler": "h.Admin.Plugin.List",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "DELETE /api/v1/admin/plugins/:id",
+    "name": "officialPluginDelete",
+    "module": "plugins",
+    "method": "DELETE",
+    "path": "/api/v1/admin/plugins/:id",
+    "handler": "h.Admin.Plugin.Delete",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/plugins/:id",
+    "name": "officialPluginGet",
+    "module": "plugins",
+    "method": "GET",
+    "path": "/api/v1/admin/plugins/:id",
+    "handler": "h.Admin.Plugin.Get",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/plugins/:id/config",
+    "name": "officialPluginGetConfig",
+    "module": "plugins",
+    "method": "GET",
+    "path": "/api/v1/admin/plugins/:id/config",
+    "handler": "h.Admin.Plugin.GetConfig",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/plugins/:id/config",
+    "name": "officialPluginSaveConfig",
+    "module": "plugins",
+    "method": "PUT",
+    "path": "/api/v1/admin/plugins/:id/config",
+    "handler": "h.Admin.Plugin.SaveConfig",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/plugins/:id/disable",
+    "name": "officialPluginDisable",
+    "module": "plugins",
+    "method": "POST",
+    "path": "/api/v1/admin/plugins/:id/disable",
+    "handler": "h.Admin.Plugin.Disable",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/plugins/:id/enable",
+    "name": "officialPluginEnable",
+    "module": "plugins",
+    "method": "POST",
+    "path": "/api/v1/admin/plugins/:id/enable",
+    "handler": "h.Admin.Plugin.Enable",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "GET /api/v1/admin/plugins/:id/status",
+    "name": "officialPluginStatus",
+    "module": "plugins",
+    "method": "GET",
+    "path": "/api/v1/admin/plugins/:id/status",
+    "handler": "h.Admin.Plugin.Status",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/plugins/:id/test",
+    "name": "officialPluginTest",
+    "module": "plugins",
+    "method": "POST",
+    "path": "/api/v1/admin/plugins/:id/test",
+    "handler": "h.Admin.Plugin.Test",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/plugins/:id/ui-session",
+    "name": "officialPluginCreateUISession",
+    "module": "plugins",
+    "method": "POST",
+    "path": "/api/v1/admin/plugins/:id/ui-session",
+    "handler": "h.Admin.Plugin.CreateUISession",
+    "pathParams": [
+      "id"
+    ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/plugins/upload",
+    "name": "officialPluginUpload",
+    "module": "plugins",
+    "method": "POST",
+    "path": "/api/v1/admin/plugins/upload",
+    "handler": "h.Admin.Plugin.Upload",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
     "id": "GET /api/v1/admin/promo-codes/:id",
     "name": "officialPromoGetByID",
     "module": "promo-codes",
@@ -2349,6 +2885,26 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "transport": "http"
   },
   {
+    "id": "GET /api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+    "name": "officialSettingGetOpenAIImagesOAuthUnavailableCooldownSettings",
+    "module": "settings",
+    "method": "GET",
+    "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+    "handler": "h.Admin.Setting.GetOpenAIImagesOAuthUnavailableCooldownSettings",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
+    "id": "PUT /api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+    "name": "officialSettingUpdateOpenAIImagesOAuthUnavailableCooldownSettings",
+    "module": "settings",
+    "method": "PUT",
+    "path": "/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown",
+    "handler": "h.Admin.Setting.UpdateOpenAIImagesOAuthUnavailableCooldownSettings",
+    "pathParams": [],
+    "transport": "http"
+  },
+  {
     "id": "GET /api/v1/admin/settings/overload-cooldown",
     "name": "officialSettingGetOverloadCooldownSettings",
     "module": "settings",
@@ -2542,6 +3098,16 @@ export const officialAdminOperations: readonly OfficialAdminOperation[] = [
     "pathParams": [
       "id"
     ],
+    "transport": "http"
+  },
+  {
+    "id": "POST /api/v1/admin/subscriptions/bulk-action",
+    "name": "officialSubscriptionBulkAction",
+    "module": "subscriptions",
+    "method": "POST",
+    "path": "/api/v1/admin/subscriptions/bulk-action",
+    "handler": "h.Admin.Subscription.BulkAction",
+    "pathParams": [],
     "transport": "http"
   },
   {
@@ -2784,6 +3350,22 @@ export function officialAccountApplyOAuthCredentials(input: OfficialAdminCallInp
   return officialAdminRequest<unknown>('POST', '/api/v1/admin/accounts/:id/apply-oauth-credentials', input);
 }
 
+export function officialAccountClaudeResetCredits(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/:id/claude/reset-credits', input);
+}
+
+export function officialAccountRedeemClaudeResetCredit(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/accounts/:id/claude/reset-credits/redeem', input);
+}
+
+export function officialAccountGetGrokMediaEligibility(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/:id/grok-media-eligibility', input);
+}
+
+export function officialAccountUpdateGrokMediaEligibility(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/:id/grok-media-eligibility', input);
+}
+
 export function officialAccountGetAvailableModels(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/:id/models', input);
 }
@@ -2810,6 +3392,18 @@ export function officialAccountDeleteOllamaCloudUsageSession(input: OfficialAdmi
 
 export function officialAccountSaveOllamaCloudUsageSession(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/:id/ollama-cloud-usage/session', input);
+}
+
+export function officialAccountGetOpenCodeGoUsage(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/:id/opencode-go-usage', input);
+}
+
+export function officialAccountSetOpenCodeGoUsageAutoRefresh(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/:id/opencode-go-usage/auto-refresh', input);
+}
+
+export function officialAccountRefreshOpenCodeGoUsage(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/accounts/:id/opencode-go-usage/refresh', input);
 }
 
 export function officialAccountRefreshTier(input: OfficialAdminCallInput = {}) {
@@ -2900,6 +3494,14 @@ export function officialAccountUpdateOllamaCloudUsageSettings(input: OfficialAdm
   return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/ollama-cloud-usage/settings', input);
 }
 
+export function officialAccountGetOpenCodeGoUsageSettings(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/opencode-go-usage/settings', input);
+}
+
+export function officialAccountUpdateOpenCodeGoUsageSettings(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/opencode-go-usage/settings', input);
+}
+
 export function officialOAuthSetupTokenCookieAuth(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('POST', '/api/v1/admin/accounts/setup-token-cookie-auth', input);
 }
@@ -2928,6 +3530,10 @@ export function officialAccountUpdateUpstreamBillingProbeSettings(input: Officia
   return officialAdminRequest<unknown>('PUT', '/api/v1/admin/accounts/upstream-billing-probe/settings', input);
 }
 
+export function officialAccountGetUpstreamBillingRates(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/accounts/upstream-billing-rates', input);
+}
+
 export function officialAccountGetBatchUsage(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('POST', '/api/v1/admin/accounts/usage/batch', input);
 }
@@ -2950,6 +3556,10 @@ export function officialAffiliateClearUserSettings(input: OfficialAdminCallInput
 
 export function officialAffiliateGetUserOverview(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/affiliates/users/:user_id/overview', input);
+}
+
+export function officialAffiliateWithdrawQuota(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/affiliates/users/:user_id/withdraw', input);
 }
 
 export function officialAffiliateBatchSetRate(input: OfficialAdminCallInput = {}) {
@@ -3044,6 +3654,38 @@ export function officialChannelMonitorTemplateAssociatedMonitors(input: Official
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-templates/:id/monitors', input);
 }
 
+export function officialGetConfig(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/config', input);
+}
+
+export function officialUpdateConfig(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/channel-monitor-v2/config', input);
+}
+
+export function officialDimensions(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/dimensions', input);
+}
+
+export function officialErrors(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/errors', input);
+}
+
+export function officialAdminMatrix(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/matrix', input);
+}
+
+export function officialAdminModels(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/models', input);
+}
+
+export function officialAdminSnapshot(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/snapshot', input);
+}
+
+export function officialAdminUsers(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitor-v2/users', input);
+}
+
 export function officialChannelMonitorGet(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/channel-monitors/:id', input);
 }
@@ -3058,6 +3700,14 @@ export function officialChannelGetModelDefaultPricing(input: OfficialAdminCallIn
 
 export function officialChannelSyncPricingModels(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/channels/pricing/sync-models', input);
+}
+
+export function officialCNProviderQueryBalance(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/cn-providers/accounts/:id/balance', input);
+}
+
+export function officialCNProviderQueryQuota(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/cn-providers/accounts/:id/quota', input);
 }
 
 export function officialDashboardBackfillAggregation(input: OfficialAdminCallInput = {}) {
@@ -3244,8 +3894,8 @@ export function officialGroupPreviewCompositeRoute(input: OfficialAdminCallInput
   return officialAdminRequest<unknown>('POST', '/api/v1/admin/groups/:id/composite-routes/preview', input);
 }
 
-export function officialGroupGetModelsListCandidates(input: OfficialAdminCallInput = {}) {
-  return officialAdminRequest<unknown>('GET', '/api/v1/admin/groups/:id/models-list-candidates', input);
+export function officialGroupGetGroupModelAllowlistCandidates(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/groups/:id/model-allowlist-candidates', input);
 }
 
 export function officialGroupClearGroupRateMultipliers(input: OfficialAdminCallInput = {}) {
@@ -3290,6 +3940,14 @@ export function officialGroupUpdateSortOrder(input: OfficialAdminCallInput = {})
 
 export function officialGroupGetUsageSummary(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/groups/usage-summary', input);
+}
+
+export function officialOpenAIOAuthSendReferralInvite(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/openai/accounts/:id/referrals/invite', input);
+}
+
+export function officialOpenAIOAuthRefreshReferrals(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/openai/accounts/:id/referrals/refresh', input);
 }
 
 export function officialOpenAIOAuthRefreshAccountToken(input: OfficialAdminCallInput = {}) {
@@ -3500,6 +4158,106 @@ export function officialOpsQPSWSHandler(input: OfficialAdminCallInput = {}) {
   return officialAdminWebSocket('/api/v1/admin/ops/ws/qps', input);
 }
 
+export function officialApiV1AdminPaymentConfig(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/payment/config', input);
+}
+
+export function officialApiV1AdminPaymentConfigPut2(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/payment/config', input);
+}
+
+export function officialApiV1AdminPaymentDashboard(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/payment/dashboard', input);
+}
+
+export function officialApiV1AdminPaymentOrdersId(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/payment/orders/:id', input);
+}
+
+export function officialApiV1AdminPaymentOrdersIdCancel(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/payment/orders/:id/cancel', input);
+}
+
+export function officialApiV1AdminPaymentOrdersIdRetry(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/payment/orders/:id/retry', input);
+}
+
+export function officialApiV1AdminPaymentPlans(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/payment/plans', input);
+}
+
+export function officialApiV1AdminPaymentPlansPost2(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/payment/plans', input);
+}
+
+export function officialApiV1AdminPaymentPlansId(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('DELETE', '/api/v1/admin/payment/plans/:id', input);
+}
+
+export function officialApiV1AdminPaymentPlansIdPut2(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/payment/plans/:id', input);
+}
+
+export function officialApiV1AdminPaymentProviders(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/payment/providers', input);
+}
+
+export function officialApiV1AdminPaymentProvidersPost2(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/payment/providers', input);
+}
+
+export function officialApiV1AdminPaymentProvidersId(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('DELETE', '/api/v1/admin/payment/providers/:id', input);
+}
+
+export function officialApiV1AdminPaymentProvidersIdPut2(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/payment/providers/:id', input);
+}
+
+export function officialPluginList(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/plugins', input);
+}
+
+export function officialPluginDelete(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('DELETE', '/api/v1/admin/plugins/:id', input);
+}
+
+export function officialPluginGet(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/plugins/:id', input);
+}
+
+export function officialPluginGetConfig(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/plugins/:id/config', input);
+}
+
+export function officialPluginSaveConfig(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/plugins/:id/config', input);
+}
+
+export function officialPluginDisable(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/plugins/:id/disable', input);
+}
+
+export function officialPluginEnable(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/plugins/:id/enable', input);
+}
+
+export function officialPluginStatus(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/plugins/:id/status', input);
+}
+
+export function officialPluginTest(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/plugins/:id/test', input);
+}
+
+export function officialPluginCreateUISession(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/plugins/:id/ui-session', input);
+}
+
+export function officialPluginUpload(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/plugins/upload', input);
+}
+
 export function officialPromoGetByID(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/promo-codes/:id', input);
 }
@@ -3632,6 +4390,14 @@ export function officialSettingRestoreOfficialEmailTemplate(input: OfficialAdmin
   return officialAdminRequest<unknown>('POST', '/api/v1/admin/settings/email-templates/:event/:locale/restore-official', input);
 }
 
+export function officialSettingGetOpenAIImagesOAuthUnavailableCooldownSettings(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('GET', '/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown', input);
+}
+
+export function officialSettingUpdateOpenAIImagesOAuthUnavailableCooldownSettings(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('PUT', '/api/v1/admin/settings/openai-images-oauth-unavailable-cooldown', input);
+}
+
 export function officialSettingGetOverloadCooldownSettings(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/settings/overload-cooldown', input);
 }
@@ -3706,6 +4472,10 @@ export function officialSubscriptionGetByID(input: OfficialAdminCallInput = {}) 
 
 export function officialSubscriptionGetProgress(input: OfficialAdminCallInput = {}) {
   return officialAdminRequest<unknown>('GET', '/api/v1/admin/subscriptions/:id/progress', input);
+}
+
+export function officialSubscriptionBulkAction(input: OfficialAdminCallInput = {}) {
+  return officialAdminRequest<unknown>('POST', '/api/v1/admin/subscriptions/bulk-action', input);
 }
 
 export function officialSubscriptionBulkAssign(input: OfficialAdminCallInput = {}) {
