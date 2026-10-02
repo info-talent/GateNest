@@ -10,7 +10,7 @@ import { ScreenShell } from '@/src/components/screen-shell';
 import { getFirstCreatedAdmin } from '@/src/lib/admin-user';
 import { createMyApiKey, deleteMyApiKey, listMyApiKeys, listUserApiKeys, listUsers, updateMyApiKey } from '@/src/services/admin';
 import { adminConfigState } from '@/src/store/admin-config';
-import { getOpenAIBaseUrl } from '@/src/lib/server-url';
+import { useOpenAIBaseUrl } from '@/src/hooks/use-openai-base-url';
 import type { AdminApiKey, ApiKeyWriteRequest } from '@/src/types/admin';
 import { Text, TextInput, localizedAlert } from '@/src/components/localized-text';
 import { LocalizedStackScreen } from '@/src/components/localized-navigation';
@@ -52,15 +52,17 @@ export default function ApiKeysScreen() {
     onError: (error, variables) => { const action = variables.body.status === 'active' ? '启用' : '停用'; const text = error instanceof Error ? error.message : `${action}失败`; showFeedback('error', text, `${action}失败`); },
   });
   const copy = async (value: string, label: string) => { try { await Clipboard.setStringAsync(value); showFeedback('success', `${label}已复制到剪贴板`, '复制成功'); } catch { showFeedback('error', '复制失败，请重试或长按文本手动复制', '复制失败'); } };
-  const openAIBaseUrl = getOpenAIBaseUrl(config.baseUrl);
+  const baseUrlQuery = useOpenAIBaseUrl(config.baseUrl);
+  const openAIBaseUrl = baseUrlQuery.baseUrl;
 
   return <>
     <LocalizedStackScreen options={{ title: 'API 密钥', headerShown: true }} />
-    <ScreenShell title="API 密钥" subtitle="查看 OpenAI 端点与当前账号的访问密钥" bottomInsetClassName="pb-10" safeAreaEdges={['bottom']} refreshing={canListKeys && query.isRefetching} onRefresh={canListKeys ? () => query.refetch().then(() => undefined) : undefined}>
+    <ScreenShell title="API 密钥" subtitle="查看 OpenAI 端点与当前账号的访问密钥" bottomInsetClassName="pb-10" safeAreaEdges={['bottom']} refreshing={baseUrlQuery.isFetching || (canListKeys && query.isRefetching)} onRefresh={() => Promise.all([baseUrlQuery.refetch(), ...(canListKeys ? [query.refetch()] : [])]).then(() => undefined)}>
       {feedback ? <Pressable onPress={() => setFeedback(undefined)} className={`rounded-2xl px-4 py-3 ${feedback.tone === 'success' ? 'bg-[#EAF9F0] dark:bg-[#123326]' : 'bg-[#FFF0F3] dark:bg-[#3A1720]'}`}><Text className={`text-xs font-semibold ${feedback.tone === 'success' ? 'text-[#23885A]' : 'text-[#D9475C]'}`}>{feedback.text}</Text></Pressable> : null}
       <View className="rounded-[22px] border border-[#DDE6F2] dark:border-[#273449] bg-white dark:bg-[#111827] p-4">
         <Text className="text-[11px] text-[#7B8798] dark:text-[#9EABC0]">OpenAI Base URL</Text>
-        <Pressable onPress={() => copy(openAIBaseUrl, 'OpenAI Base URL')} className="mt-2 flex-row items-center gap-3 rounded-2xl bg-[#F4F7FC] dark:bg-[#0B1220] px-3 py-3"><Text selectable numberOfLines={2} className="flex-1 text-xs font-semibold text-[#2F6DF6]">{openAIBaseUrl}</Text><Copy size={17} color={blue} /></Pressable>
+        <Pressable disabled={!openAIBaseUrl} onPress={() => copy(openAIBaseUrl, 'OpenAI Base URL')} className="mt-2 flex-row items-center gap-3 rounded-2xl bg-[#F4F7FC] dark:bg-[#0B1220] px-3 py-3"><Text selectable numberOfLines={2} className="flex-1 text-xs font-semibold text-[#2F6DF6]">{openAIBaseUrl || (baseUrlQuery.isLoading ? '正在读取站点配置…' : '暂未获取 API 地址')}</Text><Copy size={17} color={blue} /></Pressable>
+        {baseUrlQuery.isError ? <Pressable onPress={() => { void baseUrlQuery.refetch(); }} className="mt-2"><Text className="text-xs text-[#D9475C]">读取站点配置失败，点击重试</Text></Pressable> : null}
       </View>
       <View className="rounded-[22px] border border-[#DDE6F2] dark:border-[#273449] bg-white dark:bg-[#111827] p-4">
         <Text className="text-[11px] text-[#7B8798] dark:text-[#9EABC0]">当前用户创建的密钥</Text>

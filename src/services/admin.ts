@@ -122,6 +122,10 @@ export function getAdminSettings() {
   return adminFetch<AdminSettings>('/api/v1/admin/settings');
 }
 
+export function getPublicSettings(serverUrl: string, signal?: AbortSignal) {
+  return publicFetch<{ api_base_url?: string | null }>(serverUrl, '/api/v1/settings/public', { signal });
+}
+
 export function getUserDashboardStats() {
   return adminFetch<DashboardStats>('/api/v1/usage/dashboard/stats');
 }

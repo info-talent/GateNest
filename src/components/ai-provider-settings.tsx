@@ -7,7 +7,7 @@ import { Platform, Pressable, ScrollView, View } from 'react-native';
 import { AdminButton, AdminChip, AdminField, AdminMessage, AdminSection, EmptyState } from '@/src/components/admin-ui';
 import { Text } from '@/src/components/localized-text';
 import { getFirstCreatedAdmin } from '@/src/lib/admin-user';
-import { getOpenAIBaseUrl } from '@/src/lib/server-url';
+import { useOpenAIBaseUrl } from '@/src/hooks/use-openai-base-url';
 import { listMyApiKeys, listUserApiKeys, listUsers } from '@/src/services/admin';
 import { AI_PROVIDER_STORAGE_KEY, listAIModels, testAIProvider } from '@/src/services/ai';
 import type { AIProviderConfig, ReasoningEffort } from '@/src/services/ai';
@@ -49,7 +49,8 @@ export function AIProviderSettings({ onSaved }: { onSaved?: (config: AIProviderC
     queryFn: () => canSelfManage ? listMyApiKeys('', 1, 100) : listUserApiKeys(defaultAdmin!.id),
     enabled: canLoadAccountKeys,
   });
-  const accountBaseUrl = adminConfig.baseUrl ? getOpenAIBaseUrl(adminConfig.baseUrl) : '';
+  const baseUrlQuery = useOpenAIBaseUrl(adminConfig.baseUrl);
+  const accountBaseUrl = baseUrlQuery.baseUrl;
   const accountKeys = useMemo(
     () => (accountKeysQuery.data?.items ?? []).filter((item) => item.status === 'active'),
     [accountKeysQuery.data?.items],
@@ -77,6 +78,7 @@ export function AIProviderSettings({ onSaved }: { onSaved?: (config: AIProviderC
     setSaved(false);
   };
   const selectAccountKey = (name: string, apiKey: string) => {
+    if (!accountBaseUrl) return;
     setConfig((current) => ({ ...current, baseUrl: accountBaseUrl, apiKey }));
     setLoadedKeyName(name);
     setModels([]);
@@ -106,7 +108,7 @@ export function AIProviderSettings({ onSaved }: { onSaved?: (config: AIProviderC
       <AdminSection title="加载当前账号配置" detail="从当前登录的 Sub2API 服务器加载 OpenAI Base URL 和当前用户的活动密钥；多个密钥可选择其中一个。">
         <View className="rounded-2xl bg-[#F4F7FC] p-3 dark:bg-[#182235]">
           <Text className="text-[10px] text-[#7B8798] dark:text-[#9EABC0]">当前服务器 OpenAI Base URL</Text>
-          <Text selectable numberOfLines={2} className="mt-1 text-xs font-semibold text-[#2F6DF6]">{accountBaseUrl || '尚未连接 Sub2API 服务器'}</Text>
+          <Text selectable numberOfLines={2} className="mt-1 text-xs font-semibold text-[#2F6DF6]">{accountBaseUrl || (baseUrlQuery.isLoading ? '正在读取站点配置…' : adminConfig.baseUrl ? '暂未获取 API 地址' : '尚未连接 Sub2API 服务器')}</Text>
         </View>
         {accountKeysQuery.isLoading || defaultAdminQuery.isLoading ? (
           <Text className="py-3 text-center text-xs text-[#7B8798] dark:text-[#9EABC0]">正在加载当前账号密钥…</Text>
@@ -119,7 +121,8 @@ export function AIProviderSettings({ onSaved }: { onSaved?: (config: AIProviderC
                 <Pressable
                   key={item.id}
                   accessibilityRole="button"
-                  accessibilityState={{ selected }}
+                  accessibilityState={{ selected, disabled: !accountBaseUrl }}
+                  disabled={!accountBaseUrl}
                   onPress={() => selectAccountKey(item.name, item.key)}
                   className={`flex-row items-center rounded-2xl border px-3 py-3 ${selected ? 'border-[#8FB2FF] bg-[#EAF2FF] dark:bg-[#172C55]' : 'border-[#E2E9F3] bg-[#F4F7FC] dark:border-[#273449] dark:bg-[#182235]'}`}
                 >
@@ -136,12 +139,13 @@ export function AIProviderSettings({ onSaved }: { onSaved?: (config: AIProviderC
           <EmptyState label={canLoadAccountKeys ? '当前账号没有可用的活动密钥' : '当前登录模式无法加载用户密钥'} />
         )}
         <AdminButton
-          label="刷新当前账号密钥"
+          label="刷新当前账号配置"
           tone="muted"
-          pending={accountKeysQuery.isFetching || defaultAdminQuery.isFetching}
-          disabled={!canLoadAccountKeys}
-          onPress={() => { void accountKeysQuery.refetch(); }}
+          pending={baseUrlQuery.isFetching || accountKeysQuery.isFetching || defaultAdminQuery.isFetching}
+          disabled={!adminConfig.baseUrl}
+          onPress={() => { void baseUrlQuery.refetch(); if (canLoadAccountKeys) void accountKeysQuery.refetch(); }}
         />
+        <AdminMessage error={baseUrlQuery.isError ? new Error('读取站点配置失败，请刷新当前账号配置后重试。') : undefined} />
         <AdminMessage error={defaultAdminQuery.error || accountKeysQuery.error} success={loadedKeyName ? `已选择“${loadedKeyName}”，请保存配置` : undefined} />
       </AdminSection>
 
