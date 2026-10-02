@@ -3,7 +3,7 @@
     "name": "GateNest",
     "slug": "sub2api-mobile",
     "owner": "trilogys",
-    "version": "1.8.3",
+    "version": "1.9.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "icon": "./assets/icon.png",
       "bundleIdentifier": "com.ppx.sub2apimate",
-      "buildNumber": "16",
+      "buildNumber": "17",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "NSAppTransportSecurity": {
@@ -28,7 +28,7 @@
     "android": {
       "icon": "./assets/icon.png",
       "package": "com.ppx.sub2apimate",
-      "versionCode": 16,
+      "versionCode": 17,
       "permissions": [
         "android.permission.REQUEST_INSTALL_PACKAGES"
       ],

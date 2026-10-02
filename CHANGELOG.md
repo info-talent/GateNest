@@ -7,6 +7,27 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-10-03
+
+### Added
+
+- Native Feature Center with module filtering, typed operation forms, configuration loading, record actions, and explicit confirmation for mutations.
+- Password and remembered-account login support for TOTP two-factor authentication.
+- Account and group options for Kimi, Zhipu, DeepSeek, MiniMax, OpenCode GO, and TypeSafe / Jev.
+- Complete account and system-settings field forms, plus official-site entry points for payment and browser authentication.
+
+### Fixed
+
+- OpenAI Base URL now uses the login server's public `api_base_url` setting, preserving separate API hosts and deployment paths.
+- User API key creation and editing now include available-group selection.
+- Multipart and raw requests reuse session refresh, while stale responses cannot refresh a different selected account.
+
+### Changed
+
+- Pin the Sub2API API and request-schema inventory to `b8dece9000c68815a5b867ca5a1e6f236e173905`, including payment and channel-monitor V2 routes.
+- Distinguish handwritten integrations from generated API wrappers in coverage reporting.
+- Keep Android APKs and the unsigned iOS IPA in one version-verified release.
+
 ## [1.8.3] - 2026-09-06
 
 ### Fixed
