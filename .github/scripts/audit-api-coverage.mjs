@@ -14,7 +14,7 @@ const [consoleSource, rawFetchSource] = await Promise.all([
 if (!consoleSource.includes('adminRawFetch') || !consoleSource.includes('createAdminWebSocket')) {
   throw new Error('API console must support both HTTP and WebSocket routes');
 }
-if (!rawFetchSource.includes("headers.set('x-api-key'")) {
+if (!rawFetchSource.includes('getAuthHeaders()') || !rawFetchSource.includes("'x-api-key'")) {
   throw new Error('Raw API transport must apply the configured administrator API key');
 }
 
@@ -26,7 +26,7 @@ function canonical(path) {
     .replace(/\/$/, '');
 }
 
-const services = knowledge.entries.filter((entry) => entry.kind === 'service');
+const services = knowledge.entries.filter((entry) => entry.kind === 'service' && entry.source_file !== 'src/services/official-admin.ts');
 const upstreamServices = knowledge.entries.filter((entry) => entry.kind === 'upstream_service');
 const dedicatedKeys = new Set(services.flatMap((service) => (
   service.endpoints.map((endpoint) => `${service.method} ${canonical(endpoint)}`)

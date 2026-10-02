@@ -58,6 +58,7 @@ const DRAG_EDGE_SIZE = 28;
 const DRAG_SCROLL_STEP = 14;
 
 const items: MenuItem[] = [
+  { id: 'feature-center', title: '功能中心', route: '/feature-center', icon: Globe2 },
   { id: 'dashboard', title: '仪表盘', route: '/monitor', icon: ChartNoAxesCombined },
   { id: 'ops', title: '运维监控', route: '/ops-center', icon: Siren, admin: true },
   { id: 'accounts', title: '账号管理', route: '/accounts', icon: CircleUserRound, admin: true },

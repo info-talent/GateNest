@@ -95,6 +95,7 @@ for (const file of (await listFiles(resolve('src/services'))).filter((path) => p
     if (!endpointLiterals.length) continue;
     services.push({
       kind: 'service',
+      source_file: relative(root, file).split(sep).join('/'),
       name: match[1],
       signature: clean(match[2]),
       method: body.match(/officialAdminRequest(?:<[^>]+>)?\(\s*['"]([A-Z]+)['"]/)?.[1]

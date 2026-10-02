@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { router } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -102,6 +103,7 @@ export default function SystemSettingsScreen() {
     <SafeAreaView edges={['bottom']} className="flex-1 bg-[#F4F7FC] dark:bg-[#0B1220]">
       <LocalizedStackScreen options={{ title: '系统设置', headerShown: true }} />
       <ScrollView contentContainerClassName="gap-4 px-5 pb-10 pt-4" keyboardShouldPersistTaps="handled">
+        <AdminButton label="完整系统配置字段" tone="muted" onPress={() => router.push({ pathname: '/feature-operation', params: { operation: 'PUT /api/v1/admin/settings' } })} />
         <AdminSection title="站点信息">
           <AdminField label="站点名称" value={String(form.site_name ?? '')} onChangeText={(value) => setString('site_name', value)} />
           <AdminField label="站点副标题" value={String(form.site_subtitle ?? '')} onChangeText={(value) => setString('site_subtitle', value)} />

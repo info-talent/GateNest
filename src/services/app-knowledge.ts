@@ -11,6 +11,7 @@ type ScreenEntry = {
 
 type ServiceEntry = {
   kind: 'service';
+  source_file?: string;
   name: string;
   signature: string;
   method: string;
@@ -75,11 +76,12 @@ export type AppKnowledgeResult = { entry: AppKnowledgeEntry; score: number };
 
 const knowledge = knowledgeJson as KnowledgeIndex;
 const routeEntries = knowledge.entries.filter((entry): entry is RouteEntry => entry.kind === 'route');
-const serviceEntries = knowledge.entries.filter((entry): entry is ServiceEntry => entry.kind === 'service');
+const serviceEntries = knowledge.entries.filter((entry): entry is ServiceEntry => entry.kind === 'service' && entry.source_file !== 'src/services/official-admin.ts');
 const latestRoutesUrl = 'https://raw.githubusercontent.com/Wei-Shaw/sub2api/main/backend/internal/server/routes/admin.go';
 const latestRoutesMaxAgeMs = 6 * 60 * 60 * 1000;
 let remoteRouteEntries: RouteEntry[] | undefined;
 let lastRouteSyncAt = 0;
+let lastRouteSyncChanged = false;
 const synonyms: Record<string, string[]> = {
   地址: ['url', 'uri', 'endpoint', 'host', 'base_url', 'baseurl'],
   密钥: ['key', 'token', 'secret', 'api_key', 'apikey'],
@@ -193,11 +195,11 @@ export function getAppKnowledgeCounts() {
 }
 
 function parseLatestAdminRoutes(source: string): RouteEntry[] {
-  const groups = new Map([['admin', '/api/v1/admin']]);
+  const groups = new Map([['admin', '/api/v1/admin'], ['v1', '/api/v1']]);
   const routes: RouteEntry[] = [];
   for (const rawLine of source.split(/\r?\n/)) {
     const line = rawLine.trim();
-    const group = line.match(/^(\w+)\s*:=\s*(\w+)\.Group\("([^"]+)"\)/);
+    const group = line.match(/^(\w+)\s*:=\s*(\w+)\.Group\("([^"]*)"\)/);
     if (group) {
       const parentPath = groups.get(group[2]);
       if (parentPath) groups.set(group[1], `${parentPath}${group[3]}`);
@@ -206,7 +208,7 @@ function parseLatestAdminRoutes(source: string): RouteEntry[] {
     const route = line.match(/^(\w+)\.(GET|POST|PUT|PATCH|DELETE)\("([^"]*)"\s*,\s*(.+)\)$/);
     if (!route) continue;
     const prefix = groups.get(route[1]);
-    if (!prefix) continue;
+    if (!prefix || !`${prefix}${route[3]}`.startsWith('/api/v1/admin/')) continue;
     routes.push({
       kind: 'route',
       method: route[2],
@@ -223,22 +225,23 @@ function parseLatestAdminRoutes(source: string): RouteEntry[] {
 
 export async function syncLatestAdminRoutes(force = false) {
   if (!force && remoteRouteEntries && Date.now() - lastRouteSyncAt < latestRoutesMaxAgeMs) {
-    return { routes: remoteRouteEntries, fetchedAt: lastRouteSyncAt, changed: remoteRouteEntries.length !== routeEntries.length, cached: true };
+    return { routes: remoteRouteEntries, fetchedAt: lastRouteSyncAt, changed: lastRouteSyncChanged, cached: true };
   }
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 20000);
   try {
-    const response = await fetch(latestRoutesUrl, {
-      signal: controller.signal,
-      headers: { Accept: 'text/plain' },
-    });
-    if (!response.ok) throw new Error(`获取上游 API 失败（HTTP ${response.status}）`);
-    const routes = parseLatestAdminRoutes(await response.text());
+    const sources = await Promise.all([latestRoutesUrl, latestRoutesUrl.replace('/admin.go', '/payment.go')].map(async (url) => {
+      const response = await fetch(url, { signal: controller.signal, headers: { Accept: 'text/plain' } });
+      if (!response.ok) throw new Error(`获取上游 API 失败（HTTP ${response.status}）`);
+      return response.text();
+    }));
+    const routes = parseLatestAdminRoutes(sources.join('\n'));
     remoteRouteEntries = routes;
     lastRouteSyncAt = Date.now();
     const bundledKeys = new Set(routeEntries.map((route) => `${route.method} ${route.path}`));
     const remoteKeys = new Set(routes.map((route) => `${route.method} ${route.path}`));
     const changed = bundledKeys.size !== remoteKeys.size || [...remoteKeys].some((key) => !bundledKeys.has(key));
+    lastRouteSyncChanged = changed;
     return { routes, fetchedAt: lastRouteSyncAt, changed, cached: false };
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') throw new Error('获取最新 API 超时（20 秒）');

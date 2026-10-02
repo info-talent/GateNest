@@ -360,7 +360,7 @@ export type AdminAccount = {
   extra?: Record<string, string | number | boolean | null>;
 };
 
-export type AccountPlatform = 'anthropic' | 'openai' | 'gemini' | 'antigravity' | 'grok';
+export type AccountPlatform = 'anthropic' | 'openai' | 'gemini' | 'antigravity' | 'grok' | 'kimi' | 'zhipu' | 'deepseek' | 'minimax' | 'opencode_go' | 'typesafe';
 
 export type AccountType = 'oauth' | 'setup-token' | 'apikey' | 'upstream' | 'bedrock' | 'service_account';
 
@@ -458,7 +458,7 @@ export type UpdateUserRequest = {
   allowed_groups?: number[] | null;
 };
 
-export type GroupPlatform = 'anthropic' | 'openai' | 'gemini' | 'antigravity' | 'grok' | 'composite';
+export type GroupPlatform = AccountPlatform | 'composite';
 
 export type ReasoningEffortMapping = { from: string; to: string };
 
