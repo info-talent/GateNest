@@ -1,8 +1,8 @@
 {
-  "source": "https://github.com/Wei-Shaw/sub2api/tree/b8dece9000c68815a5b867ca5a1e6f236e173905/backend/internal/server/routes",
-  "routes_sha256": "ef397e845465ff2a6e5a447221f7593da33b2e3ac1de0b024847e53983dd9495",
+  "source": "https://raw.githubusercontent.com/Wei-Shaw/sub2api/main/backend/internal/server/routes/admin.go",
+  "routes_sha256": "82bc4ead7671c98e9e1321b83ee93a7ce827676dfd571ad569896e08935142e0",
   "counts": {
-    "routes": 442,
+    "routes": 417,
     "services": 464,
     "types": 135,
     "screens": 70,
@@ -100,6 +100,14 @@
     },
     {
       "kind": "screen",
+      "title": "/accounts/:id",
+      "app_route": "/accounts/:id",
+      "fields": [],
+      "sections": [],
+      "placeholders": []
+    },
+    {
+      "kind": "screen",
       "title": "添加账号",
       "app_route": "/accounts/create",
       "fields": [
@@ -151,14 +159,6 @@
       "kind": "screen",
       "title": "/accounts/overview",
       "app_route": "/accounts/overview",
-      "fields": [],
-      "sections": [],
-      "placeholders": []
-    },
-    {
-      "kind": "screen",
-      "title": "/accounts/:id",
-      "app_route": "/accounts/:id",
       "fields": [],
       "sections": [],
       "placeholders": []
@@ -639,16 +639,16 @@
     },
     {
       "kind": "screen",
-      "title": "/groups/create",
-      "app_route": "/groups/create",
+      "title": "/groups/:id",
+      "app_route": "/groups/:id",
       "fields": [],
       "sections": [],
       "placeholders": []
     },
     {
       "kind": "screen",
-      "title": "/groups/:id",
-      "app_route": "/groups/:id",
+      "title": "/groups/create",
+      "app_route": "/groups/create",
       "fields": [],
       "sections": [],
       "placeholders": []
@@ -959,6 +959,18 @@
     },
     {
       "kind": "screen",
+      "title": "/users/:id",
+      "app_route": "/users/:id",
+      "fields": [],
+      "sections": [],
+      "placeholders": [
+        "搜索名称 / Key / 分组",
+        "输入金额，例如 10",
+        "备注（可选）"
+      ]
+    },
+    {
+      "kind": "screen",
       "title": "/users/api-key",
       "app_route": "/users/api-key",
       "fields": [],
@@ -1016,18 +1028,6 @@
       "fields": [],
       "sections": [],
       "placeholders": []
-    },
-    {
-      "kind": "screen",
-      "title": "/users/:id",
-      "app_route": "/users/:id",
-      "fields": [],
-      "sections": [],
-      "placeholders": [
-        "搜索名称 / Key / 分组",
-        "输入金额，例如 10",
-        "备注（可选）"
-      ]
     },
     {
       "kind": "service",
@@ -21684,54 +21684,6 @@
     {
       "kind": "route",
       "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/config",
-      "handler": "h.ChannelMonitorV2.GetConfig"
-    },
-    {
-      "kind": "route",
-      "method": "PUT",
-      "path": "/api/v1/admin/channel-monitor-v2/config",
-      "handler": "h.ChannelMonitorV2.UpdateConfig"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/dimensions",
-      "handler": "h.ChannelMonitorV2.Dimensions"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/errors",
-      "handler": "h.ChannelMonitorV2.Errors"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/matrix",
-      "handler": "h.ChannelMonitorV2.AdminMatrix"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/models",
-      "handler": "h.ChannelMonitorV2.AdminModels"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/snapshot",
-      "handler": "h.ChannelMonitorV2.AdminSnapshot"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/channel-monitor-v2/users",
-      "handler": "h.ChannelMonitorV2.AdminUsers"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
       "path": "/api/v1/admin/channel-monitors",
       "handler": "h.Admin.ChannelMonitor.List"
     },
@@ -22652,108 +22604,6 @@
       "method": "GET",
       "path": "/api/v1/admin/ops/ws/qps",
       "handler": "h.Admin.Ops.QPSWSHandler"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/config",
-      "handler": "adminPaymentHandler.GetConfig"
-    },
-    {
-      "kind": "route",
-      "method": "PUT",
-      "path": "/api/v1/admin/payment/config",
-      "handler": "adminPaymentHandler.UpdateConfig"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/dashboard",
-      "handler": "adminPaymentHandler.GetDashboard"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/orders",
-      "handler": "adminPaymentHandler.ListOrders"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/orders/:id",
-      "handler": "adminPaymentHandler.GetOrderDetail"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/orders/:id/cancel",
-      "handler": "adminPaymentHandler.CancelOrder"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/orders/:id/refund",
-      "handler": "adminPaymentHandler.ProcessRefund"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/orders/:id/refund/query",
-      "handler": "adminPaymentHandler.QueryAndFinalizeRefund"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/orders/:id/retry",
-      "handler": "adminPaymentHandler.RetryFulfillment"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/plans",
-      "handler": "adminPaymentHandler.ListPlans"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/plans",
-      "handler": "adminPaymentHandler.CreatePlan"
-    },
-    {
-      "kind": "route",
-      "method": "DELETE",
-      "path": "/api/v1/admin/payment/plans/:id",
-      "handler": "adminPaymentHandler.DeletePlan"
-    },
-    {
-      "kind": "route",
-      "method": "PUT",
-      "path": "/api/v1/admin/payment/plans/:id",
-      "handler": "adminPaymentHandler.UpdatePlan"
-    },
-    {
-      "kind": "route",
-      "method": "GET",
-      "path": "/api/v1/admin/payment/providers",
-      "handler": "adminPaymentHandler.ListProviders"
-    },
-    {
-      "kind": "route",
-      "method": "POST",
-      "path": "/api/v1/admin/payment/providers",
-      "handler": "adminPaymentHandler.CreateProvider"
-    },
-    {
-      "kind": "route",
-      "method": "DELETE",
-      "path": "/api/v1/admin/payment/providers/:id",
-      "handler": "adminPaymentHandler.DeleteProvider"
-    },
-    {
-      "kind": "route",
-      "method": "PUT",
-      "path": "/api/v1/admin/payment/providers/:id",
-      "handler": "adminPaymentHandler.UpdateProvider"
     },
     {
       "kind": "route",
