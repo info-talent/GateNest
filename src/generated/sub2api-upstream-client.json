@@ -3699,7 +3699,8 @@
         "status_code?",
         "fetched_at",
         "persisted",
-        "error?"
+        "error?",
+        "balance?"
       ]
     },
     {
@@ -5182,6 +5183,11 @@
         "peak",
         "avg",
         "tps",
+        "output_tps?",
+        "p5",
+        "p10",
+        "p50",
+        "sample_count",
         "duration",
         "ttft"
       ]
