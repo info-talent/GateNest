@@ -1,10 +1,10 @@
 {
-  "source": "https://github.com/Wei-Shaw/sub2api/tree/b8dece9000c68815a5b867ca5a1e6f236e173905/backend/internal/server/routes",
-  "routes_sha256": "ef397e845465ff2a6e5a447221f7593da33b2e3ac1de0b024847e53983dd9495",
+  "source": "https://raw.githubusercontent.com/Wei-Shaw/sub2api/main/backend/internal/server/routes/admin.go",
+  "routes_sha256": "82bc4ead7671c98e9e1321b83ee93a7ce827676dfd571ad569896e08935142e0",
   "counts": {
-    "total": 442,
-    "dedicated": 143,
-    "console_only": 299,
+    "total": 417,
+    "dedicated": 140,
+    "console_only": 277,
     "websocket": 1,
     "upstream_client": 319,
     "uncovered": 0
